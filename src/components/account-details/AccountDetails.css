@@ -1,0 +1,31 @@
+.account-wrap {
+  display: flex;
+  height: 300px;
+  width: 95%;
+  padding: 20px;
+}
+
+.account-details {
+  padding-right: 40px;
+}
+
+.form-wrap {
+  width: 50%;
+  margin-right: 20px;
+  margin-left: 25px;
+}
+
+.formField {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.txn-wrap {
+  padding-left: 40px;
+  padding-right: 40px;
+  margin-bottom: 40px;
+}
+
+.title {
+  text-align: center;
+}
