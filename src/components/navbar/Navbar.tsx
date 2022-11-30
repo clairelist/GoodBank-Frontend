@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import { apiLogout } from '../../remote/banking-api/auth.api';
 import { useNavigate } from 'react-router-dom';
 import Tooltip from '@mui/material/Tooltip';
@@ -36,6 +37,24 @@ export default function Navbar() {
             Revature Banking
           </Typography>
           <div>
+            {/* notifications button */}
+            {user ? <Tooltip
+              disableFocusListener
+              disableTouchListener
+              title={'Notifications'}
+            >
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                color="inherit"
+              >
+                <NotificationsIcon />
+              </IconButton>
+            </Tooltip> : ''}
+            
+            {/* authenticate button */}
             <Tooltip
               disableFocusListener
               disableTouchListener
