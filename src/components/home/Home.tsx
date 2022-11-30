@@ -12,10 +12,22 @@ import Navbar from '../navbar/Navbar';
 import { useNavigate } from 'react-router-dom';
 import OpenAccount from './OpenAccountForm';
 
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import {
+  decrement,
+  increment,
+  selectCount,
+} from '../../features/counter/counterSlice';
+
+
 export default function Home() {
   const navigate = useNavigate();
   const [loggedIn, setLoggedIn] = React.useState(false);
   const { user } = useContext(UserContext);
+
+  const count = useAppSelector(selectCount);
+  const dispatch = useAppDispatch();
+
 
   React.useEffect(() => {
     if (user) {
@@ -68,7 +80,7 @@ export default function Home() {
           <Grid item sm={12} md={12}>
             <Button
               onClick={() => {
-                handleChange();
+               dispatch(increment());
               }}
               sx={{ margin: '0 auto', display: 'flex' }}
             >
