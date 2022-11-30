@@ -11,13 +11,6 @@ import { useNavigate } from 'react-router-dom';
 import './AccountDetails.css';
 import CreateTransactionForm from './CreateTransactionForm';
 import { Account } from '../../models/Account';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import StyledTable from './StyledTable';
 
@@ -64,6 +57,7 @@ export default function AccountDetails() {
   return (
     <>
       <Navbar />
+      
       <div className="account-wrap">
         <div className="account-details">
           <h2>{account?.name}</h2>
@@ -80,7 +74,7 @@ export default function AccountDetails() {
         <div className="form-wrap">{txnForm}</div>
       </div>
       <div className="txn-wrap">
-        <h1 className="title">Transactions</h1>
+        <h1 className="title">Recent Transactions</h1>
         <StyledTable />
         {/* <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
