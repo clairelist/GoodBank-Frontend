@@ -12,6 +12,7 @@ import Tooltip from '@mui/material/Tooltip';
 import { useContext } from 'react';
 import { UserContext } from '../../context/user.context';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -36,6 +37,22 @@ export default function Navbar() {
             Revature Banking
           </Typography>
           <div>
+            <Tooltip
+            disableFocusListener
+            disableTouchListener
+            title={user ? 'Profile' : 'Login'}
+            >
+            <IconButton
+             size="large"
+             aria-label="account of current user"
+             aria-controls="menu-appbar"
+             aria-haspopup="true"
+             onClick={() => handleAuth()}
+             color="inherit"
+             >
+             {user ? <AccountBoxIcon /> : <LoginIcon />}
+             </IconButton>
+            </Tooltip>
             <Tooltip
               disableFocusListener
               disableTouchListener
