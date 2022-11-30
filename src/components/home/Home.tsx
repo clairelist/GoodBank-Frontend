@@ -80,7 +80,8 @@ export default function Home() {
           <Grid item sm={12} md={12}>
             <Button
               onClick={() => {
-               dispatch(increment());
+                dispatch(increment());
+                navigate('/details');
               }}
               sx={{ margin: '0 auto', display: 'flex' }}
             >

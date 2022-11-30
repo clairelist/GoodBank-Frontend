@@ -87,7 +87,7 @@ export default function Login() {
               autoComplete="current-password"
             />
             <Button
-              // type="submit"
+              type="submit"
               onClick={()=>{dispatch(increment())}}
               color="secondary"
               fullWidth
