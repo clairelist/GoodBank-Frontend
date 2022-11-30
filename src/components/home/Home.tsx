@@ -44,20 +44,20 @@ export default function Home() {
     setChecked((prev) => !prev);
   };
 
-  const [account, setAccount] = React.useState<Account>();
+  const [accounts, setAccounts] = React.useState<Account[]>([] as Account[]);
 
   React.useEffect(() => {
     const fetchData = async () => {
       if (user) {
         const result = await apiGetAccount(user?.id);
-        setAccount(result.payload);
+        setAccounts(result.payload);
       }
     };
     fetchData();
   }, [user]);
 
   let Account = <></>;
-  if (!account && loggedIn) {
+  if (!accounts && loggedIn) {
     //If no account in database but logged in, option to create an account appears
     Account = (
       <>
@@ -80,8 +80,7 @@ export default function Home() {
           <Grid item sm={12} md={12}>
             <Button
               onClick={() => {
-                dispatch(increment());
-                navigate('/details');
+                handleChange();
               }}
               sx={{ margin: '0 auto', display: 'flex' }}
             >
@@ -95,9 +94,11 @@ export default function Home() {
     );
   } else if (loggedIn) {
     //if logged in and there is an account
-    Account = (
+    Account = 
       <>
-        <Navbar />
+      <Navbar />
+      {accounts?.map((account: Account) => (
+        
         <Grid
           container
           sx={{
@@ -140,9 +141,28 @@ export default function Home() {
               </CardContent>
             </Card>
           </Grid>
+          <Grid item sm={12} md={12}>
+            <h2 style={{ textAlign: 'center', marginTop: '3%', color: 'gray' }}>
+              Create a new account!
+            </h2>
+          </Grid>
+          <Grid item sm={12} md={12}>
+            <Button
+              onClick={() => {
+                handleChange();
+              }}
+              sx={{ margin: '0 auto', display: 'flex' }}
+            >
+              Open Account
+            </Button>
+          </Grid>
+          <OpenAccount checked={checked} />
         </Grid>
-      </>
-    );
+      
+    ))}
+    </>
+    ;
+    
   }
 
   return <>{Account}</>;
