@@ -52,6 +52,7 @@ export default function Navbar() {
                 {user ? <LogoutIcon /> : <LoginIcon />}
               </IconButton>
             </Tooltip>
+              <button onClick={()=> navigate('/loan')}>Loan</button>
           </div>
         </Toolbar>
       </AppBar>

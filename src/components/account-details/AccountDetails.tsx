@@ -66,7 +66,7 @@ export default function AccountDetails() {
       <div className="account-wrap">
         <div className="account-details">
           <h2>{account?.name}</h2>
-          <h3>{account?.description}</h3>
+          <h3>{account?.accountType}</h3>
           <h1>${account?.balance}</h1>
           <Button
             onClick={() => {

@@ -13,21 +13,17 @@ import { useNavigate } from 'react-router-dom';
 import OpenAccount from './OpenAccountForm';
 
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import {
-  decrement,
-  increment,
-  selectCount,
-} from '../../features/counter/counterSlice';
+import { selectUser } from '../../features/user/userSlice';
 
 
 export default function Home() {
   const navigate = useNavigate();
   const [loggedIn, setLoggedIn] = React.useState(false);
-  const { user } = useContext(UserContext);
 
-  const count = useAppSelector(selectCount);
+  const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
 
+  //*********  TODO we stop here ***********
 
   React.useEffect(() => {
     if (user) {
@@ -80,7 +76,7 @@ export default function Home() {
           <Grid item sm={12} md={12}>
             <Button
               onClick={() => {
-                dispatch(increment());
+                
                 navigate('/details');
               }}
               sx={{ margin: '0 auto', display: 'flex' }}
@@ -119,7 +115,7 @@ export default function Home() {
                   {account?.name}
                 </Typography>
                 <Typography variant="h6" component="div">
-                  {account?.description}
+                  {account?.accountType}
                 </Typography>
                 <Typography sx={{ mb: 1.5 }} color="text.secondary">
                   Created On: {account?.creationDate}
