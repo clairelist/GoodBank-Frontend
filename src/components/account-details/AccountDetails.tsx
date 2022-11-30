@@ -19,6 +19,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
+import StyledTable from './StyledTable';
 
 export default function AccountDetails() {
   const navigate = useNavigate();
@@ -80,7 +81,8 @@ export default function AccountDetails() {
       </div>
       <div className="txn-wrap">
         <h1 className="title">Transactions</h1>
-        <TableContainer component={Paper}>
+        <StyledTable />
+        {/* <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -106,7 +108,7 @@ export default function AccountDetails() {
               ))}
             </TableBody>
           </Table>
-        </TableContainer>
+        </TableContainer> */}
       </div>
     </>
   );
