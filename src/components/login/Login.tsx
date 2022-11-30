@@ -15,8 +15,18 @@ import { apiLogin } from '../../remote/banking-api/auth.api';
 import { useContext } from 'react';
 import { UserContext } from '../../context/user.context';
 
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import {
+  decrement,
+  increment,
+  selectCount,
+} from '../../features/counter/counterSlice';
+
 export default function Login() {
   const { setUser } = useContext(UserContext);
+
+  const count = useAppSelector(selectCount);
+  const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
 
@@ -78,6 +88,7 @@ export default function Login() {
             />
             <Button
               type="submit"
+              onClick={()=>{dispatch(increment())}}
               color="secondary"
               fullWidth
               variant="contained"
