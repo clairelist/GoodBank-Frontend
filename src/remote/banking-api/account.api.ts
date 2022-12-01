@@ -4,7 +4,7 @@ import bankingClient, { bankingApiResponse } from './bankingClient';
 
 const baseURL = '/account';
 
-export const apiGetAccount = async (
+export const apiGetAccounts = async (
   id: number
 ): Promise<bankingApiResponse> => {
   const response = await bankingClient.get<any>(`${baseURL}/${id}`, {
