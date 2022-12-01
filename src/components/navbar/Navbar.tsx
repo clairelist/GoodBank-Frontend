@@ -38,7 +38,7 @@ export default function Navbar() {
         <Toolbar>
           <AccountBalanceIcon sx={{ mr: 1 }} />
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Revature Banking
+            Good&#8482; Banking
           </Typography>
           <div>
             {/* notifications button */}

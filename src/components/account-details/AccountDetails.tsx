@@ -8,14 +8,10 @@ import { useNavigate } from 'react-router-dom';
 import './AccountDetails.css';
 import CreateTransactionForm from './CreateTransactionForm';
 import { Account } from '../../models/Account';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
+import StyledTable from './StyledTable';
+import SideBar from './SideBar';
+
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 
 export default function AccountDetails() {
@@ -61,6 +57,8 @@ export default function AccountDetails() {
   return (
     <>
       <Navbar />
+      <div className={'top-container'}>
+      <SideBar />
       <div className="account-wrap">
         <div className="account-details">
 
@@ -73,37 +71,12 @@ export default function AccountDetails() {
           >
             Go Back
           </Button>
+          </div>
         </div>
-        <div className="form-wrap">{txnForm}</div>
       </div>
-      <div className="txn-wrap">
-        <h1 className="title">Transactions</h1>
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell align="center">ID</TableCell>
-                <TableCell align="center">Amount</TableCell>
-                <TableCell align="center">Type</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {transaction.map((row) => (
-                <TableRow
-                  key={row.id}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                  <TableCell align="center" component="th" scope="row">
-                    {row.id}
-                  </TableCell>
-                  <TableCell align="center">${row.amount}</TableCell>
-                  <TableCell align="center">{row.description}</TableCell>
-                  <TableCell align="center">{row.type}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+      <div className='txn-wrap'>
+        <h1 className='title'>Recent Transactions</h1>
+        <StyledTable transaction={transaction}/>
       </div>
     </>
   );
