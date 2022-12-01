@@ -13,14 +13,44 @@ import { useContext } from 'react';
 import { UserContext } from '../../context/user.context';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import { styled } from '@mui/material/styles';
+import Paper from '@mui/material/Paper';
 
+const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  }));
 
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import {
-  decrement,
-  increment,
-  selectCount,
-} from '../../features/counter/counterSlice';
+interface State {
+    email: string;
+    address: string;
+    city: string;
+    state: string;
+    zip: number;
+    firstName: string;
+    lastName: string;
+    showPassword: boolean;
+}
+
+// Still working on fleshing it out
+
+/*const Profile = () => {
+    const user = useAppSelector((state) => state.user.user);
+    const navigate = useNavigate();
+
+    const [values, setValues] = React.useState<State>({
+        email: '',
+        address: '',
+        city: '',
+        state: '',
+        weightRange: '',
+        showPassword: false,
+      });
+} */
+
 
 export default function Profile() {
 return;

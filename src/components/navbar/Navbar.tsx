@@ -55,7 +55,7 @@ export default function Navbar() {
              aria-label="account of current user"
              aria-controls="menu-appbar"
              aria-haspopup="true"
-             onClick={() => handleAuth()}
+             onClick={()=> navigate('/profile')}
              color="inherit"
              >
              {user ? <AccountBoxIcon /> : <LoginIcon />}
