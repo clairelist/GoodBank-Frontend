@@ -7,10 +7,12 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { v4 as uuidv4 } from 'uuid';
+
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: theme.palette.primary.main,
     color: theme.palette.common.white,
   },
   [`&.${tableCellClasses.body}`]: {
@@ -28,35 +30,28 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(description: React.ReactNode, amount: React.ReactNode, type: React.ReactNode) {
-  return { description, amount, type };
+const readableDate = (date: any): React.Key => {
+  return `${new Date(date).toLocaleDateString()} ${new Date(date).toLocaleTimeString()}`;
 }
 
-const rows = [
-  createData('Direct Deposit', 159, "Income"),
-  createData('Gas', 48, "Expense"),
-  createData('Direct Deposit', 327, "Income"),
-  createData('Groceries', 57, "Expense"),
-  createData('Amazon.com', 136, "Expense"),
-];
-
-export default function CustomizedTables() {
+export default function CustomizedTables(props: any) {
+  
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
+      <Table sx={{ minWidth: 700 }} aria-label='customized table'>
         <TableHead>
           <TableRow>
-            <StyledTableCell align="center">Description</StyledTableCell>
-            <StyledTableCell align="center">Amount</StyledTableCell>
-            <StyledTableCell align="center">Type</StyledTableCell>
+            <StyledTableCell align='center'>Date</StyledTableCell>
+            <StyledTableCell align='center'>Description</StyledTableCell>
+            <StyledTableCell align='center'>Amount</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow >
-              <StyledTableCell align="center">{row.description}</StyledTableCell>
-              <StyledTableCell align="center">${row.amount}</StyledTableCell>
-              <StyledTableCell align="center">{row.type}</StyledTableCell>
+          {props.transaction.map((trans: any) => (
+            <StyledTableRow key={uuidv4()}>
+              <StyledTableCell align='center' style={{color: trans.type !== 'Expense' ? 'mediumseagreen' : 'crimson'}}>{readableDate(trans.creationDate)}</StyledTableCell>
+              <StyledTableCell align='center' style={{color: trans.type !== 'Expense' ? 'mediumseagreen' : 'crimson'}}>{trans.description}</StyledTableCell>
+              <StyledTableCell align='center' style={{color: trans.type !== 'Expense' ? 'mediumseagreen' : 'crimson'}}><span>{trans.type==='Expense' ? '-' : null}</span>${trans.amount}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>

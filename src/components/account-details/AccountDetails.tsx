@@ -75,34 +75,7 @@ export default function AccountDetails() {
       </div>
       <div className="txn-wrap">
         <h1 className="title">Recent Transactions</h1>
-        <StyledTable />
-        {/* <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell align="center">ID</TableCell>
-                <TableCell align="center">Amount</TableCell>
-                <TableCell align="center">Description</TableCell>
-                <TableCell align="center">Type</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {transaction.map((row) => (
-                <TableRow
-                  key={row.id}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                  <TableCell align="center" component="th" scope="row">
-                    {row.id}
-                  </TableCell>
-                  <TableCell align="center">${row.amount}</TableCell>
-                  <TableCell align="center">{row.description}</TableCell>
-                  <TableCell align="center">{row.type}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer> */}
+        <StyledTable transaction={transaction}/>
       </div>
     </>
   );
