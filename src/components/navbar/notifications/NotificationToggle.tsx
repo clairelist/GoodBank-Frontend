@@ -1,15 +1,36 @@
-import { IconButton, Popover, Tooltip } from '@mui/material';
+import { Badge, IconButton, Popover, Tooltip } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationList from './NotificationList';
-import { useState, MouseEvent } from 'react';
+import { useState, MouseEvent, useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { apiGetUserNotifications } from '../../../remote/banking-api/notification.api';
+import { setUserNotifications } from '../../../features/notification/notificationSlice';
 
 export default function NotificationToggle() {
   const [open, setOpen] = useState(false);
+  const [notifCount, setNotifCount] = useState(0);
   const [anchorElement, setAnchorElement] = useState<HTMLButtonElement | null>(null);
+
+
+  const user = useAppSelector(state => state.user.user);
+  const notifications = useAppSelector(state => state.notifications.list);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const fetchNotifs = async () => {
+      if (user) {
+        const result = await apiGetUserNotifications(user.id);
+        dispatch(setUserNotifications(result.payload));
+      }
+    };
+    fetchNotifs();
+    setNotifCount(notifications.length);
+  }, [user]);
 
   function handleClick(event: MouseEvent<HTMLButtonElement>){
     setOpen(!open);
     setAnchorElement(event.currentTarget);
+    setNotifCount(0);
   }
   
   return (
@@ -27,7 +48,9 @@ export default function NotificationToggle() {
           color="inherit"
           onClick={handleClick}
         >
-          <NotificationsIcon />
+          <Badge badgeContent={notifCount} color="primary">
+            <NotificationsIcon />
+          </Badge>
         </IconButton>
       </Tooltip>
 

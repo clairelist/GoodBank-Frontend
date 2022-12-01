@@ -16,7 +16,6 @@ interface INotificationItemProps {
 export default function NotificationItem(props: INotificationItemProps) {
   const { notification } = props;
   const user = useAppSelector(state => state.user.user);
-  const notifications = useAppSelector(state => state.notifications.list);
   const dispatch = useAppDispatch();
 
   const dismissNotification = async () => {
