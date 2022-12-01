@@ -12,16 +12,20 @@ import Tooltip from '@mui/material/Tooltip';
 import { useContext } from 'react';
 import { UserContext } from '../../context/user.context';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import NotificationToggle from './notifications/NotificationToggle';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import {logout} from '../../features/user/userSlice';
 
 export default function Navbar() {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-  const { user, setUser } = useContext(UserContext);
+  const user = useAppSelector((state) => state.user.user);
 
   function handleAuth() {
     if (user) {
       apiLogout();
-      setUser();
+      dispatch(logout());
     } else {
       navigate('/login');
     }
@@ -36,6 +40,10 @@ export default function Navbar() {
             Revature Banking
           </Typography>
           <div>
+            {/* notifications button */}
+            {user ? <NotificationToggle /> : ''}
+            
+            {/* authenticate button */}
             <Tooltip
               disableFocusListener
               disableTouchListener
