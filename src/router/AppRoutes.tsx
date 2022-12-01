@@ -4,7 +4,8 @@ import { Route, Routes } from 'react-router-dom';
 import AccountDetails from '../components/account-details/AccountDetails';
 import Login from '../components/login/Login';
 import Register from '../components/register/Register';
-import OpenAccount from '../components/home/OpenAccountForm';
+import Loan from '../components/loans/loan';
+
 
 export const AppRoutes: React.FC<unknown> = () => (
   
@@ -13,5 +14,6 @@ export const AppRoutes: React.FC<unknown> = () => (
     <Route path="/login" element={<Login />} />
     <Route path="/register" element={<Register />} />
     <Route path="/details" element={<AccountDetails />} />
+    <Route path="/loan" element={<Loan/>} />
   </Routes>
 );

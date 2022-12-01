@@ -18,11 +18,13 @@ export default function Accounts() {
     const [loggedIn, setLoggedIn] = useState(false);
     const [checked, setChecked] = useState(false);
     const [accounts, setAccounts] = useState<Account[]>([] as Account[]);
-    const { user } = useContext(UserContext);
+    const user = useAppSelector((state) => state.user.user);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
   
     useEffect(() => {
+
+      console.log(user, 'accounts', accounts);
       if (user) {
         setLoggedIn(true);
         fetchData();
@@ -34,7 +36,7 @@ export default function Accounts() {
 
     const fetchData = async () => {
         if (user) {
-        const result = await apiGetAccounts(user?.id);
+        const result = await apiGetAccounts(user.id);
         setAccounts(result.payload);
         }
     };
@@ -104,9 +106,7 @@ export default function Accounts() {
                         <Typography variant="h3" color="text.secondary">
                           {account?.name}
                         </Typography>
-                        <Typography variant="h6" component="div">
-                          {account?.description}
-                        </Typography>
+                        
                         <Typography sx={{ mb: 1.5 }} color="text.secondary">
                           Created On: {account?.creationDate}
                         </Typography>
