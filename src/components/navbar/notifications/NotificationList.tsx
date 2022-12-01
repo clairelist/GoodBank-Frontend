@@ -1,7 +1,6 @@
 import { Box, List } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect} from 'react';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { Notification } from '../../../models/Notification';
 import { apiGetUserNotifications } from '../../../remote/banking-api/notification.api';
 import NotificationItem from './NotificationItem';
 import { setUserNotifications } from '../../../features/notification/notificationSlice';
