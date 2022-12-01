@@ -1,7 +1,6 @@
 import {
   ListItem,
   ListItemButton,
-  ListItemIcon,
   ListItemText,
 } from '@mui/material';
 import { Notification } from '../../../models/Notification';
