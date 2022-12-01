@@ -59,6 +59,10 @@ export const userSlice = createSlice({
     
     // Use the PayloadAction type to declare the contents of `action.payload`
     
+  },
+
+  logout: (state) => {
+    state.user = undefined;
   }
   // extraReducers: (builder) => {
   //   builder
@@ -79,7 +83,7 @@ export const userSlice = createSlice({
 
 //TODO we have to fix this at some point.
 
-export const { signIn } = userSlice.actions;
+export const { signIn, logout } = userSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
