@@ -19,157 +19,181 @@ import { UserContext } from '../../context/user.context';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../app/hooks';
+import { apiCreateLoan } from '../../remote/banking-api/loan.api';
 
 const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  }));
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+}));
 
-  interface State {
-    reason: string;
-    amount: string;
-    password: string;
-    weight: string;
-    weightRange: string;
-    showPassword: boolean;
-  }
-
+interface State {
+  reason: string;
+  amount: string;
+  password: string;
+  weight: string;
+  weightRange: string;
+  showPassword: boolean;
+}
 
 const Loan = () => {
-    const now = new Date();
-    const user = useAppSelector((state) => state.user.user);
-    const navigate = useNavigate();
+  const now = new Date();
+  const user = useAppSelector((state) => state.user.user);
+  const navigate = useNavigate();
 
+  const [values, setValues] = React.useState<State>({
+    reason: '',
+    amount: '',
+    password: '',
+    weight: '',
+    weightRange: '',
+    showPassword: false,
+  });
 
-    const [values, setValues] = React.useState<State>({
-        reason: '',
-        amount: '',
-        password: '',
-        weight: '',
-        weightRange: '',
-        showPassword: false,
-      });
+  // TODO this is where we stopped, we have the values of the fields we just have to send the to the backend
 
-      // TODO this is where we stopped, we have the values of the fields we just have to send the to the backend
-
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-            event.preventDefault();
-            const data = new FormData(event.currentTarget);
-            const amount = data.get('amount');
-            const reason = data.get('reason');
-            console.log(data)
-
-            console.log("amount", values.amount, "reason", values.reason)
-            // const response = await apiLogin(
-            //     `${formData.email}`,
-            //     `${formData.password}`
-            //     );
+  const handleSubmit = async () => {
+    console.log('amount', values.amount, 'reason', values.reason);
+    if(user){
+        apiCreateLoan(user.id, values.reason, Number(values.amount));
     }
+    // const response = await apiLogin(
+    //     `${formData.email}`,
+    //     `${formData.password}`
+    //     );
+  };
 
-      const handleChange =
-        (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
-          setValues({ ...values, [prop]: event.target.value });
-        };
+  const handleChange =
+    (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      setValues({ ...values, [prop]: event.target.value });
+    };
 
-      const handleClickShowPassword = () => {
-        setValues({
-          ...values,
-          showPassword: !values.showPassword,
-        });
-      };
+  const handleClickShowPassword = () => {
+    setValues({
+      ...values,
+      showPassword: !values.showPassword,
+    });
+  };
 
-      const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-      };
+  const handleMouseDownPassword = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+  };
   return (
-    <div style={{width: "80%", margin: "auto"}}>
-        <Box component="form" onSubmit={handleSubmit}>
-
-      <Paper elevation={0}  >
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}  >
-  <Grid item xs={6}>
-    <Item>{!user?'': 'Hello ' + user.firstName + ', looking for a loan?'}</Item>
-  </Grid>
-  <Grid item xs={6}>
-    <Item>
-        <ol>
-
-        </ol></Item>
-  </Grid>
-  <Grid item xs={12}>
-    <Item><div>
-        <TextField
-          label="Current Date"
-          disabled
-          id="filled-start-adornment"
-          sx={{ m: 1, width: '25ch' }}
-          InputProps={{
-            startAdornment: <InputAdornment position="start">{now.toLocaleDateString()}</InputAdornment>,
-          }}
-          variant="filled"
-        />
-        <FormControl sx={{ m: 1, width: '25ch' }} variant="filled">
-        <InputLabel htmlFor="filled-adornment-amount">Amount*</InputLabel>
-          <FilledInput
-            id="filled-adornment-amount"
-            value={values.amount}
-            onChange={handleChange('amount')}
-            startAdornment={<InputAdornment position="start">$</InputAdornment>}
-            aria-describedby="filled-weight-helper-text"
-            inputProps={{
-              'aria-label': 'amount',
-            }}
-          />
-          <FormHelperText id="filled-weight-helper-text"></FormHelperText>
-        </FormControl>
-        <FormControl sx={{ m: 1, width: '25ch' }} variant="filled">
-          <InputLabel htmlFor="filled-adornment-password">Password*</InputLabel>
-          <FilledInput
-            id="filled-adornment-password"
-            type={values.showPassword ? 'text' : 'password'}
-            value={values.password}
-            onChange={handleChange('password')}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-        </FormControl>
-        <FormControl fullWidth sx={{ m: 1 }} variant="filled">
-          <InputLabel htmlFor="filled-adornment-reason">Reason*</InputLabel>
-          <FilledInput
-            id="filled-adornment-reason"
-            value={values.reason}
-            onChange={handleChange('reason')}
-            startAdornment={<InputAdornment position="start"></InputAdornment>}
-          />
-          <FormHelperText id="filled-weight-helper-text">Please give a brief explanation for this loan request.</FormHelperText>
-        </FormControl>
-      </div></Item>
-  </Grid>
-  <Grid item xs={12}>
-    <Item>
-
-        <Button type="submit" variant='contained' sx={{marginRight:'90px'}} >Submit</Button>
-        <Button variant='contained' onClick={()=> navigate('/')}>Cancel</Button>
-    </Item>
-  </Grid>
-</Grid>
-
+    <div style={{ width: '80%', margin: 'auto' }}>
+      <Paper elevation={0}>
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+          <Grid item xs={6}>
+            <Item>
+              {!user ? '' : 'Hello ' + user.firstName + ', looking for a loan?'}
+            </Item>
+          </Grid>
+          <Grid item xs={6}>
+            <Item>
+              <ol></ol>
+            </Item>
+          </Grid>
+          <Grid item xs={12}>
+            <Item>
+              <div>
+                <TextField
+                  label="Current Date"
+                  disabled
+                  id="filled-start-adornment"
+                  sx={{ m: 1, width: '25ch' }}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        {now.toLocaleDateString()}
+                      </InputAdornment>
+                    ),
+                  }}
+                  variant="filled"
+                />
+                <FormControl sx={{ m: 1, width: '25ch' }} variant="filled">
+                  <InputLabel htmlFor="filled-adornment-amount">
+                    Amount*
+                  </InputLabel>
+                  <FilledInput
+                    id="filled-adornment-amount"
+                    value={values.amount}
+                    onChange={handleChange('amount')}
+                    startAdornment={
+                      <InputAdornment position="start">$</InputAdornment>
+                    }
+                    aria-describedby="filled-weight-helper-text"
+                    inputProps={{
+                      'aria-label': 'amount',
+                    }}
+                  />
+                  <FormHelperText id="filled-weight-helper-text"></FormHelperText>
+                </FormControl>
+                <FormControl sx={{ m: 1, width: '25ch' }} variant="filled">
+                  <InputLabel htmlFor="filled-adornment-password">
+                    Password*
+                  </InputLabel>
+                  <FilledInput
+                    id="filled-adornment-password"
+                    type={values.showPassword ? 'text' : 'password'}
+                    value={values.password}
+                    onChange={handleChange('password')}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                        >
+                          {values.showPassword ? (
+                            <VisibilityOff />
+                          ) : (
+                            <Visibility />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                  />
+                </FormControl>
+                <FormControl fullWidth sx={{ m: 1 }} variant="filled">
+                  <InputLabel htmlFor="filled-adornment-reason">
+                    Reason*
+                  </InputLabel>
+                  <FilledInput
+                    id="filled-adornment-reason"
+                    value={values.reason}
+                    onChange={handleChange('reason')}
+                    startAdornment={
+                      <InputAdornment position="start"></InputAdornment>
+                    }
+                  />
+                  <FormHelperText id="filled-weight-helper-text">
+                    Please give a brief explanation for this loan request.
+                  </FormHelperText>
+                </FormControl>
+              </div>
+            </Item>
+          </Grid>
+          <Grid item xs={12}>
+            <Item>
+              <Button
+                variant="contained"
+                onClick={() => handleSubmit()}
+                sx={{ marginRight: '90px' }}
+              >
+                Submit
+              </Button>
+              <Button variant="contained" onClick={() => navigate('/')}>
+                Cancel
+              </Button>
+            </Item>
+          </Grid>
+        </Grid>
       </Paper>
       <Paper />
-      </Box>
       <Paper elevation={3} />
     </div>
   );
