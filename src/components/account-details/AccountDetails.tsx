@@ -71,8 +71,8 @@ export default function AccountDetails() {
           >
             Go Back
           </Button>
-          </div>
         </div>
+      </div>
       </div>
       <div className='txn-wrap'>
         <h1 className='title'>Recent Transactions</h1>
