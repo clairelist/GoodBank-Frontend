@@ -1,7 +1,23 @@
-import React from 'react'
+import {
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from '@mui/material';
+import { Notification } from '../../../models/Notification';
 
-export default function NotificationItem() {
+interface INotificationItemProps {
+  notification: Notification;
+}
+
+export default function NotificationItem(props: INotificationItemProps) {
+  const { notification } = props;
+
   return (
-    <div>NotificationItem</div>
-  )
+    <ListItem disablePadding>
+      <ListItemButton>
+        <ListItemText primary={notification.body} />
+      </ListItemButton>
+    </ListItem>
+  );
 }
