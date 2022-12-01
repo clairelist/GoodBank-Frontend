@@ -16,17 +16,10 @@ import { useContext } from 'react';
 import { UserContext } from '../../context/user.context';
 
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import {
-  // decrement,
-  // increment,
-  // selectCount,
-  signInAsync,
-} from '../../features/user/userSlice';
+import {signIn} from '../../features/user/userSlice';
 
 export default function Login() {
-  const { setUser } = useContext(UserContext);
 
-  // const count = useAppSelector(selectCount);
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
@@ -36,8 +29,17 @@ export default function Login() {
     const data = new FormData(event.currentTarget);
     const email = data.get('email');
     const password = data.get('password');
-    dispatch(signInAsync({email, password, navigate}))
 
+    const response = await apiLogin(
+      `${email}`,
+      `${password}`
+    );
+    if (response.status >= 200 && response.status < 300) {
+      dispatch(signIn(response.payload));
+      navigate('/');
+    }
+
+    
   };
 
   return (

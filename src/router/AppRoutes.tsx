@@ -6,7 +6,9 @@ import Login from '../components/login/Login';
 import Register from '../components/register/Register';
 import Loan from '../components/loans/loan';
 
+
 export const AppRoutes: React.FC<unknown> = () => (
+  
   <Routes>
     <Route path="/" element={<Home />} />
     <Route path="/login" element={<Login />} />
