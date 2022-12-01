@@ -20,7 +20,7 @@ import { useAppSelector, useAppDispatch } from '../../app/hooks';
 
 export default function AccountDetails() {
   const navigate = useNavigate();
-  const { user } = useContext(UserContext);
+  const user = useAppSelector((state) => state.user.user);
   const [transaction, setTransactions] = useState<Transaction[]>([]);
   const currentAccount = useAppSelector((state) => state.account.currentAccount);
   let txnForm = <></>;
@@ -63,8 +63,8 @@ export default function AccountDetails() {
       <Navbar />
       <div className="account-wrap">
         <div className="account-details">
+
           <h2>{currentAccount.name}</h2>
-          <h3>{currentAccount.description}</h3>
           <h1>{currentAccount.balance}</h1>
           <Button
             onClick={() => {
@@ -84,7 +84,6 @@ export default function AccountDetails() {
               <TableRow>
                 <TableCell align="center">ID</TableCell>
                 <TableCell align="center">Amount</TableCell>
-                <TableCell align="center">Description</TableCell>
                 <TableCell align="center">Type</TableCell>
               </TableRow>
             </TableHead>
