@@ -10,3 +10,11 @@ export const apiGetUserNotifications = async (userId: number): Promise<bankingAp
     payload: response.data 
   };
 };
+
+export const apiDismissUserNotification = async (userId: number, notificationId: string): Promise<bankingApiResponse> => {
+  const response = await bankingClient.patch<Notification[]>(`${baseURL}/dismiss/${userId}/${notificationId}`);
+  return { 
+    status: response.status, 
+    payload: response.data 
+  };
+};

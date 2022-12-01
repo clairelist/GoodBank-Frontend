@@ -1,24 +1,22 @@
 import { Box, List } from '@mui/material';
-import { useEffect, useContext, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { UserContext } from '../../../context/user.context';
 import { Notification } from '../../../models/Notification';
 import { apiGetUserNotifications } from '../../../remote/banking-api/notification.api';
 import NotificationItem from './NotificationItem';
+import { setUserNotifications } from '../../../features/notification/notificationSlice';
 
 export default function NotificationList() {
-  const dispatch = useAppDispatch();
 
-  const user = useAppSelector((state) => state.user.user);
-  const [notifications, setNotifications] = useState<
-    Notification[] | undefined
-  >();
+  const user = useAppSelector(state => state.user.user);
+  const notifications = useAppSelector(state => state.notifications.list);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const fetchNotifs = async () => {
       if (user) {
         const result = await apiGetUserNotifications(user.id);
-        setNotifications(result.payload);
+        dispatch(setUserNotifications(result.payload));
       }
     };
     fetchNotifs();
