@@ -23,6 +23,8 @@ export default function Accounts() {
     const navigate = useNavigate();
   
     useEffect(() => {
+
+      console.log(user, 'accounts', accounts);
       if (user) {
         setLoggedIn(true);
         fetchData();
@@ -34,7 +36,7 @@ export default function Accounts() {
 
     const fetchData = async () => {
         if (user) {
-        const result = await apiGetAccounts(user?.id);
+        const result = await apiGetAccounts(user.id);
         setAccounts(result.payload);
         }
     };

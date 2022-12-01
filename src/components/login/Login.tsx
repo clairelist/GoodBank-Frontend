@@ -21,7 +21,7 @@ import {signIn} from '../../features/user/userSlice';
 export default function Login() {
 
   const dispatch = useAppDispatch();
-
+  const user = useAppSelector((state) => state.user.user);
   const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -35,12 +35,16 @@ export default function Login() {
       `${password}`
     );
     if (response.status >= 200 && response.status < 300) {
+
       dispatch(signIn(response.payload));
+    }
+  };
+
+  React.useEffect(() => {
+    if (user) {
       navigate('/');
     }
-
-    
-  };
+  }, [user]);
 
   return (
     <Container component="main" maxWidth="xs">
