@@ -13,6 +13,8 @@ import CreateTransactionForm from './CreateTransactionForm';
 import { Account } from '../../models/Account';
 import Button from '@mui/material/Button';
 import StyledTable from './StyledTable';
+import SideBar from './SideBar';
+
 
 export default function AccountDetails() {
   const navigate = useNavigate();
@@ -57,11 +59,10 @@ export default function AccountDetails() {
   return (
     <>
       <Navbar />
-      
-      <div className="account-wrap">
-        <div className="account-details">
+      <div className={'top-container'}>
+      <SideBar />
+        <div className='account-details'>
           <h2>{account?.name}</h2>
-          <h3>{account?.description}</h3>
           <h1>${account?.balance}</h1>
           <Button
             onClick={() => {
@@ -71,10 +72,9 @@ export default function AccountDetails() {
             Go Back
           </Button>
         </div>
-        <div className="form-wrap">{txnForm}</div>
       </div>
-      <div className="txn-wrap">
-        <h1 className="title">Recent Transactions</h1>
+      <div className='txn-wrap'>
+        <h1 className='title'>Recent Transactions</h1>
         <StyledTable transaction={transaction}/>
       </div>
     </>
