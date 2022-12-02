@@ -61,10 +61,6 @@ const Loan = () => {
         navigate('/')
 
     }
-    // const response = await apiLogin(
-    //     `${formData.email}`,
-    //     `${formData.password}`
-    //     );
   };
 
   const handleChange =
