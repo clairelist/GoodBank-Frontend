@@ -4,6 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { UserContext, User } from './context/user.context';
 import { AppRoutes } from './router/AppRoutes';
 import {ThemeProvider, createTheme} from '@mui/material';
+import Navbar from './components/navbar/Navbar';
 
 const theme = createTheme ({
   palette: {
