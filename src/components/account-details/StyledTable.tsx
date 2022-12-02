@@ -8,6 +8,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { v4 as uuidv4 } from 'uuid';
+import Pagination from './Pagination';
+import { TableFooter } from '@mui/material';
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -55,6 +57,11 @@ export default function CustomizedTables(props: any) {
             </StyledTableRow>
           ))}
         </TableBody>
+        <TableFooter>
+          <TableRow>
+            <Pagination />
+          </TableRow>
+        </TableFooter>
       </Table>
     </TableContainer>
   );
