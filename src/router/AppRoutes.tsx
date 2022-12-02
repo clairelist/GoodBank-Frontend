@@ -6,6 +6,7 @@ import Login from '../components/login/Login';
 import Register from '../components/register/Register';
 import { ProSidebarProvider } from 'react-pro-sidebar';
 import Loan from '../components/loans/loan';
+import Profile from '../components/profile/Profile';
 
 
 export const AppRoutes: React.FC<unknown> = () => (
@@ -20,5 +21,6 @@ export const AppRoutes: React.FC<unknown> = () => (
       </ProSidebarProvider>
     } />
     <Route path="/loan" element={<Loan/>} />
+    <Route path="/profile" element={<Profile/>} />
   </Routes>
 );
