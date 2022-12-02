@@ -1,5 +1,6 @@
 import React from 'react';
 import Accounts from '../account-details/Accounts';
+import Loans from '../account-details/Loans';
 
 
 export default function Home() {
@@ -8,7 +9,7 @@ export default function Home() {
     <>
       <Accounts />
       {/* <CreditCards /> */}
-      {/* <Loans /> */}
+      <Loans />
     </>
   )
 }
