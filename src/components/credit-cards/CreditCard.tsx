@@ -1,15 +1,17 @@
 import { Button, Card, CardContent, Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../app/hooks";
+import { useAppSelector, useAppDispatch } from "../../app/hooks";
+import { setCurrentCreditCard, setUserCreditCards } from "../../features/credit/creditCardSlice";
 import { CreditCard } from "../../models/CreditCard";
 import { apiGetCreditCards } from "../../remote/banking-api/creditcard.api";
 import Navbar from "../navbar/Navbar";
 
 export default function CreditCards() {
     const user = useAppSelector((state) => state.user.user);
-    const [creditCards, setCreditCards] = useState<CreditCard[]>([] as CreditCard[]);
+    const creditCards = useAppSelector((state) => state.creditCard.creditCards);
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         if (user) {
@@ -22,7 +24,7 @@ export default function CreditCards() {
     const fetchData = async () => {
         if (user) {
             const result = await apiGetCreditCards(user.id);
-            setCreditCards(result.payload);
+            dispatch(setUserCreditCards(result.payload));
         }
     };
 
@@ -83,25 +85,25 @@ export default function CreditCards() {
                         <Card sx={{ margin: '0 auto', display: 'flex', maxWidth: '700px' }}>
                             <CardContent>
                             <Typography variant="h3" color="text.secondary">
-                                {creditCard?.cardNumber}
+                                {creditCard.cardNumber}
                             </Typography>
                             
                             <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                                Credit Card Limit: {creditCard?.totalLimit}
+                                Credit Card Limit: {creditCard.totalLimit}
                             </Typography>
-                            {/* <Button
+                            <Button
                                 onClick={() => {
-                                dispatch(setCurrentAccount(account));
-                                navigate('/details');
+                                dispatch(setCurrentCreditCard(creditCard));
+                                navigate('/credit-card-details');
                                 }}
                             >
                                 Account Details
-                            </Button> */}
+                            </Button>
                             <Typography
                                 variant="h5"
                                 sx={{ display: 'flex', justifyContent: 'flex-end' }}
                             >
-                                Balance: {creditCard?.availableBalance}
+                                Balance: {creditCard.availableBalance}
                             </Typography>
                             </CardContent>
                         </Card>

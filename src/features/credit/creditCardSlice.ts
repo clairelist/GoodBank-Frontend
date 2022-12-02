@@ -4,6 +4,7 @@ import { CreditCard } from "../../models/CreditCard";
 
 export interface CreditState {
     currentCreditCard: CreditCard;
+    creditCards: CreditCard[]
 }
 
 const initialState: CreditState = {
@@ -15,6 +16,7 @@ const initialState: CreditState = {
         totalLimit: 0,
         availableBalance: 0
     },
+    creditCards: []
 };
 
 export const creditCardSlice = createSlice({
@@ -23,11 +25,14 @@ export const creditCardSlice = createSlice({
     reducers: {
         setCurrentCreditCard: (state, action: PayloadAction<CreditCard>) => {
             state.currentCreditCard = action.payload;
+        },
+        setUserCreditCards: (state, action: PayloadAction<CreditCard[]>) => {
+            state.creditCards = [...action.payload];
         }
     }
 })
 
-export const {setCurrentCreditCard} = creditCardSlice.actions;
+export const {setCurrentCreditCard, setUserCreditCards} = creditCardSlice.actions;
 export const selectCurrentCreditCard = (state: RootState) => state.creditCard.currentCreditCard;
-
+export const retrieveUserCreditCards = (state: RootState) => state.creditCard.creditCards;
 export default creditCardSlice.reducer;

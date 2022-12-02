@@ -1,4 +1,5 @@
 import { Button } from "@mui/material";
+import { current } from "@reduxjs/toolkit";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
@@ -8,7 +9,7 @@ import SideBar from "../account-details/SideBar";
 import Navbar from "../navbar/Navbar";
 
 
-export default function CreditDetails() {
+export default function CreditCardDetails() {
     const navigate = useNavigate();
     const user = useAppSelector((state) => state.user.user);
     const [creditCard, setCreditCard] = useState<CreditCard[]>([]);
@@ -29,8 +30,6 @@ export default function CreditDetails() {
         fetchData();
       }, [user, navigate]);
 
-      let outstandingBalance = {}
-
       return (
         <>
             <Navbar />
@@ -38,8 +37,8 @@ export default function CreditDetails() {
             <SideBar />
             <div className="account-wrap">
                 <div className="account-details">
-                    <h2>{currentCreditCard.cardNumber}</h2>
-                    <h1>{currentCreditCard.}</h1>
+                    <h2>Card Number: {currentCreditCard.cardNumber}</h2>
+                    <h1>Outstanding Balance: {(currentCreditCard.totalLimit - currentCreditCard.availableBalance)}</h1>
                     <Button
                     onClick={() => {
                         navigate('/');
