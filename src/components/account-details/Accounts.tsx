@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import { useContext } from 'react';
-import { UserContext } from '../../context/user.context';
 import CardContent from '@mui/material/CardContent';
 import Card from '@mui/material/Card';
 import { apiGetAccounts } from '../../remote/banking-api/account.api';
@@ -12,7 +10,7 @@ import Navbar from '../navbar/Navbar';
 import { useNavigate } from 'react-router-dom';
 import OpenAccount from '../home/OpenAccountForm';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import accountSlice, { setCurrentAccount } from '../../features/account/accountSlice';
+import { setCurrentAccount } from '../../features/account/accountSlice';
 
 export default function Accounts() {
     const [loggedIn, setLoggedIn] = useState(false);
@@ -129,7 +127,6 @@ export default function Accounts() {
                   </Grid>
                 </>
               ))}
-  
               {/* <Grid item sm={12} md={12}>
                 <h2 style={{ textAlign: 'center', marginTop: '3%', color: 'gray' }}>
                   Create a new account!
@@ -148,33 +145,6 @@ export default function Accounts() {
               <OpenAccount checked={checked} />
           </Grid>
         </>
-      ;
-      
     }
-  
     return <>{Account}</>
-    
   }
-
-  // React.useEffect(() => {
-  //   if (user) {
-  //     setLoggedIn(true);
-  //   } else {
-  //     setLoggedIn(false);
-  //     navigate('/login');
-  //   }
-  // }, [user, navigate]);
-
-  // const handleChange = () => {
-  //   setChecked((prev) => !prev);
-  // };
-
-  // React.useEffect(() => {
-  //   const fetchData = async () => {
-  //     if (user) {
-  //       const result = await apiGetAccount(user?.id);
-  //       setAccounts(result.payload);
-  //     }
-  //   };
-  //   fetchData();
-  // }, [user]);

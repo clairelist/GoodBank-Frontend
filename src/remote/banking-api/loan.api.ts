@@ -1,11 +1,9 @@
-import { Loan } from '../../models/Loan';
 import { LoanDetails } from '../../models/LoanDetails';
 import bankingClient, { bankingApiResponse } from './bankingClient';
 
 const baseURL = '/loans';
 
 export const apiCreateLoan = async (
-//   account: number,
   userId: number,
   reason: string,
   initialAmount: number
@@ -22,7 +20,6 @@ export const apiCreateLoan = async (
 };
 
 export const apiGetLoans = async (
-//   account: number,
   userId: number,
 ): Promise<bankingApiResponse> => {
   const response = await bankingClient.get<LoanDetails[]>(

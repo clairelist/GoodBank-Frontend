@@ -1,5 +1,5 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState, AppThunk } from '../../app/store';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '../../app/store';
 import { Account } from '../../models/Account';
 
 export interface AccountState {
@@ -18,7 +18,7 @@ const initialState: AccountState = {
         id: 0,
         name: "",
         balance: 0,
-        accountType:'',
+        accountType: "",
         creationDate: ""
     },
     
