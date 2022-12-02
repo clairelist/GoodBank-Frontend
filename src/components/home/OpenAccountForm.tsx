@@ -1,7 +1,5 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
-import { useContext } from 'react';
-import { UserContext } from '../../context/user.context';
 import { apiCreateAccount } from '../../remote/banking-api/account.api';
 import { Account } from '../../models/Account';
 import Paper from '@mui/material/Paper';

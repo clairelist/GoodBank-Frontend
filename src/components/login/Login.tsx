@@ -9,12 +9,8 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { apiLogin } from '../../remote/banking-api/auth.api';
-import { useContext } from 'react';
-import { UserContext } from '../../context/user.context';
-
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import {signIn} from '../../features/user/userSlice';
 
