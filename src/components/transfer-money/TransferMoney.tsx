@@ -67,7 +67,7 @@ export default function transferMoney() {
           helperText="Select Account"
           variant="standard"
           {...accounts.map(({accountType, balance, creationDate, id, name}, index) => (
-            
+            console.log('account123', accountType, index),
             <MenuItem key={name} value={id}>
               {index}
             </MenuItem>
