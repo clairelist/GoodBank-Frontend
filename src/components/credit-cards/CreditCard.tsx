@@ -1,11 +1,10 @@
 import { Button, Card, CardContent, Grid, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import { setCurrentCreditCard, setUserCreditCards } from "../../features/credit/creditCardSlice";
 import { CreditCard } from "../../models/CreditCard";
 import { apiGetCreditCards } from "../../remote/banking-api/creditcard.api";
-import Navbar from "../navbar/Navbar";
 
 export default function CreditCards() {
     const user = useAppSelector((state) => state.user.user);

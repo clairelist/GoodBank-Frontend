@@ -1,5 +1,3 @@
-import { idText } from "typescript";
-import { CreditCard } from "../../models/CreditCard";
 import bankingClient, { bankingApiResponse } from './bankingClient';
 
 const baseURL = '/credit-card';
