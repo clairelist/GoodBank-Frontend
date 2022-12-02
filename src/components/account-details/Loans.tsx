@@ -59,7 +59,7 @@ const Loans = () => {
       {loans ? (
         <div>
           {loans.map((loan: LoanDetails) => (
-            <div key={loan.id + 1}>
+            <div key={loan.loanID + 1}>
               <Grid>
                 <Grid item mt={2} sm={12} md={12}>
                   <Card

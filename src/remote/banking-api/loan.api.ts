@@ -47,3 +47,16 @@ export const apiGetPendingLoans = async (
   );
   return { status: response.status, payload: response.data as LoanDetails[] };
 };
+
+export const apiChangeStatus = async ( 
+  currentLoan: LoanDetails
+): Promise<bankingApiResponse> => {
+  const response = await bankingClient.put<LoanDetails>(
+    `${baseURL}/pending-loans`,
+    {
+      headers: { 'Current-User': "ADMIN" },
+      withCredentials: true,
+    }
+  );
+  return { status: response.status, payload: response.data as LoanDetails };
+};
