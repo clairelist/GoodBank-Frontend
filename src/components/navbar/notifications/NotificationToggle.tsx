@@ -5,32 +5,47 @@ import { useState, MouseEvent, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { apiGetUserNotifications } from '../../../remote/banking-api/notification.api';
 import { setUserNotifications } from '../../../features/notification/notificationSlice';
+import { Notification } from '../../../models/Notification';
 
 export default function NotificationToggle() {
   const [open, setOpen] = useState(false);
-  const [notifCount, setNotifCount] = useState(0);
   const [anchorElement, setAnchorElement] = useState<HTMLButtonElement | null>(null);
-
+  const [seenCount, setSeenCount] = useState(0);
 
   const user = useAppSelector(state => state.user.user);
   const notifications = useAppSelector(state => state.notifications.list);
   const dispatch = useAppDispatch();
+  
+  const countUnseen = (notifs: Notification[]) => {
+    let count = 0;
+    notifs.forEach(n => {
+      count += n.seen ? 0 : 1;
+    })
+    return count;
+  }
+  
+  const fetchNotifs = async () => {
+    if (user) {
+      const result = await apiGetUserNotifications(user.id);
+      dispatch(setUserNotifications(result.payload));
+    }
+  };
 
   useEffect(() => {
-    const fetchNotifs = async () => {
-      if (user) {
-        const result = await apiGetUserNotifications(user.id);
-        dispatch(setUserNotifications(result.payload));
-      }
-    };
     fetchNotifs();
-    setNotifCount(notifications.length);
   }, [user]);
+
+  useEffect(() => {
+    setSeenCount(countUnseen(notifications));
+  }, [notifications]);
 
   function handleClick(event: MouseEvent<HTMLButtonElement>){
     setOpen(!open);
     setAnchorElement(event.currentTarget);
-    setNotifCount(0);
+
+    if (seenCount > 0) {
+      // functionality for marking notifs as seen
+    }
   }
   
   return (
@@ -48,7 +63,7 @@ export default function NotificationToggle() {
           color="inherit"
           onClick={handleClick}
         >
-          <Badge badgeContent={notifCount} color="primary">
+          <Badge badgeContent={seenCount} color="primary">
             <NotificationsIcon />
           </Badge>
         </IconButton>

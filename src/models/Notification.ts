@@ -12,3 +12,12 @@ export interface Notification {
     seen: boolean;
     time: string | undefined;
 }
+
+export interface NotificationRequest {
+    id: string,
+    type: NotificationType;
+    referenceId: number | undefined;
+    body: string;
+    dismissed: boolean;
+    seen: boolean;
+}
