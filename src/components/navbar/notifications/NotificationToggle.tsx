@@ -3,7 +3,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationList from './NotificationList';
 import { useState, MouseEvent, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { apiGetUserNotifications } from '../../../remote/banking-api/notification.api';
+import { apiGetUserNotifications, apiSetNotificationsAsSeen } from '../../../remote/banking-api/notification.api';
 import { setUserNotifications } from '../../../features/notification/notificationSlice';
 import { Notification } from '../../../models/Notification';
 
@@ -39,12 +39,15 @@ export default function NotificationToggle() {
     setSeenCount(countUnseen(notifications));
   }, [notifications]);
 
-  function handleClick(event: MouseEvent<HTMLButtonElement>){
+  async function handleClick(event: MouseEvent<HTMLButtonElement>){
     setOpen(!open);
     setAnchorElement(event.currentTarget);
 
     if (seenCount > 0) {
-      // functionality for marking notifs as seen
+      // marking notifs as seen if it hasn't already been done
+      const ids: string[] = notifications.map(n => n.id);
+      const result = await apiSetNotificationsAsSeen(ids);
+      dispatch(setUserNotifications(result.payload));
     }
   }
   
