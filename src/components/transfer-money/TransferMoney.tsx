@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
-import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
 import { Box, Button, InputAdornment } from '@mui/material';
-import Input from '@mui/material/Input';
 import FormControl from '@mui/material/FormControl';
+import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
-import { apiTransferTransaction } from '../../remote/banking-api/account.api';
+import MenuItem from '@mui/material/MenuItem';
+import TextField from '@mui/material/TextField';
+import React, { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { useAppSelector } from '../../app/hooks';
 import { Account } from '../../models/Account';
 import { Transaction } from '../../models/Transaction';
+import { apiTransferTransaction } from '../../remote/banking-api/account.api';
 // import { SendIcon } from '@mui/icon/material'
 
-export default function transferMoney() {
+export default function TransferMoney() {
   const currentAccount = useAppSelector(
     (state) => state.account.currentAccount
   );
@@ -43,8 +44,8 @@ export default function transferMoney() {
     });
   };
 
-    return (
-      <>
+  return (
+    <>
       <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
         <TextField
           id="outlined-select-account"
@@ -56,27 +57,27 @@ export default function transferMoney() {
             readOnly: true,
           }}
         ></TextField>
-        {accounts.length > 0 ? (
+
         <TextField
           required
-          id="account"
-          name="account"
           label="To"
           fullWidth
           select
           helperText="Select Account"
           variant="standard"
-          {...accounts.map(({accountType, balance, creationDate, id, name}, index) => (
-            
-            <MenuItem key={name} value={id}>
+          SelectProps={{
+            multiple: false,
+            value: [],
+          }}
+        >
+          {accounts.map(({ id }, index) => (
+            <MenuItem key={uuidv4()} value={id}>
               {index}
             </MenuItem>
           ))}
-          
-        ></TextField>) : "" }
+        </TextField>
 
         <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-          
           <Input
             required
             id="amount"
@@ -88,7 +89,7 @@ export default function transferMoney() {
           <InputLabel htmlFor="amount">Amount</InputLabel>
         </FormControl>
         <Button type="submit">Submit</Button>
-        </Box>
-      </>
-    )
+      </Box>
+    </>
+  );
 }
