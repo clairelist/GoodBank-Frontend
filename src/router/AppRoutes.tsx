@@ -8,6 +8,7 @@ import { ProSidebarProvider } from 'react-pro-sidebar';
 import Loan from '../components/loans/loan';
 
 
+
 export const AppRoutes: React.FC<unknown> = () => (
   
   <Routes>

@@ -55,3 +55,19 @@ export const apiUpsertTransaction = async (
   );
   return { status: response.status, payload: response.data };
 };
+
+export const apiTransferTransaction = async (
+id: number,
+transaction: Transaction
+): Promise<bankingApiResponse> => {
+  const response = await bankingClient.post<Transaction[]>(
+  `${baseURL}/${id}/transfer`,
+  transaction,
+  { withCredentials: true }
+    );
+    response.data.forEach((transaction) => {
+      let num = transaction.amount;
+    transaction.amount = Math.round((num + Number.EPSILON) * 100) / 100;
+    });
+    return { status: response.status, payload: response.data };
+};
