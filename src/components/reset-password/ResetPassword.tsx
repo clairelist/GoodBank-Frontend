@@ -1,11 +1,5 @@
-//I take in an email and password
-//and make a PATCH request to the API, to update the password.
-//INSTEAD of having user type in their EMAIL here, they will simply
-//type and confirm  their PASSWORD
-
 import axios from 'axios';
-import { useState } from 'react';
-import { ProSidebarProvider } from 'react-pro-sidebar';
+import { SyntheticEvent, useState, } from 'react';
 
 function ResetPassword(props:any){
 
@@ -16,8 +10,15 @@ function ResetPassword(props:any){
 
     setSubmission({email: email, password: password});
 
+    const handleChange = (e: SyntheticEvent) => { //[(e.target as HTMLInputElement).name]: (e.target as HTMLInputElement)
+      //  .value,
+        setPassword((e.target as HTMLInputElement).value);
+    }
     const handleSubmit = () => {
         axios.patch('uerl', submission)
+        .then(res=>{
+        console.log("do something here.");
+        })
     }
     
     return (
