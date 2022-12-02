@@ -4,7 +4,7 @@ import bankingClient, { bankingApiResponse } from './bankingClient';
 
 const baseURL = '/account';
 
-export const apiGetAccount = async (
+export const apiGetAccounts = async (
   id: number
 ): Promise<bankingApiResponse> => {
   const response = await bankingClient.get<any>(`${baseURL}/${id}`, {
@@ -12,6 +12,7 @@ export const apiGetAccount = async (
   });
   let num = response.data.balance;
   response.data.balance = Math.round((num + Number.EPSILON) * 100) / 100;
+  console.log(num)
   return { status: response.status, payload: response.data };
 };
 

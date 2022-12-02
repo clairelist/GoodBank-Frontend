@@ -6,7 +6,10 @@
 }
 
 .account-details {
+  margin-left: 20%;
   padding-right: 40px;
+  text-align: center;
+  grid-area: 1 / 4 / 2 / 5;
 }
 
 .form-wrap {
@@ -29,3 +32,14 @@
 .title {
   text-align: center;
 }
+
+.top-container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+SideBar { grid-area: 1 / 1 / 2 / 2; }
+
