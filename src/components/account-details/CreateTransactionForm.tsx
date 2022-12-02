@@ -21,7 +21,8 @@ export default function CreateTransactionForm(props: transactionProps) {
       0,
       parseFloat(data.get('amount')?.toString() || '0'),
       data.get('description')?.toString() || '',
-      data.get('type')?.toString() || 'Expense'
+      data.get('type')?.toString() || 'Expense', undefined
+
     );
     apiUpsertTransaction(props.accountId, payload).then((response) => {
       props.afterUpsert(response.payload);

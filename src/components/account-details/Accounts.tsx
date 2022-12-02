@@ -12,13 +12,14 @@ import Navbar from '../navbar/Navbar';
 import { useNavigate } from 'react-router-dom';
 import OpenAccount from '../home/OpenAccountForm';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import accountSlice, { setCurrentAccount } from '../../features/account/accountSlice';
+import accountSlice, { setCurrentAccount, setUserAccounts } from '../../features/account/accountSlice';
 
 export default function Accounts() {
     const [loggedIn, setLoggedIn] = useState(false);
     const [checked, setChecked] = useState(false);
-    const [accounts, setAccounts] = useState<Account[]>([] as Account[]);
+    // const [accounts, setAccounts] = useState<Account[]>([] as Account[]);
     const user = useAppSelector((state) => state.user.user);
+    const accounts = useAppSelector((state) => state.account.userAccounts);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
   
@@ -37,7 +38,7 @@ export default function Accounts() {
     const fetchData = async () => {
         if (user) {
         const result = await apiGetAccounts(user.id);
-        setAccounts(result.payload);
+        dispatch(setUserAccounts(result.payload));
         }
     };
 

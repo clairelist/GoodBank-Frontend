@@ -29,10 +29,10 @@ export default function CreateTransaction(props: any) {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Create Transaction
+            Money Transfer
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Under construction!
+          <Typography id="modal-modal-description" sx={{ mt: 8 }}>
+            <Transfer />
           </Typography>
         </Box>
       </Modal>
