@@ -1,7 +1,18 @@
 import bankingClient, { bankingApiResponse } from './bankingClient';
-import { Notification } from '../../models/Notification';
+import { Notification, NotificationCreationRequest } from '../../models/Notification';
 
 const baseURL = '/notification';
+
+export const apiSaveNotification = async (
+  notification: NotificationCreationRequest
+): Promise<bankingApiResponse> => {
+  const response = await bankingClient.post<Notification>(baseURL, notification);
+
+  return {
+    status: response.status,
+    payload: response.data
+  }
+}
 
 export const apiGetUserNotifications = async (
   userId: number

@@ -5,7 +5,7 @@ import { useState, MouseEvent, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { apiGetUserNotifications, apiSetNotificationsAsSeen } from '../../../remote/banking-api/notification.api';
 import { setUserNotifications } from '../../../features/notification/notificationSlice';
-import { Notification } from '../../../models/Notification';
+import { countUnseen } from '../../../features/notification/notificationUtils';
 
 export default function NotificationToggle() {
   const [open, setOpen] = useState(false);
@@ -15,14 +15,6 @@ export default function NotificationToggle() {
   const user = useAppSelector(state => state.user.user);
   const notifications = useAppSelector(state => state.notifications.list);
   const dispatch = useAppDispatch();
-  
-  const countUnseen = (notifs: Notification[]) => {
-    let count = 0;
-    notifs.forEach(n => {
-      count += n.seen ? 0 : 1;
-    })
-    return count;
-  }
   
   const fetchNotifs = async () => {
     if (user) {
@@ -40,11 +32,19 @@ export default function NotificationToggle() {
   }, [notifications]);
 
   async function handleClick(event: MouseEvent<HTMLButtonElement>){
+    //dont't open the notifications tab if there aren't any to see
+    if (notifications.length < 1) {
+      setOpen(false);
+      setAnchorElement(null);
+      return;
+    }
+    
     setOpen(!open);
     setAnchorElement(event.currentTarget);
 
-    if (seenCount > 0) {
-      // marking notifs as seen if it hasn't already been done
+    // marking notifs as seen if it hasn't already been done
+    // then returning the updated notifications immediately
+    if (open && seenCount > 0) {
       const ids: string[] = notifications.map(n => n.id);
       const result = await apiSetNotificationsAsSeen(ids);
       dispatch(setUserNotifications(result.payload));
