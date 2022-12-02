@@ -56,8 +56,8 @@ const Loan = () => {
 
   const handleSubmit = async () => {
     console.log('amount', values.amount, 'reason', values.reason);
-    if(user){
-        apiCreateLoan(user.id, values.reason, Number(values.amount));
+    if (user) {
+      apiCreateLoan(user.id, values.reason, Number(values.amount));
     }
     // const response = await apiLogin(
     //     `${formData.email}`,
