@@ -1,21 +1,20 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
+import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
+import CssBaseline from '@mui/material/CssBaseline';
+import Grid from '@mui/material/Grid';
+import Link from '@mui/material/Link';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { signIn } from '../../features/user/userSlice';
 import { apiLogin } from '../../remote/banking-api/auth.api';
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import {signIn} from '../../features/user/userSlice';
 
 export default function Login() {
-
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.user);
   const navigate = useNavigate();
@@ -26,10 +25,7 @@ export default function Login() {
     const email = data.get('email');
     const password = data.get('password');
 
-    const response = await apiLogin(
-      `${email}`,
-      `${password}`
-    );
+    const response = await apiLogin(`${email}`, `${password}`);
     if (response.status >= 200 && response.status < 300) {
       dispatch(signIn(response.payload));
     }
@@ -81,7 +77,6 @@ export default function Login() {
           />
           <Button
             type="submit"
-
             color="secondary"
             fullWidth
             variant="contained"
