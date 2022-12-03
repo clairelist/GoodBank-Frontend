@@ -5,19 +5,19 @@ import './App.css';
 import { User, UserContext } from './context/user.context';
 import { AppRoutes } from './router/AppRoutes';
 
-const theme = createTheme ({
+const theme = createTheme({
   palette: {
     primary: {
-      main: "#9F86C0",
-      light: "#BE95C4",
-      dark: "#5E548E"
+      main: '#9F86C0',
+      light: '#BE95C4',
+      dark: '#5E548E',
     },
     secondary: {
-      main: "#9F86C0",
-      light: "#E0B1CB",
-      dark: "#231942"
-    }
-  }
+      main: '#9F86C0',
+      light: '#E0B1CB',
+      dark: '#231942',
+    },
+  },
 });
 
 function App() {
@@ -32,7 +32,7 @@ function App() {
         </Router>
       </UserContext.Provider>
     </ThemeProvider>
-  );g
+  );
 }
 
 export default App;
