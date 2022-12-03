@@ -53,6 +53,7 @@ export const apiChangeStatus = async (
 ): Promise<bankingApiResponse> => {
   const response = await bankingClient.put<LoanDetails>(
     `${baseURL}/pending-loans`,
+    {...currentLoan},
     {
       headers: { 'Current-User': "ADMIN" },
       withCredentials: true,

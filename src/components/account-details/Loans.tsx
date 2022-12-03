@@ -73,6 +73,7 @@ const Loans = () => {
                     <Typography>{loan.reason}</Typography>
                     <Typography>{loan.balance}</Typography>
                     <Typography>{loan.creationDate.toString()}</Typography>
+                    <Typography>{loan.status}</Typography>
                   </Card>
                 </Grid>
               </Grid>

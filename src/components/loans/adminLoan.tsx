@@ -8,6 +8,7 @@ import { LoanDetails } from '../../models/LoanDetails';
 import Navbar from '../navbar/Navbar';
 import { accountSlice } from '../../features/account/accountSlice';
 
+
 const AdminLoan = () => {
   const user = useAppSelector((state) => state.user.user);
   const [loans, setLoans] = useState([]);
@@ -29,8 +30,8 @@ const AdminLoan = () => {
     currentLoan.status = status;
     const response = await apiChangeStatus(currentLoan);
     console.log(response.payload);
+    setLoans(loans.filter((x: LoanDetails) => x.loanID !== response.payload.loanID))
   }
-
   return( <Paper>
     
     <h1>this is just a test hahahahahahah!!!! (Pending Loans)</h1>
@@ -42,8 +43,8 @@ const AdminLoan = () => {
     <p>LoanInitialAmount: {loan.initialAmount}</p>
     <p>CreationDate: {loan.creationDate.toString()}</p>
     <div>
-      <Button variant="outlined" color="primary" size="small" onClick={() => handleStatus(loan, "APPROVED")}>Approve</Button>
-      <Button variant="outlined" color="primary" size="small" onClick={() => handleStatus(loan, "DENIED")}>Deny</Button>
+      <Button variant="contained" color="primary" size="small" onClick={() => handleStatus(loan, "APPROVED")}>Approve</Button>
+      <Button variant="contained" color="primary" size="small" onClick={() => handleStatus(loan, "DENIED")}>Deny</Button>
     </div>
     </div>
     )):''}
