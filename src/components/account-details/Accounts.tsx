@@ -11,6 +11,8 @@ import { Account } from '../../models/Account';
 import { apiGetAccounts } from '../../remote/banking-api/account.api';
 import OpenAccount from '../home/OpenAccountForm';
 import Navbar from '../navbar/Navbar';
+import { v4 as uuidv4 } from 'uuid';
+import React from 'react';
 
 export default function Accounts() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -95,8 +97,8 @@ export default function Accounts() {
             Your Accounts
           </Typography>
           {accounts?.map((account: Account) => (
-            <>
-              <Grid item mt={2} sm={12} md={12}>
+            <React.Fragment key={uuidv4()}>
+              <Grid item mt={2} sm={12} md={12} >
                 <Card
                   sx={{ margin: '0 auto', display: 'flex', maxWidth: '700px' }}
                 >
@@ -125,7 +127,7 @@ export default function Accounts() {
                   </CardContent>
                 </Card>
               </Grid>
-            </>
+            </React.Fragment>
           ))}
 
           {/* <Grid item sm={12} md={12}>
