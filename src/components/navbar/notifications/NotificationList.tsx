@@ -1,13 +1,11 @@
 import { Box, List } from '@mui/material';
-import { useEffect, useContext, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { UserContext } from '../../../context/user.context';
+import { useEffect, useState } from 'react';
+import { useAppSelector } from '../../../app/hooks';
 import { Notification } from '../../../models/Notification';
 import { apiGetUserNotifications } from '../../../remote/banking-api/notification.api';
 import NotificationItem from './NotificationItem';
 
 export default function NotificationList() {
-  const dispatch = useAppDispatch();
 
   const user = useAppSelector((state) => state.user.user);
   const [notifications, setNotifications] = useState<

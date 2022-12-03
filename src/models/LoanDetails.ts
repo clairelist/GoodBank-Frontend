@@ -1,4 +1,3 @@
-
 export class LoanDetails {
   userId: number;
   loanID: number;
@@ -7,7 +6,6 @@ export class LoanDetails {
   balance: number;
   creationDate: Date;
   status: string;
-
 
     constructor(
       _userId: number,

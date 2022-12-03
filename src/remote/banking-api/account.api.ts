@@ -12,6 +12,7 @@ export const apiGetAccounts = async (
   });
   let num = response.data.balance;
   response.data.balance = Math.round((num + Number.EPSILON) * 100) / 100;
+  console.log(num)
   return { status: response.status, payload: response.data };
 };
 

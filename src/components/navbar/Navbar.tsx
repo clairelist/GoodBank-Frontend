@@ -9,8 +9,6 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { apiLogout } from '../../remote/banking-api/auth.api';
 import { useNavigate } from 'react-router-dom';
 import Tooltip from '@mui/material/Tooltip';
-import { useContext } from 'react';
-import { UserContext } from '../../context/user.context';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import NotificationToggle from './notifications/NotificationToggle';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
