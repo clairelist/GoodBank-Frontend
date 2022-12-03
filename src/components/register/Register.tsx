@@ -23,7 +23,9 @@ export default function Register() {
     const data = new FormData(event.currentTarget);
     const response = await apiRegister(
       `${data.get('email')}`,
-      `${data.get('password')}`
+      `${data.get('password')}`,
+      `${data.get('firstName')}`,
+      `${data.get('lastName')}`
     );
     if (response.status >= 200 && response.status < 300) navigate('/login');
   };
@@ -72,7 +74,26 @@ export default function Register() {
               id="password"
               autoComplete="new-password"
             />
-
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="firstName"
+              label="First Name"
+              type="text"
+              id="firstName"
+              autoComplete="first name"
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="lastName"
+              label="Last Name"
+              type="text"
+              id="lastName"
+              autoComplete="last Name"
+            />
             <Button
               type="submit"
               fullWidth
