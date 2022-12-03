@@ -11,7 +11,7 @@ import { Account } from '../../models/Account';
 import { Transaction } from '../../models/Transaction';
 // import { SendIcon } from '@mui/icon/material'
 
-export default function transferMoney() {
+export default function TransferMoney() {
   const currentAccount = useAppSelector(
     (state) => state.account.currentAccount
   );

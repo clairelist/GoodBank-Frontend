@@ -30,10 +30,11 @@ export const apiCreateAccount = async (
 };
 
 export const apiGetTransactions = async (
-  id: number
+  id: number,
+  page: number
 ): Promise<bankingApiResponse> => {
   const response = await bankingClient.get<Transaction[]>(
-    `${baseURL}/${id}/transaction`,
+    `${baseURL}/${id}/transaction/${page}`,
     { withCredentials: true }
   );
   response.data.forEach((transaction) => {
@@ -42,6 +43,13 @@ export const apiGetTransactions = async (
   });
   return { status: response.status, payload: response.data };
 };
+
+export const apiGetTotalTransactionSize = async (id: number): Promise<bankingApiResponse> => {
+  const response = await bankingClient.get<Transaction[]>(
+    `${baseURL}/${id}/transactions`,
+    { withCredentials: true });
+    return { status: response.status, payload: response.data };
+}
 
 export const apiUpsertTransaction = async (
   id: number,
