@@ -1,10 +1,9 @@
+import { createTheme, ThemeProvider } from '@mui/material';
 import React, { useState } from 'react';
-import './App.css';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { UserContext, User } from './context/user.context';
+import './App.css';
+import { User, UserContext } from './context/user.context';
 import { AppRoutes } from './router/AppRoutes';
-import {ThemeProvider, createTheme} from '@mui/material';
-import Navbar from './components/navbar/Navbar';
 
 const theme = createTheme ({
   palette: {
@@ -24,7 +23,7 @@ const theme = createTheme ({
 function App() {
   const [user, setUser] = useState<User | undefined>();
   const value = { user, setUser };
-
+  //add the navbar here later on
   return (
     <ThemeProvider theme={theme}>
       <UserContext.Provider value={value}>
@@ -33,7 +32,7 @@ function App() {
         </Router>
       </UserContext.Provider>
     </ThemeProvider>
-  );
+  );g
 }
 
 export default App;
