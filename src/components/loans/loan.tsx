@@ -20,6 +20,8 @@ import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../app/hooks';
 import { apiCreateLoan } from '../../remote/banking-api/loan.api';
+import AdminLoan from './adminLoan';
+import Navbar from '../navbar/Navbar';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -66,10 +68,6 @@ const Loan = () => {
         navigate('/')
 
     }
-    // const response = await apiLogin(
-    //     `${formData.email}`,
-    //     `${formData.password}`
-    //     );
   };
 
   const handleChange =
@@ -91,7 +89,8 @@ const Loan = () => {
   };
   return (
     <div style={{ width: '80%', margin: 'auto' }}>
-      <Paper elevation={0}>
+      <Navbar/>
+      {user?.userType === 'CLIENT'?<><Paper elevation={0}>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid item xs={6}>
             <Item>
@@ -201,7 +200,7 @@ const Loan = () => {
         </Grid>
       </Paper>
       <Paper />
-      <Paper elevation={3} />
+      <Paper elevation={3} /></>: <AdminLoan/>}
     </div>
   );
 };
