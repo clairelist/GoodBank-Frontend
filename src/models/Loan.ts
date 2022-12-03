@@ -13,3 +13,4 @@ export class Loan {
       this.amount = _amount;
     }
   }
+
