@@ -9,35 +9,35 @@ import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 import CancelIcon from '@mui/icons-material/Cancel';
 
 export default function SideBar() {
-    const [openCreateTransaction, setOpenCreateTransaction] = useState(false);
-    const handleCreateTransactionOpen = () => { setOpenCreateTransaction(true); };
-    const handleCreateTransactionClose = () => { setOpenCreateTransaction(false); };
+  const [openCreateTransaction, setOpenCreateTransaction] = useState(false);
+  const handleCreateTransactionOpen = () => { setOpenCreateTransaction(true); };
+  const handleCreateTransactionClose = () => { setOpenCreateTransaction(false); };
 
-    //TransferMoney
-    const [openTransferMoney, setOpenTransferMoney] = useState(false);
-    const handleTransferMoneyOpen = () => { setOpenTransferMoney(true); };
-    const handleTransferMoneyClose = () => { setOpenTransferMoney(false); };
+  //TransferMoney
+  const [openTransferMoney, setOpenTransferMoney] = useState(false);
+  const handleTransferMoneyOpen = () => { setOpenTransferMoney(true); };
+  const handleTransferMoneyClose = () => { setOpenTransferMoney(false); };
 
-    
 
-    return (
-        <Sidebar
-            rootStyles={{
-            [`.${sidebarClasses.container}`]: {
-                backgroundColor: 'white',
-                marginTop: '25px',
-                borderRight: 'none' 
-            }
-        }}>
-            <Menu>
-            <MenuItem onClick={handleCreateTransactionOpen}><PointOfSaleIcon/> Create Transaction </MenuItem>
-            <CreateTransaction handleClose={handleCreateTransactionClose} open={openCreateTransaction}/>
-            <MenuItem><SendAndArchiveIcon/> Send Money </MenuItem>
-            <MenuItem onClick={handleTransferMoneyOpen}><MoveDownIcon /> Transfer Money </MenuItem>
-            <TransferMoney handleClose={handleTransferMoneyClose} open={openTransferMoney} />
-            <MenuItem><LocalAtmIcon/> Make a Payment </MenuItem>
-            <MenuItem><CancelIcon/> Close Account </MenuItem>
-            </Menu>
-        </Sidebar>
-    )
+
+  return (
+    <Sidebar
+      rootStyles={{
+        [`.${sidebarClasses.container}`]: {
+          backgroundColor: 'white',
+          marginTop: '25px',
+          borderRight: 'none'
+        }
+      }}>
+      <Menu>
+        <MenuItem onClick={handleCreateTransactionOpen}><PointOfSaleIcon /> Create Transaction </MenuItem>
+        <CreateTransaction handleClose={handleCreateTransactionClose} open={openCreateTransaction} />
+        <MenuItem><SendAndArchiveIcon /> Send Money </MenuItem>
+        <MenuItem onClick={handleTransferMoneyOpen}><MoveDownIcon /> Transfer Money </MenuItem>
+        <TransferMoney handleClose={handleTransferMoneyClose} open={openTransferMoney} />
+        <MenuItem><LocalAtmIcon /> Make a Payment </MenuItem>
+        <MenuItem><CancelIcon /> Close Account </MenuItem>
+      </Menu>
+    </Sidebar>
+  )
 }
