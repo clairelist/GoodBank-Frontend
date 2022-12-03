@@ -1,5 +1,6 @@
 import { Account } from '../../models/Account';
 import { Transaction } from '../../models/Transaction';
+import { Transfer } from '../../models/Transfer';
 import bankingClient, { bankingApiResponse } from './bankingClient';
 
 const baseURL = '/account';
@@ -58,11 +59,11 @@ export const apiUpsertTransaction = async (
 
 export const apiTransferTransaction = async (
 id: number,
-transaction: Transaction
+transfer: Transfer
 ): Promise<bankingApiResponse> => {
   const response = await bankingClient.post<Transaction[]>(
   `${baseURL}/${id}/transfer`,
-  transaction,
+  transfer,
   { withCredentials: true }
     );
     response.data.forEach((transaction) => {
