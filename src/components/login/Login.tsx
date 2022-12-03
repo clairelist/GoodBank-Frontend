@@ -31,7 +31,6 @@ export default function Login() {
       `${password}`
     );
     if (response.status >= 200 && response.status < 300) {
-
       dispatch(signIn(response.payload));
     }
   };

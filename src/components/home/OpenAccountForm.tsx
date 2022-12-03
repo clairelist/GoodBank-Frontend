@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import { apiCreateAccount } from '../../remote/banking-api/account.api';
 import { Account } from '../../models/Account';
 import Paper from '@mui/material/Paper';
-import { Drawer, Input, InputLabel } from '@mui/material';
+import { Input, InputLabel } from '@mui/material';
 import Slide from '@mui/material/Slide';
 import { useAppSelector } from '../../app/hooks';
 
