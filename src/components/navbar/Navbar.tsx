@@ -9,12 +9,13 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { apiLogout } from '../../remote/banking-api/auth.api';
 import { useNavigate } from 'react-router-dom';
 import Tooltip from '@mui/material/Tooltip';
-import { useContext } from 'react';
-import { UserContext } from '../../context/user.context';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import NotificationToggle from './notifications/NotificationToggle';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import {logout} from '../../features/user/userSlice';
+import SavingsIcon from '@mui/icons-material/Savings';
+
+
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 export default function Navbar() {
@@ -36,7 +37,7 @@ export default function Navbar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" color="transparent">
         <Toolbar>
-          <AccountBalanceIcon sx={{ mr: 1 }} />
+          <AccountBalanceIcon sx={{ mr: 1 }} cursor='pointer' onClick={()=>navigate('/')}/>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Good&#8482; Banking
           </Typography>
@@ -77,6 +78,7 @@ export default function Navbar() {
                 {user ? <LogoutIcon /> : <LoginIcon />}
               </IconButton>
             </Tooltip>
+            <SavingsIcon fontSize='large'/>
               <button onClick={()=> navigate('/loan')}>Loan</button>
           </div>
         </Toolbar>
