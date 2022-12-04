@@ -20,11 +20,15 @@ export const apiLogout = async (): Promise<bankingApiResponse> => {
 
 export const apiRegister = async (
   email: string,
-  password: string
+  password: string,
+  firstName: string,
+  lastName: string
 ): Promise<bankingApiResponse> => {
   const response = await bankingClient.post<any>(`${baseURL}/register`, {
     email: email,
     password: password,
+    firstName: firstName,
+    lastName: lastName
   });
   return { status: response.status, payload: response.data };
 };

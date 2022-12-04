@@ -7,12 +7,12 @@ import MenuItem from '@mui/material/MenuItem';
 import './AccountDetails.css';
 import Grid from '@mui/material/Grid';
 
-interface transactionProps {
+interface TransactionProps {
   accountId: number;
   afterUpsert: (result: Transaction) => void;
 }
 
-export default function CreateTransactionForm(props: transactionProps) {
+export default function CreateTransactionForm(props: TransactionProps) {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
