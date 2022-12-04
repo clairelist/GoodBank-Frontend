@@ -15,7 +15,7 @@ import Navbar from '../navbar/Navbar';
 export default function Accounts() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [checked, setChecked] = useState(false);
-  const [accounts, setAccounts] = useState<Account[]>([] as Account[]);
+  const [accounts, setAccounts] = useState([]);
   const user = useAppSelector((state) => state.user.user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
