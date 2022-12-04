@@ -29,7 +29,7 @@ export default function AccountDetails() {
     }
     const fetchData = async () => {
       if (user) {
-        const result = await apiGetTransactions(currentAccount?.id, page);
+        const result = await apiGetTransactions(currentAccount?.id, page-1);
         setTransactions(result.payload);
 
         const transCount = await apiGetTotalTransactionSize(currentAccount?.id)
@@ -61,25 +61,25 @@ export default function AccountDetails() {
     <>
       <Navbar />
       <div className={'top-container'}>
-      <SideBar />
-      <div className="account-wrap">
-        <div className="account-details">
+        <SideBar />
+        <div className="account-wrap">
+          <div className="account-details">
 
-          <h2>{currentAccount.name}</h2>
-          <h1>{currentAccount.balance}</h1>
-          <Button
-            onClick={() => {
-              navigate('/');
-            }}
-          >
-            Go Back
-          </Button>
+            <h2>{currentAccount.name}</h2>
+            <h1>{currentAccount.balance}</h1>
+            <Button
+              onClick={() => {
+                navigate('/');
+              }}
+            >
+              Go Back
+            </Button>
+          </div>
         </div>
-      </div>
       </div>
       <div className='txn-wrap'>
         <h1 className='title'>Recent Transactions</h1>
-        <StyledTable transaction={transaction} page={page} setPage={setPage} transSize={transSize}/>
+        <StyledTable transaction={transaction} page={page} setPage={setPage} transSize={transSize} />
       </div>
     </>
   );
