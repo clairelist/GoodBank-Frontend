@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { apiLogin } from '../../remote/banking-api/auth.api';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import {signIn} from '../../features/user/userSlice';
+import {Link as Rlink} from 'react-router-dom';
 
 export default function Login() {
 
@@ -80,6 +81,7 @@ export default function Login() {
             id="password"
             autoComplete="current-password"
           />
+          <Rlink to={'reset-password'}>Forgot password?</Rlink>
           <Button
             type="submit"
 
