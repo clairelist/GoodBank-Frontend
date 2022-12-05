@@ -6,55 +6,70 @@ import bankingClient, { bankingApiResponse } from './bankingClient';
 const baseURL = '/account';
 
 export const apiGetAccounts = async (
-  id: number
+  id: number,
+  token: string
 ): Promise<bankingApiResponse> => {
-  const response = await bankingClient.get<any>(`${baseURL}/${id}`, {
+  const response = await bankingClient.get<Account[]>(`${baseURL}/${id}`, {
+    headers: { 'authorization': token },
     withCredentials: true,
   });
-  let num = response.data.balance;
-  response.data.balance = Math.round((num + Number.EPSILON) * 100) / 100;
-  return { status: response.status, payload: response.data };
+  return { status: response.status, headers: response.headers, payload: response.data as Account[] };
 };
 
 export const apiCreateAccount = async (
   account: Account,
-  userId: string
+  userId: string,
+  token: string
 ): Promise<bankingApiResponse> => {
   let num = account.balance;
   account.balance = Math.round((num + Number.EPSILON) * 100) / 100;
   const response = await bankingClient.post<Account>(`${baseURL}`, account, {
-    headers: { 'Current-User': userId },
-    withCredentials: true,
+    headers: { 'authorization': token },
+    // withCredentials: true,
   });
-  return { status: response.status, payload: response.data };
+  return { status: response.status, headers: response.headers, payload: response.data };
 };
 
 export const apiGetTransactions = async (
-  id: number
+  id: number,
+  token: string,
+  page: number
 ): Promise<bankingApiResponse> => {
   const response = await bankingClient.get<Transaction[]>(
-    `${baseURL}/${id}/transaction`,
-    { withCredentials: true }
+    `${baseURL}/${id}/transaction/${page}`,
+    { 
+      headers: { 'authorization': token },
+      withCredentials: true }
   );
   response.data.forEach((transaction) => {
     let num = transaction.amount;
     transaction.amount = Math.round((num + Number.EPSILON) * 100) / 100;
   });
-  return { status: response.status, payload: response.data };
+  return { status: response.status, headers: response.headers, payload: response.data };
 };
+
+export const apiGetTotalTransactionSize = async (id: number): Promise<bankingApiResponse> => {
+  const response = await bankingClient.get<Transaction[]>(
+    `${baseURL}/${id}/transactions`,
+    { withCredentials: true });
+    return { status: response.status, headers: response.headers, payload: response.data };
+}
 
 export const apiUpsertTransaction = async (
   id: number,
-  transaction: Transaction
+  transaction: Transaction,
+  token: string
 ): Promise<bankingApiResponse> => {
   let num = transaction.amount;
   transaction.amount = Math.round((num + Number.EPSILON) * 100) / 100;
   const response = await bankingClient.post<any>(
     `${baseURL}/${id}/transaction`,
     transaction,
-    { withCredentials: true }
+    { 
+      headers: { 'authorization': token },
+      withCredentials: true }
   );
-  return { status: response.status, payload: response.data };
+  return { status: response.status, headers: response.headers, payload: response.data };
 };
 
 export const apiTransferTransaction = async (
@@ -70,5 +85,5 @@ transfer: Transfer
       let num = transaction.amount;
     transaction.amount = Math.round((num + Number.EPSILON) * 100) / 100;
     });
-    return { status: response.status, payload: response.data };
+    return { status: response.status, headers: response.headers, payload: response.data };
 };

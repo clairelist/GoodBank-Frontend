@@ -14,6 +14,7 @@ import { getUserAccounts, setAccountTransactions, setCurrentAccount, setUserAcco
 
 
 export default function TransferMoney(props: any) {
+
   const currentAccount = useAppSelector(
     (state) => state.account.currentAccount
   );
@@ -44,13 +45,6 @@ export default function TransferMoney(props: any) {
     } 
   };
 
-  //  useEffect(() => {
-    
-  //   })
-  
-
- 
-
   const handleChangeAccount = (event: SelectChangeEvent) => {
     setAccount(event.target.value);
   };
@@ -60,7 +54,6 @@ export default function TransferMoney(props: any) {
     setAmount(event.target.value);
   };
   console.log('Handle change', amount);
-
 
   return (
     <>
