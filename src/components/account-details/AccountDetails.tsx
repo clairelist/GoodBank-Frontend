@@ -4,7 +4,6 @@ import { apiGetTotalTransactionSize, apiGetTransactions } from '../../remote/ban
 import Navbar from '../navbar/Navbar';
 import { useNavigate } from 'react-router-dom';
 import './AccountDetails.css';
-import CreateTransactionForm from './CreateTransactionForm';
 import Button from '@mui/material/Button';
 import StyledTable from './StyledTable';
 import SideBar from './SideBar';
