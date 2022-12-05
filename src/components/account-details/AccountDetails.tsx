@@ -1,5 +1,5 @@
 import Button from '@mui/material/Button';
-import { useEffect, useState } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Transaction } from '../../models/Transaction';
 import {
@@ -12,6 +12,8 @@ import SideBar from './SideBar';
 import StyledTable from './StyledTable';
 
 import { useAppSelector } from '../../app/hooks';
+import { Popover } from '@mui/material';
+import NotificationList from '../navbar/notifications/NotificationList';
 
 export default function AccountDetails() {
   const navigate = useNavigate();
@@ -22,23 +24,49 @@ export default function AccountDetails() {
   );
   const [page, setPage] = useState(1);
   const [transSize, setTransSize] = useState(0);
+  const [mode, setMode] = useState('RECENT');
+const fetchData = async () => {
+  if (user) {
+    let token: string = sessionStorage.getItem('token') || '';
+    const result = await apiGetTransactions(
+      currentAccount?.id,
+      token,
+      page - 1
+    );
+    setTransactions(result.payload.reverse());
+    const transCount = await apiGetTotalTransactionSize(currentAccount?.id);
+    setTransSize(transCount.payload);
+  }
+};
 
   useEffect(() => {
     if (!user) {
       navigate('/');
     }
-    const fetchData = async () => {
-      if (user) {
-        let token: string = sessionStorage.getItem('token') || '';
-        const result = await apiGetTransactions(currentAccount?.id, token, page-1);
-        setTransactions(result.payload.reverse());
-        const transCount = await apiGetTotalTransactionSize(currentAccount?.id);
-        setTransSize(transCount.payload);
-      }
-    };
+    if(mode === 'RECENT'){
     fetchData();
+    } else if(mode === 'INCOME'){
+      console.log('income fetch');
+    } else if (mode === 'EXPENSE'){
+      console.log('expense fetch');
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, navigate, page]);
+  }, [user, navigate, page, mode]);
+
+
+const [anchorEl, setAnchorEl] = useState(null);
+
+const handleClick = (event: any) => {
+  setAnchorEl(event.currentTarget);
+};
+
+const handleClose = () => {
+  setAnchorEl(null);
+};
+
+const open = Boolean(anchorEl);
+const id = open ? 'simple-popover' : undefined;
+
 
   return (
     <>
@@ -60,7 +88,33 @@ export default function AccountDetails() {
         </div>
       </div>
       <div className="txn-wrap">
-        <h1 className="title">Recent Transactions</h1>
+        <div style={{ display: 'flex', width: '100%', alignItems: 'center' }}>
+          <h1 className="title">Recent Transactions</h1>
+          <Button
+            variant="contained"
+            aria-describedby={id}
+            sx={{ marginLeft: 'auto' }}
+            onClick={handleClick}
+          >
+            Sort by: {'currentChoice'}
+          </Button>
+          <Popover
+            open={open}
+            onClose={handleClose}
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'left',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+          >
+            <NotificationList />{/* LEFT OFF HERE, ONLY NEED OPTIONS AND CORRESPONDING FETCHES */}
+          </Popover>
+        </div>
+
         <StyledTable
           transaction={transaction}
           page={page}
