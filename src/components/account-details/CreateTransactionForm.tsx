@@ -1,19 +1,19 @@
 import * as React from 'react';
 import TextField from '@mui/material/TextField';
-import { useAppSelector } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { Box, Button } from '@mui/material';
 import { apiUpsertTransaction } from '../../remote/banking-api/account.api';
-import { Account } from '../../models/Account';
 import { Transaction } from '../../models/Transaction';
 import MenuItem from '@mui/material/MenuItem';
 import './AccountDetails.css';
-import Grid from '@mui/material/Grid';
+import { useEffect } from 'react';
 
 
 export default function CreateTransactionForm() {
   const currentAccount = useAppSelector(
     (state) => state.account.currentAccount
   );
+  // const dispatch = useAppDispatch();
   const [transactions, setTransactions] = React.useState<Transaction[]>([] as Transaction[]);
   const types = [
     {
@@ -47,12 +47,17 @@ export default function CreateTransactionForm() {
       setTransactions([response.payload, ...transactions])
     });
   };
+
     const [type, setType] = React.useState('EXPENSE');
     const handleType = (event: React.ChangeEvent<HTMLInputElement>): void => {
       setType(event.target.value);
     };
-    
-  
+
+    React.useEffect(()=>{
+      if (user){
+        
+      }
+    })
 
   return(
     <>
