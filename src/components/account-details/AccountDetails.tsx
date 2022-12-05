@@ -30,7 +30,7 @@ export default function AccountDetails() {
     const fetchData = async () => {
       if (user) {
         let token: string = sessionStorage.getItem('token') || '';
-        const result = await apiGetTransactions(currentAccount?.id, token);
+        const result = await apiGetTransactions(currentAccount?.id, token, page-1);
         setTransactions(result.payload.reverse());
         const transCount = await apiGetTotalTransactionSize(currentAccount?.id);
         setTransSize(transCount.payload);
