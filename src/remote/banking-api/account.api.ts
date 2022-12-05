@@ -7,13 +7,10 @@ const baseURL = '/account';
 export const apiGetAccounts = async (
   id: number
 ): Promise<bankingApiResponse> => {
-  const response = await bankingClient.get<any>(`${baseURL}/${id}`, {
+  const response = await bankingClient.get<Account[]>(`${baseURL}/${id}`, {
     withCredentials: true,
   });
-  let num = response.data.balance;
-  response.data.balance = Math.round((num + Number.EPSILON) * 100) / 100;
-  console.log(num)
-  return { status: response.status, payload: response.data };
+  return { status: response.status, payload: response.data as Account[] };
 };
 
 export const apiCreateAccount = async (
