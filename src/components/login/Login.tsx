@@ -27,6 +27,10 @@ export default function Login() {
 
     const response = await apiLogin(`${email}`, `${password}`);
     if (response.status >= 200 && response.status < 300) {
+      let token = response.headers['authorization'];
+      if (token) {
+        sessionStorage.setItem('token', token);
+      }
       dispatch(signIn(response.payload));
     }
   };

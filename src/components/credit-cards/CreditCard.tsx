@@ -21,8 +21,9 @@ export default function CreditCards() {
     }, [user, navigate]);
 
     const fetchData = async () => {
+        let token: string = sessionStorage.getItem('token') || "";
         if (user) {
-            const result = await apiGetCreditCards(user.id);
+            const result = await apiGetCreditCards(user.id, token);
             dispatch(setUserCreditCards(result.payload));
         }
     };

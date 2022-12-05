@@ -32,7 +32,8 @@ export default function Accounts() {
 
   const fetchData = async () => {
     if (user) {
-      const result = await apiGetAccounts(user?.id);
+      let token: string = sessionStorage.getItem('token') || '';
+      const result = await apiGetAccounts(user?.id, token);
       setAccounts(result.payload);
     }
   };

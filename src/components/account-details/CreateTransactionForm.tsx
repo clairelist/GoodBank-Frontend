@@ -16,6 +16,7 @@ export default function CreateTransactionForm(props: TransactionProps) {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    let token: string = sessionStorage.getItem('token') || "";
     //const response = await apiUpsertTransaction(data);
     let payload = new Transaction(
       0,
@@ -23,7 +24,7 @@ export default function CreateTransactionForm(props: TransactionProps) {
       data.get('description')?.toString() || '',
       data.get('type')?.toString() || 'Expense'
     );
-    apiUpsertTransaction(props.accountId, payload).then((response) => {
+    apiUpsertTransaction(props.accountId, payload, token).then((response) => {
       props.afterUpsert(response.payload);
     });
   };

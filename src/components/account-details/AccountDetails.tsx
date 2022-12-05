@@ -24,7 +24,8 @@ export default function AccountDetails() {
     }
     const fetchData = async () => {
       if (user) {
-        const result = await apiGetTransactions(currentAccount?.id);
+        let token: string = sessionStorage.getItem('token') || "";
+        const result = await apiGetTransactions(currentAccount?.id, token);
         setTransactions(result.payload.reverse());
       }
     };
