@@ -12,10 +12,14 @@ function ResetPassword(){
 
     const handleChange = (e: SyntheticEvent) => { //[(e.target as HTMLInputElement).name]: (e.target as HTMLInputElement)
       //  .value,
-        setPassword((e.target as HTMLInputElement).value);
+      setSubmission({
+        ...submission,
+        [(e.target as HTMLInputElement).name]: (e.target as HTMLInputElement)
+          .value,
+      });
     }
     const handleSubmit = () => {
-        bankingClient.patch('uerl', submission)
+        bankingClient.patch('http://linktogoodbankapi/user/reset-password', submission)
         .then(res=>{
         console.log("do something here.");
         })
