@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import { Box, Button, InputAdornment } from '@mui/material';
@@ -7,9 +7,7 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import { apiTransferTransaction } from '../../remote/banking-api/account.api';
 import { useAppSelector } from '../../app/hooks';
-import { Account } from '../../models/Account';
 import { Transaction } from '../../models/Transaction';
-// import { SendIcon } from '@mui/icon/material'
 
 export default function TransferMoney() {
   const currentAccount = useAppSelector(
@@ -23,11 +21,8 @@ export default function TransferMoney() {
 
   console.log('user', user);
 
-  //get user account and map
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     const update = new FormData(event.currentTarget);
-    //const response = await apiUpsertTransaction(data);
     let transfer = new Transaction(
       currentAccount.id,
       parseFloat(update.get('amount')?.toString() || '0'),
