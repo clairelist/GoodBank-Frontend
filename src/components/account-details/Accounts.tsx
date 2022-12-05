@@ -3,7 +3,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { setCurrentAccount } from '../../features/account/accountSlice';
@@ -11,6 +11,7 @@ import { Account } from '../../models/Account';
 import { apiGetAccounts } from '../../remote/banking-api/account.api';
 import OpenAccount from '../home/OpenAccountForm';
 import Navbar from '../navbar/Navbar';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Accounts() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -28,11 +29,13 @@ export default function Accounts() {
       setLoggedIn(false);
       navigate('/login');
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, navigate]);
 
   const fetchData = async () => {
     if (user) {
-      const result = await apiGetAccounts(user?.id);
+      let token: string = sessionStorage.getItem('token') || '';
+      const result = await apiGetAccounts(user?.id, token);
       setAccounts(result.payload);
     }
   };
@@ -95,8 +98,8 @@ export default function Accounts() {
             Your Accounts
           </Typography>
           {accounts?.map((account: Account) => (
-            <>
-              <Grid item mt={2} sm={12} md={12}>
+            <React.Fragment key={uuidv4()}>
+              <Grid item mt={2} sm={12} md={12} >
                 <Card
                   sx={{ margin: '0 auto', display: 'flex', maxWidth: '700px' }}
                 >
@@ -125,7 +128,7 @@ export default function Accounts() {
                   </CardContent>
                 </Card>
               </Grid>
-            </>
+            </React.Fragment>
           ))}
 
           {/* <Grid item sm={12} md={12}>

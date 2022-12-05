@@ -8,7 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { v4 as uuidv4 } from 'uuid';
-
+import Pagination from './Pagination';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -35,8 +35,9 @@ const readableDate = (date: any): React.Key => {
 }
 
 export default function CustomizedTables(props: any) {
-  
+
   return (
+    <>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label='customized table'>
         <TableHead>
@@ -49,13 +50,16 @@ export default function CustomizedTables(props: any) {
         <TableBody>
           {props.transaction.map((trans: any) => (
             <StyledTableRow key={uuidv4()}>
-              <StyledTableCell align='center' style={{color: trans.type !== 'Expense' ? 'mediumseagreen' : 'crimson'}}>{readableDate(trans.creationDate)}</StyledTableCell>
-              <StyledTableCell align='center' style={{color: trans.type !== 'Expense' ? 'mediumseagreen' : 'crimson'}}>{trans.description}</StyledTableCell>
-              <StyledTableCell align='center' style={{color: trans.type !== 'Expense' ? 'mediumseagreen' : 'crimson'}}><span>{trans.type==='Expense' ? '-' : null}</span>${trans.amount}</StyledTableCell>
+              <StyledTableCell align='center' style={{color: trans.type !== 'EXPENSE' ? 'mediumseagreen' : 'crimson'}}>{readableDate(trans.creationDate)}</StyledTableCell>
+              <StyledTableCell align='center' style={{color: trans.type !== 'EXPENSE' ? 'mediumseagreen' : 'crimson'}}>{trans.description}</StyledTableCell>
+              <StyledTableCell align='center' style={{color: trans.type !== 'EXPENSE' ? 'mediumseagreen' : 'crimson'}}><span>{trans.type==='Expense' ? '-' : null}</span>${trans.amount}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
+    <Pagination transactionCount={Math.floor(props.transSize / 5) + 1} page={props.page} setPage={props.setPage}/>
+
+    </>
   );
 }
