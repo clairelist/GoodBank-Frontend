@@ -4,25 +4,26 @@ import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
-import React, { useState } from 'react';
-import { useAppSelector } from '../../app/hooks';
+import React, { useEffect, useState } from 'react';
 import { Account } from '../../models/Account';
 import { Transaction } from '../../models/Transaction';
 import { apiTransferTransaction } from '../../remote/banking-api/account.api';
-import { useNavigate } from 'react-router-dom';
 import { Transfer } from '../../models/Transfer';
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { getUserAccounts, setAccountTransactions, setCurrentAccount, setUserAccounts } from '../../features/account/accountSlice';
 
-export default function TransferMoney() {
+
+export default function TransferMoney(props: any) {
   const currentAccount = useAppSelector(
     (state) => state.account.currentAccount
   );
-  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.user);
   const accounts = useAppSelector((state) => state.account.userAccounts);
 
   const [amount, setAmount] = React.useState('');
   const [account, setAccount] = React.useState('');
-
+  
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const update = new FormData(event.currentTarget);
@@ -38,8 +39,17 @@ export default function TransferMoney() {
     const response = await apiTransferTransaction(currentAccount.id, transfer);
     console.log('response', response);
     console.log('transfer', transfer);
-    if (response.status >= 200 && response.status < 300) navigate('/details');
+    if (response.status >= 200 && response.status < 300){
+        dispatch(setAccountTransactions(response.payload));
+    } 
   };
+
+  //  useEffect(() => {
+    
+  //   })
+  
+
+ 
 
   const handleChangeAccount = (event: SelectChangeEvent) => {
     setAccount(event.target.value);
@@ -50,6 +60,8 @@ export default function TransferMoney() {
     setAmount(event.target.value);
   };
   console.log('Handle change', amount);
+
+
   return (
     <>
       <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
@@ -102,6 +114,7 @@ export default function TransferMoney() {
           <InputLabel htmlFor="amount">Amount</InputLabel>
         </FormControl>
         <Button type="submit">Submit</Button>
+        <Button autoFocus onClick={props.onClose}>Close</Button>
       </Box>
     </>
   );

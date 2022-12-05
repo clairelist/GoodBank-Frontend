@@ -13,11 +13,14 @@ import StyledTable from './StyledTable';
 import SideBar from './SideBar';
 
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { setAccountTransactions } from '../../features/account/accountSlice';
 
 export default function AccountDetails() {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.user);
-  const [transaction, setTransactions] = useState<Transaction[]>([]);
+  // const [transaction, setTransactions] = useState<Transaction[]>([]);
+  const transactions = useAppSelector((state) => state.account.accountTransactions);
   const currentAccount = useAppSelector((state) => state.account.currentAccount);
   let txnForm = <></>;
 
@@ -30,7 +33,7 @@ export default function AccountDetails() {
         // const resultAcct = await apiGetAccounts(user.id);
         // setAccount(resultAcct.payload);
         const result = await apiGetTransactions(currentAccount?.id);
-        setTransactions(result.payload.reverse());
+        dispatch(setAccountTransactions(result.payload.reverse()));
       }
     };
     fetchData();
@@ -45,14 +48,14 @@ export default function AccountDetails() {
   //   })();
   // }, [transaction, user]);
 
-  if (currentAccount) {
-    txnForm = (
-      <CreateTransactionForm
-        accountId={currentAccount?.id}
-        afterUpsert={(result) => setTransactions([result, ...transaction])}
-      />
-    );
-  }
+  // if (currentAccount) {
+  //   txnForm = (
+  //     <CreateTransactionForm
+  //       accountId={currentAccount?.id}
+  //       afterUpsert={(result) => setTransactions([result, ...transaction])}
+  //     />
+  //   );
+  // }
 
   return (
     <>
@@ -76,7 +79,7 @@ export default function AccountDetails() {
       </div>
       <div className='txn-wrap'>
         <h1 className='title'>Recent Transactions</h1>
-        <StyledTable transaction={transaction}/>
+        <StyledTable transaction={transactions}/>
       </div>
     </>
   );

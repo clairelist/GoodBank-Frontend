@@ -17,7 +17,7 @@ const style = {
   p: 4,
 };
 
-export default function CreateTransaction(props: any) {
+export default function TransferMoney(props: any) {
 
   return (
     <>
@@ -32,7 +32,7 @@ export default function CreateTransaction(props: any) {
             Money Transfer
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 8 }}>
-            <Transfer />
+            <Transfer  />
           </Typography>
         </Box>
       </Modal>

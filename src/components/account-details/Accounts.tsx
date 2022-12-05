@@ -39,6 +39,7 @@ export default function Accounts() {
         if (user) {
         const result = await apiGetAccounts(user.id);
         dispatch(setUserAccounts(result.payload));
+        console.log('Account results', result);
         }
     };
 

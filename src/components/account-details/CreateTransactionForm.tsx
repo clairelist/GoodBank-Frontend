@@ -20,9 +20,8 @@ export default function CreateTransactionForm(props: transactionProps) {
     let payload = new Transaction(
       0,
       parseFloat(data.get('amount')?.toString() || '0'),
-      undefined,
       data.get('description')?.toString() || '',
-      data.get('type')?.toString() || 'Expense', undefined
+      data.get('type')?.toString() || 'Expense'
 
     );
     apiUpsertTransaction(props.accountId, payload).then((response) => {
