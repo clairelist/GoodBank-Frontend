@@ -10,6 +10,7 @@ export const apiSaveNotification = async (
 
   return {
     status: response.status,
+    headers: response.headers,
     payload: response.data
   }
 }
@@ -22,6 +23,7 @@ export const apiGetUserNotifications = async (
   );
   return {
     status: response.status,
+    headers: response.headers, 
     payload: response.data,
   };
 };
@@ -35,6 +37,7 @@ export const apiDismissUserNotification = async (
   );
   return {
     status: response.status,
+    headers: response.headers, 
     payload: response.data,
   };
 };
@@ -48,6 +51,7 @@ export const apiSetNotificationsAsSeen = async (
   );
   return {
     status: response.status,
+    headers: response.headers, 
     payload: response.data,
   };
 };

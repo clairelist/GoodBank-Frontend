@@ -13,11 +13,12 @@ const Loans = () => {
     useEffect(()=>{
         const getLoans = async () => {
             if (user) {
-          const response = await apiGetLoans(
-            user.id
-          );
-            setLoans(response.payload);
-          }
+              let token: string = sessionStorage.getItem('token') || "";
+              const response = await apiGetLoans(
+                user.id, token
+              );
+                setLoans(response.payload);
+            }
         }
         getLoans();
     }, [user])

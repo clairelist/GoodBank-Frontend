@@ -19,11 +19,13 @@ export default function CreditCards() {
         } else {
             navigate('/login');
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user, navigate]);
 
     const fetchData = async () => {
+        let token: string = sessionStorage.getItem('token') || "";
         if (user) {
-            const result = await apiGetCreditCards(user.id);
+            const result = await apiGetCreditCards(user.id, token);
             dispatch(setUserCreditCards(result.payload));
         }
     };
