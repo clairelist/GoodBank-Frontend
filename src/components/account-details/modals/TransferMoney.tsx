@@ -1,8 +1,9 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import CreateTransactionForm from '../CreateTransactionForm';
+import Transfer from '../../transfer-money/TransferMoney';
 
 const style = {
   position: 'absolute',
@@ -26,13 +27,12 @@ export default function CreateTransaction(props: any) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box
-        sx={style}>
+        <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Create Transaction
+            Money Transfer
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-          <CreateTransactionForm />
+          <Typography id="modal-modal-description" sx={{ mt: 8 }}>
+            <Transfer />
           </Typography>
         </Box>
       </Modal>

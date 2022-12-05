@@ -36,7 +36,8 @@ export default function CreateTransactionForm() {
       currentAccount.id,
       Number(data.get('amount')) || 0,
       data.get('description')?.toString() || '',
-      data.get('type')?.toString() || 'INCOME' ||'EXPENSE'
+      data.get('type')?.toString() || 'INCOME' ||'EXPENSE',
+      Number(data.get('toAccount') || undefined)
     );
 
     const response = await apiUpsertTransaction(

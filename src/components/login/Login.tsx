@@ -10,10 +10,9 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { apiLogin } from '../../remote/banking-api/auth.api';
-
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { signIn } from '../../features/user/userSlice';
+import { apiLogin } from '../../remote/banking-api/auth.api';
 
 export default function Login() {
   const dispatch = useAppDispatch();
