@@ -6,11 +6,15 @@ import Paper from '@mui/material/Paper';
 import Navbar from '../navbar/Navbar';
 import Avatar from '@mui/material/Avatar';
 import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
+import { apiUpdate } from '../../remote/banking-api/update.api';
 
 const theme = createTheme();
+
+//functions for taking the first + last and making it into an avatar with a color based on hash value
 
 function stringToColor(string: string) {
   let hash = 0;
@@ -64,6 +68,21 @@ export default function Profile() {
     const navigate = useNavigate();
     const user = useAppSelector((state) => state.user.user);
 
+      const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        const response = await apiUpdate(
+          `${data.get('email')}`,
+          `${data.get('firstName')}`,
+          `${data.get('lastName')}`,
+          `${data.get('address')}`,
+          `${data.get('city')}`,
+          `${data.get('state')}`,
+          Number(`${data.get(('zip'))}`)
+        );
+        if (response.status >= 200 && response.status < 300) navigate('/');
+      };
+
     const [values, setValues] = React.useState<State>({
         firstName: user!.firstName,
         lastName: user!.lastName,
@@ -85,7 +104,7 @@ return (
                     </Item>
         </Grid>
         <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }} justifyContent="center" marginTop={1}>
-            <Grid justifyContent="center">
+            <Box component="form" onSubmit={handleSubmit} justifyContent="center">
                 <Item>
                     {!user ? '' : 'Hello ' + user!.firstName + ', welcome to your profile page.'}
                 </Item>
@@ -155,7 +174,7 @@ return (
                     Cancel
                     </Button>
                 </Item>
-            </Grid>
+            </Box>
         </Grid>
     </ThemeProvider>
 </>
