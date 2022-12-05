@@ -1,4 +1,4 @@
-import axios from 'axios';
+import bankingClient from '../../remote/banking-api/bankingClient';
 import { SyntheticEvent, useState, } from 'react';
 
 function ResetPassword(props:any){
@@ -15,7 +15,7 @@ function ResetPassword(props:any){
         setPassword((e.target as HTMLInputElement).value);
     }
     const handleSubmit = () => {
-        axios.patch('uerl', submission)
+        bankingClient.patch('uerl', submission)
         .then(res=>{
         console.log("do something here.");
         })

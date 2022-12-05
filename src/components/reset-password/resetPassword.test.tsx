@@ -3,7 +3,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import ResetPassword from './ResetPassword';
 import Login from '../login/Login';
-import calls from '../../remote/banking-api/bankingClient';
+import bankingClient from '../../remote/banking-api/bankingClient';
 
 jest.mock('../../remote/banking-api/bankingClient');
 
@@ -31,6 +31,6 @@ describe('Reset password flow', ()=>{
     it('clicking submit should call axios', ()=>{
         render(<ResetPassword />);
         fireEvent.click(screen.getByText('Submit'));
-        expect(calls).toBeCalledTimes(1);
+        expect(bankingClient).toBeCalledTimes(1);
     });
 });
