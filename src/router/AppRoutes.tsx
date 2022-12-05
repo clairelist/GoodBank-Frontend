@@ -10,6 +10,7 @@ import CreditCardDetails from '../components/credit-cards/CreditCardDetails';
 import Profile from '../components/profile/Profile';
 
 
+
 export const AppRoutes: React.FC<unknown> = () => (
   
   <Routes>

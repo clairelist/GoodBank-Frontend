@@ -1,10 +1,11 @@
 import { Button, Card, CardContent, Grid, Typography } from "@mui/material";
-import { useEffect } from "react";
+import React,{ useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import { setCurrentCreditCard, setUserCreditCards } from "../../features/credit/creditCardSlice";
 import { CreditCard } from "../../models/CreditCard";
 import { apiGetCreditCards } from "../../remote/banking-api/creditcard.api";
+import { v4 as uuidv4 } from 'uuid';
 
 export default function CreditCards() {
     const user = useAppSelector((state) => state.user.user);
@@ -79,9 +80,9 @@ export default function CreditCards() {
                     Your Credit Cards
                     </Typography>
                     {creditCards?.map((creditCard: CreditCard) => (
-                    <>
+                    <React.Fragment key={uuidv4()}>
                         <Grid item mt={2} sm={12} md={12}>
-                        <Card sx={{ margin: '0 auto', display: 'flex', maxWidth: '700px' }}>
+                        <Card sx={{ margin: '0 auto', display: 'flex', maxWidth: '700px' }} key={uuidv4()}>
                             <CardContent>
                             <Typography variant="h3" color="text.secondary">
                                 {creditCard.cardNumber}
@@ -107,7 +108,7 @@ export default function CreditCards() {
                             </CardContent>
                         </Card>
                         </Grid>
-                    </>
+                    </React.Fragment>
                     ))}
         
                     {/* <Grid item sm={12} md={12}>
