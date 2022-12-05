@@ -15,20 +15,18 @@ const AdminLoan = () => {
   useEffect(() => {
     const getLoans = async () => {
       if (user) {
-        const response = await apiGetPendingLoans(user.userType);
-        console.log(response.payload);
-
+        let token: string = sessionStorage.getItem('token') || '';
+        const response = await apiGetPendingLoans(user.type, token);
         setLoans(response.payload);
       }
     };
     getLoans();
   }, [user]);
-  console.log(loans);
 
   const handleStatus = async (currentLoan: LoanDetails, status: string) => {
+    let token: string = sessionStorage.getItem('token') || '';
     currentLoan.status = status;
-    const response = await apiChangeStatus(currentLoan);
-    console.log(response.payload);
+    const response = await apiChangeStatus(currentLoan, token);
     setLoans(
       loans.filter((x: LoanDetails) => x.loanID !== response.payload.loanID)
     );
