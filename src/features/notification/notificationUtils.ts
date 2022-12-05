@@ -9,30 +9,30 @@ export const createWarningNotification = async (
   forUserId: number,
   message: string
 ) => {
-  const newNotification: NotificationCreationRequest = {
+  const request: NotificationCreationRequest = {
     userId: forUserId,
     type: NotificationType.WARNING,
     referencesId: undefined,
     body: message,
   };
 
-  const result = await apiSaveNotification(newNotification);
+  const result = await apiSaveNotification(request);
   return result;
 };
 
-export const createActivitytNotification = async (
+export const createActivityNotification = async (
   forUserId: number,
   accountId: number,
   message: string
 ) => {
-  const newNotification: NotificationCreationRequest = {
+  const request: NotificationCreationRequest = {
     userId: forUserId,
     type: NotificationType.ACTIVITY,
     referencesId: accountId,
     body: message,
   };
 
-  const result = await apiSaveNotification(newNotification);
+  const result = await apiSaveNotification(request);
   return result;
 };
 
