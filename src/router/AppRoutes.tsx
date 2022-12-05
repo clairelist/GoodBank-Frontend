@@ -9,6 +9,7 @@ import Loan from '../components/loans/loan';
 import CreditCardDetails from '../components/credit-cards/CreditCardDetails';
 
 
+
 export const AppRoutes: React.FC<unknown> = () => (
   
   <Routes>

@@ -2,7 +2,10 @@ import Button from '@mui/material/Button';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Transaction } from '../../models/Transaction';
-import { apiGetTransactions } from '../../remote/banking-api/account.api';
+import {
+  apiGetTotalTransactionSize,
+  apiGetTransactions,
+} from '../../remote/banking-api/account.api';
 import Navbar from '../navbar/Navbar';
 import './AccountDetails.css';
 import SideBar from './SideBar';
@@ -17,6 +20,8 @@ export default function AccountDetails() {
   const currentAccount = useAppSelector(
     (state) => state.account.currentAccount
   );
+  const [page, setPage] = useState(1);
+  const [transSize, setTransSize] = useState(0);
 
   useEffect(() => {
     if (!user) {
@@ -24,14 +29,16 @@ export default function AccountDetails() {
     }
     const fetchData = async () => {
       if (user) {
-        let token: string = sessionStorage.getItem('token') || "";
+        let token: string = sessionStorage.getItem('token') || '';
         const result = await apiGetTransactions(currentAccount?.id, token);
         setTransactions(result.payload.reverse());
+        const transCount = await apiGetTotalTransactionSize(currentAccount?.id);
+        setTransSize(transCount.payload);
       }
     };
     fetchData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, navigate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, navigate, page]);
 
   return (
     <>
@@ -54,7 +61,12 @@ export default function AccountDetails() {
       </div>
       <div className="txn-wrap">
         <h1 className="title">Recent Transactions</h1>
-        <StyledTable transaction={transaction} />
+        <StyledTable
+          transaction={transaction}
+          page={page}
+          setPage={setPage}
+          transSize={transSize}
+        />
       </div>
     </>
   );
