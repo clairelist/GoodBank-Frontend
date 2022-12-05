@@ -30,6 +30,7 @@ export default function AccountDetails() {
       }
     };
     fetchData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, navigate]);
 
   return (
