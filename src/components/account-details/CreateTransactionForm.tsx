@@ -1,74 +1,81 @@
 import * as React from 'react';
 import TextField from '@mui/material/TextField';
+import { useAppSelector } from '../../app/hooks';
 import { Box, Button } from '@mui/material';
 import { apiUpsertTransaction } from '../../remote/banking-api/account.api';
+import { Account } from '../../models/Account';
 import { Transaction } from '../../models/Transaction';
 import MenuItem from '@mui/material/MenuItem';
 import './AccountDetails.css';
 import Grid from '@mui/material/Grid';
 
-interface transactionProps {
-  accountId: number;
-  afterUpsert: (result: Transaction) => void;
-}
 
-export default function CreateTransactionForm(props: transactionProps) {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    //const response = await apiUpsertTransaction(data);
-    let payload = new Transaction(
-      0,
-      parseFloat(data.get('amount')?.toString() || '0'),
-      data.get('description')?.toString() || '',
-      data.get('type')?.toString() || 'Expense'
-    );
-    apiUpsertTransaction(props.accountId, payload).then((response) => {
-      props.afterUpsert(response.payload);
-    });
-  };
-
-  const [type, setType] = React.useState('Expense');
-
-  const handleTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setType(event.target.value);
-  };
-
+export default function CreateTransactionForm() {
+  const currentAccount = useAppSelector(
+    (state) => state.account.currentAccount
+  );
+  const [transactions, setTransactions] = React.useState<Transaction[]>([] as Transaction[]);
   const types = [
     {
-      value: 'Expense',
+      value: 'EXPENSE',
       label: '-',
     },
     {
-      value: 'Income',
-      label: '+',
-    },
+      value: 'INCOME',
+      'label': '+'
+    }
   ];
+  const user = useAppSelector((state) => state.user.user);
+  const accounts = useAppSelector((state) => state.account.currentAccount);
+  console.log('account', currentAccount);
+  console.log('userAccounts', accounts);
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    let transaction = new Transaction(
+      currentAccount.id,
+      Number(data.get('amount')) || 0,
+      data.get('description')?.toString() || '',
+      data.get('type')?.toString() || 'INCOME' ||'EXPENSE'
+    );
 
-  return (
-    <React.Fragment>
-      <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-        <Grid container direction={'column'} spacing={3}>
-          <Grid item>
-            <TextField
+    const response = await apiUpsertTransaction(
+      currentAccount.id,
+      transaction
+    ).then((response) => {
+      setTransactions([response.payload, ...transactions])
+    });
+  };
+    const [type, setType] = React.useState('EXPENSE');
+    const handleType = (event: React.ChangeEvent<HTMLInputElement>): void => {
+      setType(event.target.value);
+    };
+    
+  
+
+  return(
+    <>
+    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1}}>
+    <TextField
               required
-              id="filled-multiline-static"
+              id="outlined-textarea"
               name="description"
               label="Transaction Description"
+              placeholder="Transaction Description"
               fullWidth
               size="small"
             />
-          </Grid>
-          <Grid item>
-            <TextField
+
+             <TextField
               required
               id="type"
               name="type"
               label="Expense(-) or Income(+)?"
               fullWidth
               select
+              helperText="Select Transaction Type"
               value={type}
-              onChange={handleTypeChange}
+              onChange={handleType}
               size="small"
             >
               {types.map((option) => (
@@ -77,8 +84,6 @@ export default function CreateTransactionForm(props: transactionProps) {
                 </MenuItem>
               ))}
             </TextField>
-          </Grid>
-          <Grid item>
             <TextField
               required
               id="amount"
@@ -89,19 +94,8 @@ export default function CreateTransactionForm(props: transactionProps) {
               type="number"
               placeholder="$0.00"
             />
-          </Grid>
-          <Grid item>
-            <Button
-              type="submit"
-              variant="contained"
-              sx={{ mt: 1 }}
-              color="warning"
-            >
-              Add Transaction
-            </Button>
-          </Grid>
-        </Grid>
-      </Box>
-    </React.Fragment>
+      <Button type="submit">Add Transaction</Button>
+    </Box>
+    </>
   );
 }

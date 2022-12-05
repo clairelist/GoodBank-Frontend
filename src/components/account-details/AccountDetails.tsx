@@ -47,14 +47,14 @@ export default function AccountDetails() {
   //   })();
   // }, [transaction, user]);
 
-  if (currentAccount) {
-    txnForm = (
-      <CreateTransactionForm
-        accountId={currentAccount?.id}
-        afterUpsert={(result) => setTransactions([result, ...transaction])}
-      />
-    );
-  }
+  // if (currentAccount) {
+  //   txnForm = (
+  //     <CreateTransactionForm
+  //       accountId={currentAccount?.id}
+  //       afterUpsert={(result) => setTransactions([result, ...transaction])}
+  //     />
+  //   );
+  // }
 
   return (
     <>
