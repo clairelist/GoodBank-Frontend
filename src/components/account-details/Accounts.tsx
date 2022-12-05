@@ -3,7 +3,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { setCurrentAccount } from '../../features/account/accountSlice';
@@ -12,7 +12,6 @@ import { apiGetAccounts } from '../../remote/banking-api/account.api';
 import OpenAccount from '../home/OpenAccountForm';
 import Navbar from '../navbar/Navbar';
 import { v4 as uuidv4 } from 'uuid';
-import React from 'react';
 
 export default function Accounts() {
   const [loggedIn, setLoggedIn] = useState(false);
