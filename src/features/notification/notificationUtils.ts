@@ -8,7 +8,7 @@ import { apiSaveNotification } from '../../remote/banking-api/notification.api';
 export const createNotification = async (
   forUserId: number,
   type: NotificationType,
-  referenceId: number,
+  referenceId: number | undefined,
   message: string
 ) => {
   const request: NotificationCreationRequest = {
@@ -30,22 +30,6 @@ export const createWarningNotification = async (
     userId: forUserId,
     type: NotificationType.WARNING,
     referencesId: undefined,
-    body: message,
-  };
-
-  const result = await apiSaveNotification(request);
-  return result;
-};
-
-export const createActivityNotification = async (
-  forUserId: number,
-  accountId: number,
-  message: string
-) => {
-  const request: NotificationCreationRequest = {
-    userId: forUserId,
-    type: NotificationType.ACTIVITY,
-    referencesId: accountId,
     body: message,
   };
 

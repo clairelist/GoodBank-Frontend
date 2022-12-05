@@ -2,6 +2,8 @@ export enum NotificationType {
     WARNING  = "WARNING",
     ACTIVITY = "ACTIVITY",
     REQUEST  = "REQUEST",
+    TRANSFER  = "TRANSFER",
+    LOAN  = "LOAN",
 }
 
 export interface Notification {
