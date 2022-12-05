@@ -29,11 +29,13 @@ export default function Accounts() {
       setLoggedIn(false);
       navigate('/login');
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, navigate]);
 
   const fetchData = async () => {
     if (user) {
-      const result = await apiGetAccounts(user?.id);
+      let token: string = sessionStorage.getItem('token') || '';
+      const result = await apiGetAccounts(user?.id, token);
       setAccounts(result.payload);
     }
   };

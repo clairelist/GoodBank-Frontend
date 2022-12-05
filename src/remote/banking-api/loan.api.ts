@@ -16,45 +16,48 @@ export const apiCreateLoan = async (
       withCredentials: true,
     }
   );
-  return { status: response.status, payload: response.data as LoanDetails };
+  return { status: response.status, headers: response.headers, payload: response.data as LoanDetails };
 };
 
 export const apiGetLoans = async (
   userId: number,
+  token: string
 ): Promise<bankingApiResponse> => {
   const response = await bankingClient.get<LoanDetails[]>(
     `${baseURL}/${userId}`,
     {
-      headers: { 'Current-User': userId },
+      headers: { 'authorization': token },
       withCredentials: true,
     }
   );
-  return { status: response.status, payload: response.data as LoanDetails[] };
+  return { status: response.status, headers: response.headers, payload: response.data as LoanDetails[] };
 };
 
 export const apiGetPendingLoans = async (
-  userType: string
+  userType: string,
+  token: string
 ): Promise<bankingApiResponse> => {
   const response = await bankingClient.get<LoanDetails[]>(
     `${baseURL}/pending-loans`,
     {
-      headers: { 'Current-User': userType },
+      headers: { 'authorization': token },
       withCredentials: true,
     }
   );
-  return { status: response.status, payload: response.data as LoanDetails[] };
+  return { status: response.status, headers: response.headers, payload: response.data as LoanDetails[] };
 };
 
 export const apiChangeStatus = async ( 
-  currentLoan: LoanDetails
+  currentLoan: LoanDetails,
+  token: string
 ): Promise<bankingApiResponse> => {
   const response = await bankingClient.put<LoanDetails>(
     `${baseURL}/pending-loans`,
     {...currentLoan},
     {
-      headers: { 'Current-User': "ADMIN" },
+      headers: { 'authorization': token }, //check if this is an ADMIN type
       withCredentials: true,
     }
   );
-  return { status: response.status, payload: response.data as LoanDetails };
+  return { status: response.status, headers: response.headers, payload: response.data as LoanDetails };
 };
