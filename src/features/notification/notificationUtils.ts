@@ -5,6 +5,23 @@ import {
 } from '../../models/Notification';
 import { apiSaveNotification } from '../../remote/banking-api/notification.api';
 
+export const createNotification = async (
+  forUserId: number,
+  type: NotificationType,
+  referenceId: number,
+  message: string
+) => {
+  const request: NotificationCreationRequest = {
+    userId: forUserId,
+    type: type,
+    referencesId: referenceId,
+    body: message,
+  };
+
+  const result = await apiSaveNotification(request);
+  return result;
+};
+
 export const createWarningNotification = async (
   forUserId: number,
   message: string
