@@ -80,7 +80,7 @@ export default function Profile() {
           `${data.get('state')}`,
           Number(`${data.get(('zip'))}`)
         );
-        if (response.status >= 200 && response.status < 300) navigate('/');
+        if (response.status >= 200 && response.status < 300) navigate('/ ');
       };
 
     const [values, setValues] = React.useState<State>({

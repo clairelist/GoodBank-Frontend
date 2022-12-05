@@ -11,8 +11,8 @@ export const apiUpdate = async (
     state: string,
     zip: number
 ): Promise<bankingApiResponse> => {
-    const response = await bankingClient.put<any>(`${baseURL}/update`, {
+    const response = await bankingClient.patch<any>(`${baseURL}/update`, {
     withCredentials: true,
     });
-    return { status: response.status, payload: response.data };
+    return { status: response.status, headers: response.headers, payload: response.data };
 };
