@@ -4,7 +4,7 @@ const baseURL = '/auth';
 
 export const apiLogin = async (
   email: string,
-  password: string
+  password: string,
 ): Promise<bankingApiResponse> => {
   const response = await bankingClient.post<any>(`${baseURL}/login`, {
     email: email,
