@@ -1,4 +1,3 @@
-import { request } from 'http';
 import bankingClient, { bankingApiResponse } from './bankingClient';
 
 const baseURL = '/auth';
