@@ -20,7 +20,7 @@ const initialState: CreditCardTransactionState = {
 };
 
 export const creditCardTransactionSlice = createSlice({
-    name: `creditCardTransaction`,
+    name: 'creditCardTransaction',
     initialState,
     reducers: {
         // set payload to curent state

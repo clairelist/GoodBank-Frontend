@@ -8,7 +8,8 @@ import Grid from '@mui/material/Grid';
 import { CreditCardTransaction } from '../../models/CreditCardTransaction';
 import creditCardSlice from '../../features/credit/creditCardSlice';
 import { apiMakeCreditCardPayment } from '../../remote/banking-api/creditcard.api';
-
+import accountslice from '../../features/account/accountSlice';
+import creditCardTransactionSlice from '../../features/credit/creditCardTransactionSlice';
 
 export default function CreatePaymentForm() {
     const user = useAppSelector((state) => state.user.user);
@@ -18,7 +19,7 @@ export default function CreatePaymentForm() {
     const [ccTransactions, setCCTransactions] = useState([]);
     console.log("HELP ME", accounts);
     console.log("DIE LUKAS", currentCCAccount);
-    const [account, setAccount] = React.useState("");
+    const [account, setAccount] = React.useState("Select an Account");
     const handleChangeAccount = (event: SelectChangeEvent) => {
       setAccount(event.target.value);
     };
@@ -26,17 +27,20 @@ export default function CreatePaymentForm() {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
+        let token: string = sessionStorage.getItem('token') || '';
+        console.log(data);
         const response = await apiMakeCreditCardPayment(
          new CreditCardTransaction(
             0,
-            Number(data.get('amount')) || 0,
+            Number(data.get("payment")) || 0,
             "",
             "",
             currentCCAccount.id,
-            Number(data.get('account')) || 0
+            Number(data.get("account")) || 0
             //this will be an accountid selected from the drop down menu
         ),
-        Number(user?.id)
+        Number(user?.id),
+        token
         );
         setCCTransactions(response.payload);
     }
