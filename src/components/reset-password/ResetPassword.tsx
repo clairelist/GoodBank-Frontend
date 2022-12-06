@@ -19,7 +19,7 @@ function ResetPassword(){
     }
 
     const validate=(value: string, value2: string)=>{
-        //TODO: ADD MIN LENGTH REQS HERE AND IN REGISTRATION
+        // ADD MIN LENGTH REQS HERE AND IN REGISTRATION
         if(value !== value2){
             setError(true);
             return true;
