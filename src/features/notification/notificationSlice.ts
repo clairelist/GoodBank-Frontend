@@ -14,7 +14,6 @@ const initialState: NotificationsState = {
   status: 'idle',
 };
 
-
 export const notificationSlice = createSlice({
   name: 'notifications',
   initialState,

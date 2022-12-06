@@ -14,7 +14,6 @@ export default function NotificationToggle() {
 
   const user = useAppSelector(state => state.user.user);
   const notifications = useAppSelector(state => state.notifications.list);
-  const ticker = useAppSelector(state => state.notifications.ticker);
   const dispatch = useAppDispatch();
   
   const fetchNotifs = async () => {
