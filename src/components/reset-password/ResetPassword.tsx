@@ -4,11 +4,22 @@ import TextField from '@mui/material/TextField';
 
 import bankingClient from '../../remote/banking-api/bankingClient';
 import { SyntheticEvent, useState, } from 'react';
+import {useNavigate} from 'react-router-dom';
 
 function ResetPassword(){
     const [submission, setSubmission] = useState<any>({email: '', password: ''});
     const [newPassword, setNewPassword] = useState(''); //used for password CONFIRMATION
     const [error, setError] = useState(false);
+    const [confirmation, setConfirmation] = useState(false);
+    const navigate: any = useNavigate(); //Dear typescript, stop it. Get some help.
+
+    const navAfterTime = () => { 
+        //@DOCS: used for the timeout, below, so our confirm message is displayed.
+        navigate('/login');
+        console.log('timeout called?');
+    }
+
+    
 
     const validate=(value: string, value2: string)=>{
         //TODO: ADD MIN LENGTH REQS HERE AND IN REGISTRATION
@@ -33,12 +44,12 @@ function ResetPassword(){
     }
     const handleSubmit = () => {
         if(validate(submission.password, newPassword) === true){
-            console.log('your passwords MUST match!');
             return null;
         } else {
+            setConfirmation(true);
             bankingClient.patch('/user/reset-password', submission)
             .then(res=>{
-            
+                setTimeout(navAfterTime, 1500);
             })
             .catch(err=>{
                 setError(true);
@@ -96,13 +107,15 @@ function ResetPassword(){
           />
           </Box>
           {error ? <p>"Passwords MUST match!"</p> : <></>}
-            <Button
-            type="submit"
-            color="secondary"
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-            onClick={handleSubmit}
-            >Submit</Button>
+          {confirmation ? <p>Your password has been RESET.</p> : 
+              <Button
+              type="submit"
+              color="secondary"
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              onClick={handleSubmit}
+              >Submit</Button>
+          }
             </Box>
     </div>
     )
