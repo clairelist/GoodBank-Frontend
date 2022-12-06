@@ -29,6 +29,9 @@ export default function Login() {
     if (response.status >= 200 && response.status < 300) {
       dispatch(signIn(response.payload));
     }
+    else {
+      console.log('Invalid Credentials');
+    }
   };
 
   React.useEffect(() => {
