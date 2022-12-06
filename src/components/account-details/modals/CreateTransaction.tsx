@@ -21,7 +21,6 @@ export default function CreateTransaction(props: any) {
     <>
       <Modal
         open={props.open}
-        onClose={props.handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -31,7 +30,7 @@ export default function CreateTransaction(props: any) {
             Create Transaction
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-          <CreateTransactionForm />
+          <CreateTransaction onClose={props.handleClose} />
           </Typography>
         </Box>
       </Modal>

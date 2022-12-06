@@ -1,10 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { Account } from '../../models/Account';
+import { Transaction } from '../../models/Transaction';
 
 export interface AccountState {
     currentAccount: Account;
     userAccounts: Account[];
+    accountTransactions: Transaction[];
     /*id: number;
     name: string;
     balance: number;
@@ -22,7 +24,8 @@ const initialState: AccountState = {
         accountType: "",
         creationDate: ""
     },
-    userAccounts: []
+    userAccounts: [],
+    accountTransactions: []
     
 };
 
@@ -35,12 +38,16 @@ export const accountSlice = createSlice({
         },
         setUserAccounts: (state, action: PayloadAction<Account[]>) => {
             state.userAccounts = [...action.payload];
+        },
+        setAccountTransactions: (state, action: PayloadAction<Transaction[]>) => {
+            state.accountTransactions = [...action.payload];
         }
     }
 })
 
-export const { setCurrentAccount, setUserAccounts } = accountSlice.actions;
+export const { setCurrentAccount, setUserAccounts, setAccountTransactions } = accountSlice.actions;
 export const selectCurrentAccount = (state: RootState) => state.account.currentAccount;
 export const getUserAccounts = (state: RootState) => state.account.userAccounts;
+export const getAccountTransactions = (state: RootState) => state.account.accountTransactions;
 
 export default accountSlice.reducer;

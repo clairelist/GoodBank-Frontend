@@ -1,20 +1,23 @@
+import * as React from 'react';
 import { Box, Button } from '@mui/material';
-import Grid from '@mui/material/Grid';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { Box, Button } from '@mui/material';
+import { Transaction } from '../../models/Transaction';
 import { apiUpsertTransaction } from '../../remote/banking-api/account.api';
 import './AccountDetails.css';
-import { useEffect } from 'react';
+import { setAccountTransactions } from '../../features/account/accountSlice';
 
 
-export default function CreateTransactionForm() {
+export default function CreateTransactionForm(props: any) {
   const currentAccount = useAppSelector(
     (state) => state.account.currentAccount
   );
-  // const dispatch = useAppDispatch();
-  const [transactions, setTransactions] = React.useState<Transaction[]>([] as Transaction[]);
+  const transactions = useAppSelector(
+    (state) => state.account.accountTransactions
+  );
+  const dispatch = useAppDispatch();
+  //const [transactions, setTransactions] = React.useState<Transaction[]>([] as Transaction[]);
   const types = [
     {
       value: 'EXPENSE',
@@ -32,33 +35,25 @@ export default function CreateTransactionForm() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    let token: string = sessionStorage.getItem('token') || '';
     let transaction = new Transaction(
       currentAccount.id,
       Number(data.get('amount')) || 0,
       data.get('description')?.toString() || '',
       data.get('type')?.toString() || 'INCOME' ||'EXPENSE',
-      Number(data.get('toAccount') || undefined)
+      Number(data.get ('toAccount') || undefined)
     );
-
     const response = await apiUpsertTransaction(
       currentAccount.id,
-      transaction
-    ).then((response) => {
-      setTransactions([response.payload, ...transactions])
-    });
-  };
-
+      transaction,
+      token
+    ); 
+    dispatch(setAccountTransactions(response.payload));
+};
     const [type, setType] = React.useState('EXPENSE');
     const handleType = (event: React.ChangeEvent<HTMLInputElement>): void => {
       setType(event.target.value);
     };
-
-    React.useEffect(()=>{
-      if (user){
-        
-      }
-    })
-
   return(
     <>
     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1}}>
@@ -101,6 +96,7 @@ export default function CreateTransactionForm() {
               placeholder="$0.00"
             />
       <Button type="submit">Add Transaction</Button>
+      <Button autoFocus type="button" onClick={props.onClose}>Close</Button>
     </Box>
     </>
   );
