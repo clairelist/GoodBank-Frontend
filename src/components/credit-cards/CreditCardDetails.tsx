@@ -19,7 +19,6 @@ export default function CreditCardDetails() {
 
       return (
         <>
-            <Navbar />
             <div className={'top-container'}>
             <SideBar />
             <div className="account-wrap">
