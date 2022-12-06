@@ -27,6 +27,7 @@ export default function Navbar() {
     if (user) {
       apiLogout();
       dispatch(logout());
+      navigate('/login');
     } else {
       navigate('/login');
     }

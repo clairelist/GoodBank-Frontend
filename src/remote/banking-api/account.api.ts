@@ -47,6 +47,25 @@ export const apiGetTransactions = async (
   return { status: response.status, headers: response.headers, payload: response.data };
 };
 
+export const apiGetAllTransactions = async (
+  id: number,
+  token: string,
+): Promise<bankingApiResponse> => {
+  const response = await bankingClient.get<Transaction[]>(
+    `${baseURL}/${id}/transaction`,
+    { 
+      headers: { 'authorization': token },
+      withCredentials: true }
+  );
+  response.data.forEach((transaction) => {
+    let num = transaction.amount;
+    transaction.amount = Math.round((num + Number.EPSILON) * 100) / 100;
+  });
+  return { status: response.status, headers: response.headers, payload: response.data };
+};
+
+
+
 export const apiGetTotalTransactionSize = async (id: number): Promise<bankingApiResponse> => {
   const response = await bankingClient.get<Transaction[]>(
     `${baseURL}/${id}/transactions`,

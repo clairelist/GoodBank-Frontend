@@ -1,8 +1,7 @@
 import { createTheme, ThemeProvider } from '@mui/material';
-import React, { useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import './App.css';
-import { User, UserContext } from './context/user.context';
+import Navbar from './components/navbar/Navbar';
 import { AppRoutes } from './router/AppRoutes';
 
 const theme = createTheme({
@@ -21,16 +20,12 @@ const theme = createTheme({
 });
 
 function App() {
-  const [user, setUser] = useState<User | undefined>();
-  const value = { user, setUser };
-  //add the navbar here later on
   return (
     <ThemeProvider theme={theme}>
-      <UserContext.Provider value={value}>
-        <Router>
-          <AppRoutes></AppRoutes>
-        </Router>
-      </UserContext.Provider>
+      <Router>
+        <Navbar />
+        <AppRoutes></AppRoutes>
+      </Router>
     </ThemeProvider>
   );
 }

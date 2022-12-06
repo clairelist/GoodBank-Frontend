@@ -40,55 +40,57 @@ const Loans = () => {
       <Typography variant="h2" sx={{ marginTop: '20px' }}>
         Your Loans
       </Typography>
-      {loans.map((loan: LoanDetails) => (
-        <React.Fragment key={loan.loanID + 1}>
-          <Grid item mt={2} sm={12} md={12}>
-            <Card
-            elevation={8}
-              sx={{
-                margin: '0 auto',
-                display: 'flex',
-                maxWidth: '700px',
-              }}
-            >
-              <CardContent sx={{ width: '100%' }}>
-                <div style={{ display: 'flex' }}>
-                  <Typography variant="h3" color="text.secondary">
-                    Loan of: {loan.initialAmount}
+      {loans
+        .filter((x: LoanDetails) => x.status !== 'DENIED')
+        .map((loan: LoanDetails) => (
+          <React.Fragment key={loan.loanID + 1}>
+            <Grid item mt={2} sm={12} md={12}>
+              <Card
+                elevation={8}
+                sx={{
+                  margin: '0 auto',
+                  display: 'flex',
+                  maxWidth: '700px',
+                }}
+              >
+                <CardContent sx={{ width: '100%' }}>
+                  <div style={{ display: 'flex' }}>
+                    <Typography variant="h3" color="text.secondary">
+                      Loan of: ${loan.initialAmount}
+                    </Typography>
+                    <SavingsIcon fontSize="large" sx={{ marginLeft: 'auto' }} />
+                  </div>
+                  <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                    Loan Date: {loan.creationDate.toString()}
                   </Typography>
-                  <SavingsIcon fontSize="large" sx={{ marginLeft: 'auto' }} />
-                </div>
-                <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                  Loan Date: {loan.creationDate.toString()}
-                </Typography>
-                <Typography
-                  variant="h5"
-                  sx={{ display: 'flex', justifyContent: 'flex-end' }}
-                >
-                  Balance: {loan.balance}
-                </Typography>
-                <Typography
-                  variant="body1"
-                  sx={{ borderTop: '1px solid black' }}
-                >
-                  Listed reason for loan: {loan.reason}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  color="primary"
-                  sx={{
-                    borderTop: '1px solid black',
-                    fontWeight: '600',
-                    fontSize: '1rem',
-                  }}
-                >
-                  {loan.status === 'PENDING' ? 'AWAITING FOR APPROVAL' : ''}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-        </React.Fragment>
-      ))}
+                  <Typography
+                    variant="h5"
+                    sx={{ display: 'flex', justifyContent: 'flex-end' }}
+                  >
+                    Balance: ${loan.balance}
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    sx={{ borderTop: '1px solid black' }}
+                  >
+                    Listed reason for loan: {loan.reason}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="primary"
+                    sx={{
+                      borderTop: '1px solid black',
+                      fontWeight: '600',
+                      fontSize: '1rem',
+                    }}
+                  >
+                    {loan.status === 'PENDING' ? 'AWAITING FOR APPROVAL' : ''}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          </React.Fragment>
+        ))}
     </Grid>
   );
 }

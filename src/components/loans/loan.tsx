@@ -83,7 +83,6 @@ const Loan = () => {
   };
   return (
     <div style={{ width: '80%', margin: 'auto' }}>
-      <Navbar />
       {user?.type === 'CLIENT' ? (
         <>
           <Paper elevation={0}>
@@ -200,9 +199,9 @@ const Loan = () => {
           <Paper />
           <Paper elevation={3} />
         </>
-      ) : (
+      ) : user?.type === 'ADMIN' ? (
         <AdminLoan />
-      )}
+      ) : '' }
     </div>
   );
 };

@@ -49,7 +49,6 @@ export default function Accounts() {
     //If no account in database but logged in, option to create an account appears
     Account = (
       <>
-        <Navbar />
         <Grid
           container
           sx={{
@@ -83,7 +82,6 @@ export default function Accounts() {
     //if logged in and there is an account
     Account = (
       <>
-        <Navbar />
         <Grid
           container
           sx={{
