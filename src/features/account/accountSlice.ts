@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { Account } from '../../models/Account';
 import { Transaction } from '../../models/Transaction';
-import { Transfer } from '../../models/Transfer';
 
 export interface AccountState {
     currentAccount: Account;

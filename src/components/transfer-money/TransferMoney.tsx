@@ -4,7 +4,7 @@ import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
-import React, { useState } from 'react';
+import React from 'react';
 import { apiTransferTransaction } from '../../remote/banking-api/account.api';
 import { Transfer } from '../../models/Transfer';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
@@ -81,7 +81,7 @@ export default function TransferMoney(props: any) {
         >
           {accounts.map(
             ({ id, name }, index) => (
-              console.log('CHECKING ACCOUNT', id, name, index),
+              console.log('CHECKING ACCOUNT', id, name, index)
               (
                 <MenuItem key={index} value={id}>
                   {name}
