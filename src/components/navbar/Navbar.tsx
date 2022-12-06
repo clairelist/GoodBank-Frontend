@@ -14,6 +14,7 @@ import NotificationToggle from './notifications/NotificationToggle';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import {logout} from '../../features/user/userSlice';
 import SavingsIcon from '@mui/icons-material/Savings';
+import { setNotificationTimer } from '../../features/notification/notificationSlice';
 
 
 
@@ -28,6 +29,7 @@ export default function Navbar() {
       apiLogout();
       dispatch(logout());
       navigate('/login');
+      dispatch(setNotificationTimer(undefined));
     } else {
       navigate('/login');
     }

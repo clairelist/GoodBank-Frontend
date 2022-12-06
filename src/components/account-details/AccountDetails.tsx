@@ -12,18 +12,18 @@ import './AccountDetails.css';
 import SideBar from './SideBar';
 import StyledTable from './StyledTable';
 
-import { useAppSelector } from '../../app/hooks';
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { setAccountTransactions } from '../../features/account/accountSlice';
 import { Box, List, ListItemButton, ListItemText, Popover } from '@mui/material';
-import NotificationList from '../navbar/notifications/NotificationList';
 
 export default function AccountDetails() {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.user);
-  const [transaction, setTransactions] = useState<Transaction[]>([]);
+  // const [transaction, setTransactions] = useState<Transaction[]>([]);
+  const transactions = useAppSelector((state) => state.account.accountTransactions);
   const [allTransaction, setAllTransactions] = useState<Transaction[]>([]);
-  const currentAccount = useAppSelector(
-    (state) => state.account.currentAccount
-  );
+  const currentAccount = useAppSelector((state) => state.account.currentAccount);
   const [page, setPage] = useState(1);
   const [transSize, setTransSize] = useState(0);
   const [mode, setMode] = useState('RECENT');
@@ -35,7 +35,7 @@ const fetchData = async () => {
       token,
       page - 1
     );
-    setTransactions(result.payload.reverse());
+    dispatch(setAccountTransactions(result.payload));
     const transCount = await apiGetTotalTransactionSize(currentAccount?.id);
     setTransSize(transCount.payload);
   }
@@ -161,7 +161,7 @@ const id = open ? 'simple-popover' : undefined;
         <StyledTable
           transaction={
             mode === 'RECENT'
-              ? transaction
+              ? transactions
               : mode === 'EXPENSE'
               ? allTransaction
                   .filter((x) => x.type === 'EXPENSE')
