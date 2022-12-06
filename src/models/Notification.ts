@@ -1,5 +1,5 @@
 export enum NotificationType {
-    WARNING  = "WARNING",
+    INFORMATION  = "INFORMATION",
     ACTIVITY = "ACTIVITY",
     REQUEST  = "REQUEST",
     TRANSFER  = "TRANSFER",
