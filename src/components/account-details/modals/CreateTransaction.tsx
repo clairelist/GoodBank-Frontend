@@ -30,7 +30,7 @@ export default function CreateTransaction(props: any) {
             Create Transaction
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-          <CreateTransaction onClose={props.handleClose} />
+          <CreateTransactionForm onClose={props.handleClose} />
           </Typography>
         </Box>
       </Modal>
