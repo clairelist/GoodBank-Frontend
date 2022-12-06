@@ -1,13 +1,13 @@
-import React from 'react';
-import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
 import { Box, Button, InputAdornment } from '@mui/material';
-import Input from '@mui/material/Input';
 import FormControl from '@mui/material/FormControl';
+import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
-import { apiTransferTransaction } from '../../remote/banking-api/account.api';
+import MenuItem from '@mui/material/MenuItem';
+import TextField from '@mui/material/TextField';
+import React from 'react';
 import { useAppSelector } from '../../app/hooks';
 import { Transaction } from '../../models/Transaction';
+import { apiTransferTransaction } from '../../remote/banking-api/account.api';
 
 export default function TransferMoney() {
   const currentAccount = useAppSelector(
@@ -30,16 +30,15 @@ export default function TransferMoney() {
       update.get('type')?.toString() || 'Transfer',
       Number(update.get('toAccount') || 0)
     );
-    const response = await apiTransferTransaction(
-      currentAccount.id,
-      transfer
-    ).then((response) => {
-      console.log('response', response);
-    });
+    await apiTransferTransaction(currentAccount.id, transfer).then(
+      (response) => {
+        console.log('response', response);
+      }
+    );
   };
 
-    return (
-      <>
+  return (
+    <>
       <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
         <TextField
           id="outlined-select-account"
@@ -52,26 +51,28 @@ export default function TransferMoney() {
           }}
         ></TextField>
         {accounts.length > 0 ? (
-        <TextField
-          required
-          id="account"
-          name="account"
-          label="To"
-          fullWidth
-          select
-          helperText="Select Account"
-          variant="standard"
-          {...accounts.map(({accountType, balance, creationDate, id, name}, index) => (
-            
-            <MenuItem key={name} value={id}>
-              {index}
-            </MenuItem>
-          ))}
-          
-        ></TextField>) : "" }
+          <TextField
+            required
+            id="account"
+            name="account"
+            label="To"
+            fullWidth
+            select
+            helperText="Select Account"
+            variant="standard"
+            {...accounts.map(
+              ({ accountType, balance, creationDate, id, name }, index) => (
+                <MenuItem key={name} value={id}>
+                  {index}
+                </MenuItem>
+              )
+            )}
+          ></TextField>
+        ) : (
+          ''
+        )}
 
         <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-          
           <Input
             required
             id="amount"
@@ -83,7 +84,7 @@ export default function TransferMoney() {
           <InputLabel htmlFor="amount">Amount</InputLabel>
         </FormControl>
         <Button type="submit">Submit</Button>
-        </Box>
-      </>
-    )
+      </Box>
+    </>
+  );
 }

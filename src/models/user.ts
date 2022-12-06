@@ -6,6 +6,6 @@ export interface User {
     firstName: string;
     lastName: string;
     state: string;
-    userType: string;
+    type: string;
     zip: number;
 }

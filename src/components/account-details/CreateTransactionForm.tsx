@@ -1,10 +1,10 @@
-import * as React from 'react';
+import { Box, Button } from '@mui/material';
+import Grid from '@mui/material/Grid';
+import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { Box, Button } from '@mui/material';
 import { apiUpsertTransaction } from '../../remote/banking-api/account.api';
-import { Transaction } from '../../models/Transaction';
-import MenuItem from '@mui/material/MenuItem';
 import './AccountDetails.css';
 import { useEffect } from 'react';
 

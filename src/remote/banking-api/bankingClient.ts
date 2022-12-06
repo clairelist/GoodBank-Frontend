@@ -13,8 +13,18 @@ const bankingClient = axios.create({
   },
 });
 
+bankingClient.interceptors.request.use(
+  (request) => {
+      if (request.headers) {
+          request.headers['Authorization'] = `${sessionStorage.getItem('token')}`;
+      }
+      return request;
+  }
+);
+
 export interface bankingApiResponse {
   status: number;
+  headers: any;
   payload: any;
 }
 
