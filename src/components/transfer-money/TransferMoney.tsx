@@ -107,7 +107,7 @@ export default function TransferMoney(props: any) {
           <InputLabel htmlFor="amount">Amount</InputLabel>
         </FormControl>
         <Button type="submit">Submit</Button>
-        <Button autoFocus onClick={props.onClose}>Close</Button>
+        <Button autoFocus type="button" onClick={props.onClose}>Close</Button>
       </Box>
     </>
   );

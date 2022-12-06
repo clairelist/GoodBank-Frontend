@@ -20,8 +20,7 @@ export default function TransferMoney(props: any) {
   return (
     <>
       <Modal
-        open={props.open}
-        onClose={props.handleClose}
+      open={props.open}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -30,7 +29,7 @@ export default function TransferMoney(props: any) {
             Money Transfer
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 8 }}>
-            <Transfer  />
+            <Transfer onClose={props.handleClose} />
           </Typography>
         </Box>
       </Modal>
