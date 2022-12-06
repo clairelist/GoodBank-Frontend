@@ -8,7 +8,7 @@ export class Transaction {
     _id: number,
     _amount: number,
     _description: string,
-    _type: string
+    _type: string,
   ) {
     this.id = _id;
     this.amount = _amount;

@@ -1,13 +1,17 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import accountReducer from '../features/account/accountSlice';
-import userReducer from '../features/user/userSlice';
 import creditCardReducer from '../features/credit/creditCardSlice';
+import creditCardTransactionReducer from '../features/credit/creditCardTransactionSlice';
+import notificationReducer from '../features/notification/notificationSlice';
+import userReducer from '../features/user/userSlice';
 
 export const store = configureStore({
   reducer: {
     account: accountReducer,
     user: userReducer,
-    creditCard: creditCardReducer
+    creditCard: creditCardReducer,
+    creditCardTransaction: creditCardTransactionReducer,
+    notifications: notificationReducer,
   },
 });
 

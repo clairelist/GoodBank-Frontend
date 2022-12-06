@@ -13,11 +13,12 @@ const Loans = () => {
     useEffect(()=>{
         const getLoans = async () => {
             if (user) {
-          const response = await apiGetLoans(
-            user.id
-          );
-            setLoans(response.payload);
-          }
+              let token: string = sessionStorage.getItem('token') || "";
+              const response = await apiGetLoans(
+                user.id, token
+              );
+                setLoans(response.payload);
+            }
         }
         getLoans();
     }, [user])
@@ -39,7 +40,7 @@ const Loans = () => {
       {loans ? (
         <div>
           {loans.map((loan: LoanDetails) => (
-            <div key={loan.id + 1}>
+            <div key={loan.loanID + 1}>
               <Grid>
                 <Grid item mt={2} sm={12} md={12}>
                   <Card
@@ -53,6 +54,7 @@ const Loans = () => {
                     <Typography>{loan.reason}</Typography>
                     <Typography>{loan.balance}</Typography>
                     <Typography>{loan.creationDate.toString()}</Typography>
+                    <Typography>{loan.status}</Typography>
                   </Card>
                 </Grid>
               </Grid>

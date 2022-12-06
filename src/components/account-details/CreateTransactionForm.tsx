@@ -1,34 +1,35 @@
-import * as React from 'react';
-import TextField from '@mui/material/TextField';
 import { Box, Button } from '@mui/material';
-import { apiUpsertTransaction } from '../../remote/banking-api/account.api';
-import { Transaction } from '../../models/Transaction';
-import MenuItem from '@mui/material/MenuItem';
-import './AccountDetails.css';
 import Grid from '@mui/material/Grid';
+import MenuItem from '@mui/material/MenuItem';
+import TextField from '@mui/material/TextField';
+import * as React from 'react';
+import { Transaction } from '../../models/Transaction';
+import { apiUpsertTransaction } from '../../remote/banking-api/account.api';
+import './AccountDetails.css';
 
-interface transactionProps {
+interface TransactionProps {
   accountId: number;
   afterUpsert: (result: Transaction) => void;
 }
 
-export default function CreateTransactionForm(props: transactionProps) {
+export default function CreateTransactionForm(props: TransactionProps) {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    //const response = await apiUpsertTransaction(data);
+    let token: string = sessionStorage.getItem('token') || '';
     let payload = new Transaction(
       0,
       parseFloat(data.get('amount')?.toString() || '0'),
       data.get('description')?.toString() || '',
-      data.get('type')?.toString() || 'Expense'
+      data.get('type')?.toString() || 'EXPENSE'
+
     );
-    apiUpsertTransaction(props.accountId, payload).then((response) => {
+    apiUpsertTransaction(props.accountId, payload, token).then((response) => {
       props.afterUpsert(response.payload);
     });
   };
 
-  const [type, setType] = React.useState('Expense');
+  const [type, setType] = React.useState('EXPENSE');
 
   const handleTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setType(event.target.value);
@@ -36,11 +37,11 @@ export default function CreateTransactionForm(props: transactionProps) {
 
   const types = [
     {
-      value: 'Expense',
+      value: 'EXPENSE',
       label: '-',
     },
     {
-      value: 'Income',
+      value: 'INCOME',
       label: '+',
     },
   ];
