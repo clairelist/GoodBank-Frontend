@@ -4,13 +4,12 @@ import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
-import React, { useEffect, useState } from 'react';
-import { Account } from '../../models/Account';
-import { Transaction } from '../../models/Transaction';
+import React, { useState } from 'react';
 import { apiTransferTransaction } from '../../remote/banking-api/account.api';
 import { Transfer } from '../../models/Transfer';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { getUserAccounts, setAccountTransactions, setCurrentAccount, setUserAccounts } from '../../features/account/accountSlice';
+import { setAccountTransactions } from '../../features/account/accountSlice';
+import '../transfer-money/';
 
 
 export default function TransferMoney(props: any) {
@@ -59,7 +58,7 @@ export default function TransferMoney(props: any) {
     <>
       <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
         <TextField
-          id="id"
+          id="content1"
           label="From"
           value={currentAccount.id}
           helperText="Current Account"
@@ -69,7 +68,7 @@ export default function TransferMoney(props: any) {
           }}
         ></TextField>
 
-        <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+        <FormControl id="content2"variant="standard" sx={{ m: 1, minWidth: 120 }}>
         <InputLabel id="account">To</InputLabel>
         <Select
           labelId="account"
@@ -93,7 +92,7 @@ export default function TransferMoney(props: any) {
         </Select>
       </FormControl>
 
-        <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+        <FormControl id="content3" sx={{ m: 1, width: '25ch' }} variant="outlined">
           <Input
             required
             id="amount"
