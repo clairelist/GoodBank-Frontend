@@ -2,6 +2,7 @@ import { createTheme, ThemeProvider } from '@mui/material';
 import React, { useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import './App.css';
+import Navbar from './components/navbar/Navbar';
 import { User, UserContext } from './context/user.context';
 import { AppRoutes } from './router/AppRoutes';
 
@@ -28,6 +29,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <UserContext.Provider value={value}>
         <Router>
+          <Navbar/>
           <AppRoutes></AppRoutes>
         </Router>
       </UserContext.Provider>

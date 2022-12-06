@@ -3,21 +3,24 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Slide from '@mui/material/Slide';
 import * as React from 'react';
-import { useAppSelector } from '../../app/hooks';
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { Account } from '../../models/Account';
 import { apiCreateAccount } from '../../remote/banking-api/account.api';
+import { useNavigate } from 'react-router-dom';
+import { setCurrentAccount } from '../../features/account/accountSlice';
 
-export default function OpenAccount(prop: { checked: boolean }) {
+export default function OpenAccount(prop: any) {
   const user = useAppSelector((state) => state.user.user);
-
+  const navigate = useNavigate();
   const currentDate = new Date();
+  const dispatch = useAppDispatch();
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     if (user) {
       event.preventDefault();
       let token: string = sessionStorage.getItem('token') || '';
       const result = new FormData(event.currentTarget);
-      apiCreateAccount(
+      const account = await apiCreateAccount(
         new Account(
           0,
           result.get('name')?.toString() || '',
@@ -28,6 +31,9 @@ export default function OpenAccount(prop: { checked: boolean }) {
         user.id.toString(),
         token
       );
+      prop.setChecked(false);
+      dispatch(setCurrentAccount(account.payload));
+      navigate("/details");
     }
   };
 

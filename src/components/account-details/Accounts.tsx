@@ -10,7 +10,6 @@ import { setCurrentAccount, setUserAccounts } from '../../features/account/accou
 import { Account } from '../../models/Account';
 import { apiGetAccounts } from '../../remote/banking-api/account.api';
 import OpenAccount from '../home/OpenAccountForm';
-import Navbar from '../navbar/Navbar';
 import { v4 as uuidv4 } from 'uuid';
 
 export default function Accounts() {
@@ -49,7 +48,6 @@ export default function Accounts() {
     //If no account in database but logged in, option to create an account appears
     Account = (
       <>
-        <Navbar />
         <Grid
           container
           sx={{
@@ -83,7 +81,6 @@ export default function Accounts() {
     //if logged in and there is an account
     Account = (
       <>
-        <Navbar />
         <Grid
           container
           sx={{
@@ -146,7 +143,7 @@ export default function Accounts() {
               Open A New Account
             </Button>
           </Grid>
-          <OpenAccount checked={checked} />
+          <OpenAccount checked={checked} setChecked={setChecked}/>
         </Grid>
       </>
     );

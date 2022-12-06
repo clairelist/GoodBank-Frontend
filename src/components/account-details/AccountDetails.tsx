@@ -6,7 +6,6 @@ import {
   apiGetTotalTransactionSize,
   apiGetTransactions,
 } from '../../remote/banking-api/account.api';
-import Navbar from '../navbar/Navbar';
 import './AccountDetails.css';
 import SideBar from './SideBar';
 import StyledTable from './StyledTable';
@@ -43,7 +42,6 @@ export default function AccountDetails() {
 
   return (
     <>
-      <Navbar />
       <div className={'top-container'}>
         <SideBar />
         <div className="account-wrap">

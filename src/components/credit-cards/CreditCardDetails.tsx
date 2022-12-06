@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
 import SideBar from "../account-details/SideBar";
-import Navbar from "../navbar/Navbar";
 
 
 export default function CreditCardDetails() {
@@ -19,7 +18,6 @@ export default function CreditCardDetails() {
 
       return (
         <>
-            <Navbar />
             <div className={'top-container'}>
             <SideBar />
             <div className="account-wrap">
