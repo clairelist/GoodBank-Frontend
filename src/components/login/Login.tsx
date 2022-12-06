@@ -9,7 +9,7 @@ import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link as Rlink } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { signIn } from '../../features/user/userSlice';
 import { apiLogin } from '../../remote/banking-api/auth.api';
@@ -27,6 +27,10 @@ export default function Login() {
 
     const response = await apiLogin(`${email}`, `${password}`);
     if (response.status >= 200 && response.status < 300) {
+      let token = response.headers['authorization'];
+      if (token) {
+        sessionStorage.setItem('token', token);
+      }
       dispatch(signIn(response.payload));
     }
     else {
@@ -38,6 +42,7 @@ export default function Login() {
     if (user) {
       navigate('/');
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   return (
@@ -78,6 +83,7 @@ export default function Login() {
             id="password"
             autoComplete="current-password"
           />
+          <Rlink to={'reset-password'}>Forgot password?</Rlink>
           <Button
             type="submit"
             color="secondary"

@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { setCurrentAccount } from '../../features/account/accountSlice';
+import { setCurrentAccount, setUserAccounts } from '../../features/account/accountSlice';
 import { Account } from '../../models/Account';
 import { apiGetAccounts } from '../../remote/banking-api/account.api';
 import OpenAccount from '../home/OpenAccountForm';
@@ -16,7 +16,7 @@ import { v4 as uuidv4 } from 'uuid';
 export default function Accounts() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [checked, setChecked] = useState(false);
-  const [accounts, setAccounts] = useState([]);
+  const accounts = useAppSelector((state) => state.account.userAccounts);
   const user = useAppSelector((state) => state.user.user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -29,12 +29,14 @@ export default function Accounts() {
       setLoggedIn(false);
       navigate('/login');
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, navigate]);
 
   const fetchData = async () => {
     if (user) {
-      const result = await apiGetAccounts(user?.id);
-      setAccounts(result.payload);
+      let token: string = sessionStorage.getItem('token') || '';
+      const result = await apiGetAccounts(user?.id, token);
+      dispatch(setUserAccounts(result.payload));
     }
   };
 
