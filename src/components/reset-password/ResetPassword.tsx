@@ -4,7 +4,6 @@ import TextField from '@mui/material/TextField';
 
 import bankingClient from '../../remote/banking-api/bankingClient';
 import { SyntheticEvent, useState, } from 'react';
-import { setDefaultResultOrder } from 'dns';
 
 function ResetPassword(){
     const [submission, setSubmission] = useState<any>({email: '', password: ''});
@@ -12,12 +11,13 @@ function ResetPassword(){
     const [error, setError] = useState(false);
 
     const validate=(value: string, value2: string)=>{
-        if(value != value2){
+        //TODO: ADD MIN LENGTH REQS HERE AND IN REGISTRATION
+        if(value !== value2){
             setError(true);
-            //return true;
+            return true;
         } else {
             setError(false);
-            //return false;
+            return false;
         }
     }
 
@@ -28,20 +28,22 @@ function ResetPassword(){
           .value,
       });
     }
-    const handleNewPassChange = (e: SyntheticEvent) => {
+    const handleNewPassChange = (e: SyntheticEvent) => { //used for confirmation that passwords are the same!
         setNewPassword((e.target as HTMLInputElement).value);
     }
     const handleSubmit = () => {
-        validate(submission.password, newPassword);
-        if(error){
+        if(validate(submission.password, newPassword) === true){
             console.log('your passwords MUST match!');
+            return null;
         } else {
-            bankingClient.patch('http://linktogoodbankapi/user/reset-password', submission)
+            bankingClient.patch('/user/reset-password', submission)
             .then(res=>{
-            console.log("api called?."); //of course this is erroring out. Next!
+            
+            })
+            .catch(err=>{
+                setError(true);
             })
         }
-        console.log('I am connected right?');
 }
     
     return (
