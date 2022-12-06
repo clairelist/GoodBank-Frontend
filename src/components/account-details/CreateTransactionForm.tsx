@@ -23,12 +23,7 @@ export default function CreateTransactionForm(props: any) {
   const currentAccount = useAppSelector(
     (state) => state.account.currentAccount
   );
-  const transactions = useAppSelector(
-    (state) => state.account.accountTransactions
-  );
   const dispatch = useAppDispatch();
-  //const [transactions, setTransactions] = React.useState<Transaction[]>([] as Transaction[]);
-  const user = useAppSelector((state) => state.user.user);
   const types = [
     {
       value: 'EXPENSE',

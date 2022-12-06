@@ -15,7 +15,6 @@ import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../app/hooks';
 import { apiCreateLoan } from '../../remote/banking-api/loan.api';
-import Navbar from '../navbar/Navbar';
 import AdminLoan from './adminLoan';
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -199,9 +198,9 @@ const Loan = () => {
           <Paper />
           <Paper elevation={3} />
         </>
-      ) : user?.type === 'ADMIN' ? (
+      ) :  (
         <AdminLoan />
-      ) : '' }
+      )}
     </div>
   );
 };

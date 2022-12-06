@@ -1,5 +1,5 @@
 import Button from '@mui/material/Button';
-import { SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Transaction } from '../../models/Transaction';
 import {
@@ -7,7 +7,6 @@ import {
   apiGetTotalTransactionSize,
   apiGetTransactions,
 } from '../../remote/banking-api/account.api';
-import Navbar from '../navbar/Navbar';
 import './AccountDetails.css';
 import SideBar from './SideBar';
 import StyledTable from './StyledTable';
@@ -50,6 +49,18 @@ const fetchAll = async() => {
     setAllTransactions(result.payload);
   }
 }
+const generatePageByMode = (currentMode: string) => {
+
+  return allTransaction
+                  .filter((x) => x.type === currentMode)
+                  .slice(
+                    (page - 1) * 5,
+                    allTransaction.filter((x) => x.type === currentMode).length <=
+                      5
+                      ? undefined: (page - 1) * 5 + 5)
+
+
+}
 
   useEffect(() => {
     if (!user) {
@@ -66,10 +77,7 @@ const fetchAll = async() => {
 const [anchorEl, setAnchorEl] = useState(null);
 
 const changeMode = ( newMode: string ) => {
-  console.log('input was: ' + newMode)
-  console.log('current mode is: ' + mode);
   if (newMode.toLowerCase() !== mode.toLowerCase()) {
-    console.log('changing mode to: ' + newMode);
     setPage(1);
     setMode(newMode);
   }
@@ -163,26 +171,9 @@ const id = open ? 'simple-popover' : undefined;
             mode === 'RECENT'
               ? transactions
               : mode === 'EXPENSE'
-              ? allTransaction
-                  .filter((x) => x.type === 'EXPENSE')
-                  .slice(
-                    (page - 1) * 5,
-                    allTransaction.filter((x) => x.type === 'EXPENSE').length <=
-                      5
-                      ? undefined
-                      : (page - 1) * 5 + 5
-                  )
-              : mode === 'INCOME'
-              ? allTransaction
-                  .filter((x) => x.type === 'INCOME')
-                  .slice(
-                    (page - 1) * 5,
-                    allTransaction.filter((x) => x.type === 'INCOME').length <=
-                      5
-                      ? undefined
-                      : (page - 1) * 5 + 5
-                  )
-              : ''
+              ? generatePageByMode('EXPENSE')
+              : 
+              generatePageByMode('INCOME')
           }
           page={page}
           setPage={setPage}

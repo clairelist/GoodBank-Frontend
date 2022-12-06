@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import { LoanDetails } from '../../models/LoanDetails';
 import { useAppSelector } from '../../app/hooks';
 import { apiGetLoans } from '../../remote/banking-api/loan.api';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { CardContent } from '@mui/material';
 import SavingsIcon from '@mui/icons-material/Savings';
 
@@ -84,7 +83,7 @@ const Loans = () => {
                       fontSize: '1rem',
                     }}
                   >
-                    {loan.status === 'PENDING' ? 'AWAITING FOR APPROVAL' : ''}
+                    {loan.status === 'PENDING' ? 'AWAITING FOR APPROVAL' : 'DENIED'}
                   </Typography>
                 </CardContent>
               </Card>

@@ -35,9 +35,6 @@ const readableDate = (date: any): React.Key => {
 }
 
 export default function CustomizedTables(props: any) {
-
-    console.log(props.transaction)
-    console.log(props.transSize)
   return (
     <>
       <TableContainer component={Paper}>
