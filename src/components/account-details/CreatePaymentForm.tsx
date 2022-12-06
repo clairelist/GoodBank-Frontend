@@ -65,7 +65,6 @@ export default function CreatePaymentForm() {
             />
           </Grid>
           <Grid item>
-            <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
               <Select
                 required
                 id="account"
@@ -82,7 +81,6 @@ export default function CreatePaymentForm() {
                   </MenuItem>
                 ))}
               </Select>
-            </FormControl>
           </Grid>
           <Grid item>
             <Button
