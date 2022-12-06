@@ -12,7 +12,6 @@ export default function CreatePaymentForm() {
   const user = useAppSelector((state) => state.user.user);
   const accounts = useAppSelector((state) => state.account.userAccounts);
   const currentCCAccount = useAppSelector((state) => state.creditCard.currentCreditCard);
-  const creditCardTransactions = useAppSelector((state) => state.creditCardTransaction.creditCardTransactions);
   const [ccTransactions, setCCTransactions] = useState([]);
   const [account, setAccount] = React.useState("Select an Account");
   const handleChangeAccount = (event: SelectChangeEvent) => {

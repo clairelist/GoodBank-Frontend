@@ -1,6 +1,4 @@
-
 import { Box, Modal, Typography } from "@mui/material";
-import { useAppSelector } from "../../../app/hooks";
 import CreatePaymentForm from "../CreatePaymentForm"
 // make ccpayment
 // we need to grab the current credit card ID, current user ID and

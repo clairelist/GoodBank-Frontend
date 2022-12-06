@@ -12,7 +12,6 @@ import { apiGetAccounts } from '../../remote/banking-api/account.api';
 import OpenAccount from '../home/OpenAccountForm';
 import Navbar from '../navbar/Navbar';
 import { v4 as uuidv4 } from 'uuid';
-import accountslice from '../../features/account/accountSlice';
 
 export default function Accounts() {
   const [loggedIn, setLoggedIn] = useState(false);
