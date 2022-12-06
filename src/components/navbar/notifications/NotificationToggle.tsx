@@ -4,7 +4,7 @@ import NotificationList from './NotificationList';
 import { useState, MouseEvent, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { apiGetUserNotifications, apiSetNotificationsAsSeen } from '../../../remote/banking-api/notification.api';
-import { setUserNotifications } from '../../../features/notification/notificationSlice';
+import { setNotificationTimer, setUserNotifications } from '../../../features/notification/notificationSlice';
 import { countUnseen } from '../../../features/notification/notificationUtils';
 
 export default function NotificationToggle() {
@@ -24,14 +24,12 @@ export default function NotificationToggle() {
   };
 
   // when user changes eg. login, fetch notifications
-  // also handle the notification check timer
+  // also start the notification check timer
 
-  let notificationInterval: NodeJS.Timer | undefined = undefined;
   const NOTIFICATION_TIMER = 3000;
   useEffect(() => {
     fetchNotifs();
-    clearInterval(notificationInterval);
-    notificationInterval = setInterval(fetchNotifs, NOTIFICATION_TIMER);
+    dispatch(setNotificationTimer(setInterval(fetchNotifs, NOTIFICATION_TIMER)))
   }, [user]);
 
   // when notifications are updated, update the seen count
