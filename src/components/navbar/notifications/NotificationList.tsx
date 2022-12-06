@@ -13,7 +13,7 @@ export default function NotificationList() {
       <nav aria-label="notifications">
         <List>
           {notifications.map((n) => (
-            <NotificationItem notification={n} />
+            <NotificationItem key={n.id} notification={n} />
           ))}
         </List>
       </nav>
