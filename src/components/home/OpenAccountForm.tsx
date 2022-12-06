@@ -1,13 +1,11 @@
-import * as React from 'react';
+import { Input, InputLabel } from '@mui/material';
 import Button from '@mui/material/Button';
-import { useContext } from 'react';
-import { UserContext } from '../../context/user.context';
-import { apiCreateAccount } from '../../remote/banking-api/account.api';
-import { Account } from '../../models/Account';
 import Paper from '@mui/material/Paper';
-import { Drawer, Input, InputLabel } from '@mui/material';
 import Slide from '@mui/material/Slide';
+import * as React from 'react';
 import { useAppSelector } from '../../app/hooks';
+import { Account } from '../../models/Account';
+import { apiCreateAccount } from '../../remote/banking-api/account.api';
 
 export default function OpenAccount(prop: { checked: boolean }) {
   const user = useAppSelector((state) => state.user.user);
@@ -17,6 +15,7 @@ export default function OpenAccount(prop: { checked: boolean }) {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     if (user) {
       event.preventDefault();
+      let token: string = sessionStorage.getItem('token') || '';
       const result = new FormData(event.currentTarget);
       apiCreateAccount(
         new Account(
@@ -26,7 +25,8 @@ export default function OpenAccount(prop: { checked: boolean }) {
           result.get('type')?.toString() || 'CHECKING',
           currentDate.toISOString()
         ),
-        user.id.toString()
+        user.id.toString(),
+        token
       );
     }
   };

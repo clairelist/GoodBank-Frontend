@@ -1,28 +1,10 @@
 import { Box, List } from '@mui/material';
-import { useEffect, useContext, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { UserContext } from '../../../context/user.context';
-import { Notification } from '../../../models/Notification';
-import { apiGetUserNotifications } from '../../../remote/banking-api/notification.api';
+import { useAppSelector } from '../../../app/hooks';
 import NotificationItem from './NotificationItem';
 
 export default function NotificationList() {
-  const dispatch = useAppDispatch();
-
-  const user = useAppSelector((state) => state.user.user);
-  const [notifications, setNotifications] = useState<
-    Notification[] | undefined
-  >();
-
-  useEffect(() => {
-    const fetchNotifs = async () => {
-      if (user) {
-        const result = await apiGetUserNotifications(user.id);
-        setNotifications(result.payload);
-      }
-    };
-    fetchNotifs();
-  }, [user]);
+  
+  const notifications = useAppSelector(state => state.notifications.list);
 
   if (!notifications) return <>loading...</>;
 

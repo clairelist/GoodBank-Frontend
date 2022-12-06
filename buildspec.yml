@@ -7,7 +7,7 @@ phases:
   pre_build:
     commands:
       - npm install
-      # - aws s3 cp s3://nsrt-resources/.env .
+      - aws s3 cp s3://good-bank-resources/.env .
 
   build:
     commands:

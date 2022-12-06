@@ -9,6 +9,7 @@
   margin-left: 20%;
   padding-right: 40px;
   text-align: center;
+  grid-area: 1 / 4 / 2 / 5;
 }
 
 .form-wrap {
@@ -41,4 +42,4 @@
 }
 
 SideBar { grid-area: 1 / 1 / 2 / 2; }
-.account-details { grid-area: 1 / 4 / 2 / 5; }
+
