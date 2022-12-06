@@ -37,16 +37,21 @@ export default function Navbar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" color="transparent">
+      <AppBar position="static" color="secondary">
         <Toolbar>
-          <AccountBalanceIcon sx={{ mr: 1 }} cursor='pointer' onClick={()=>navigate('/')}/>
+          <SavingsIcon
+            sx={{ mr: 1 }}
+            cursor="pointer"
+            fontSize="large"
+            onClick={() => navigate('/')}
+          />
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Good&#8482; Banking
           </Typography>
           <div>
             {/* notifications button */}
             {user ? <NotificationToggle /> : ''}
-            
+
             {/* authenticate button */}
             <Tooltip
               disableFocusListener
@@ -64,8 +69,7 @@ export default function Navbar() {
                 {user ? <LogoutIcon /> : <LoginIcon />}
               </IconButton>
             </Tooltip>
-            <SavingsIcon fontSize='large'/>
-              <button onClick={()=> navigate('/loan')}>Loan</button>
+            <button onClick={() => navigate('/loan')}>Loan</button>
           </div>
         </Toolbar>
       </AppBar>
