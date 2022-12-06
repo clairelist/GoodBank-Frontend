@@ -4,6 +4,7 @@ import { Account } from '../../models/Account';
 
 export interface AccountState {
     currentAccount: Account;
+    userAccounts: Account[];
     /*id: number;
     name: string;
     balance: number;
@@ -18,10 +19,11 @@ const initialState: AccountState = {
         id: 0,
         name: "",
         balance: 0,
-        accountType: "",
+        accountType: '',
         creationDate: ""
     },
-    
+    userAccounts: []
+
 };
 
 export const accountSlice = createSlice({
@@ -30,11 +32,15 @@ export const accountSlice = createSlice({
     reducers: {
         setCurrentAccount: (state, action: PayloadAction<Account>) => {
             state.currentAccount = action.payload;
+        },
+        setUserAccounts: (state, action: PayloadAction<Account[]>) => {
+            state.userAccounts = [...action.payload];
         }
     }
 })
 
-export const { setCurrentAccount } = accountSlice.actions;
+export const { setCurrentAccount, setUserAccounts } = accountSlice.actions;
 export const selectCurrentAccount = (state: RootState) => state.account.currentAccount;
+export const getUserAccounts = (state: RootState) => state.account.userAccounts;
 
 export default accountSlice.reducer;

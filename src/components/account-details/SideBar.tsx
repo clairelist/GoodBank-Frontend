@@ -1,11 +1,15 @@
 import { useState } from 'react';
 import { Sidebar, Menu, MenuItem, sidebarClasses } from 'react-pro-sidebar';
+import CCPayment from './modals/CreateCreditCardPayment';
 import CreateTransaction from './modals/CreateTransaction';
 
 export default function SideBar() {
     const [openCreateTransaction, setOpenCreateTransaction] = useState(false);
     const handleCreateTransactionOpen = () => { setOpenCreateTransaction(true); };
     const handleCreateTransactionClose = () => { setOpenCreateTransaction(false); };
+    const [openCreatePayment, setOpenCreatePayment] = useState(false);
+    const handleCreatePaymentOpen = () => { setOpenCreatePayment(true); };
+    const handleCreatePaymentClose = () => { setOpenCreatePayment(false); };
 
     return (
         <Sidebar
@@ -21,7 +25,8 @@ export default function SideBar() {
             <CreateTransaction handleClose={handleCreateTransactionClose} open={openCreateTransaction}/>
             <MenuItem> Send Money </MenuItem>
             <MenuItem> Transfer Money </MenuItem>
-            <MenuItem> Make a Payment </MenuItem>
+            <MenuItem onClick={handleCreatePaymentOpen}> Make a Payment </MenuItem>
+            <CCPayment handleClose={handleCreatePaymentClose} open={openCreatePayment}/>
             <MenuItem> Close Account </MenuItem>
             </Menu>
         </Sidebar>
