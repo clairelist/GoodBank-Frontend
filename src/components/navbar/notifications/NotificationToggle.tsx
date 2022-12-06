@@ -23,10 +23,18 @@ export default function NotificationToggle() {
     }
   };
 
+  // when user changes eg. login, fetch notifications
+  // also handle the notification check timer
+
+  let notificationInterval: NodeJS.Timer | undefined = undefined;
+  const NOTIFICATION_TIMER = 3000;
   useEffect(() => {
     fetchNotifs();
+    clearInterval(notificationInterval);
+    notificationInterval = setInterval(fetchNotifs, NOTIFICATION_TIMER);
   }, [user]);
 
+  // when notifications are updated, update the seen count
   useEffect(() => {
     setSeenCount(countUnseen(notifications));
   }, [notifications]);
@@ -44,7 +52,7 @@ export default function NotificationToggle() {
 
     // marking notifs as seen if it hasn't already been done
     // then returning the updated notifications immediately
-    if (open && seenCount > 0) {
+    if (!open && seenCount > 0) {
       const ids: string[] = notifications.map(n => n.id);
       const result = await apiSetNotificationsAsSeen(ids);
       dispatch(setUserNotifications(result.payload));

@@ -21,7 +21,7 @@ const initialState: AccountState = {
         id: 0,
         name: "",
         balance: 0,
-        accountType: "",
+        accountType: '',
         creationDate: ""
     },
     userAccounts: [],

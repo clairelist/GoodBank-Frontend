@@ -32,8 +32,7 @@ export default function AccountDetails() {
       if (user) {
         let token: string = sessionStorage.getItem('token') || '';
         const result = await apiGetTransactions(currentAccount?.id, token, page-1);
-        dispatch(setAccountTransactions(result.payload));
-        console.log("Account Details")
+        dispatch(setAccountTransactions(result.payload.reverse()));
         const transCount = await apiGetTotalTransactionSize(currentAccount?.id);
         setTransSize(transCount.payload);
       }
