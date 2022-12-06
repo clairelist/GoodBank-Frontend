@@ -11,15 +11,16 @@ import './AccountDetails.css';
 import SideBar from './SideBar';
 import StyledTable from './StyledTable';
 
-import { useAppSelector } from '../../app/hooks';
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { setAccountTransactions } from '../../features/account/accountSlice';
 
 export default function AccountDetails() {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.user);
-  const [transaction, setTransactions] = useState<Transaction[]>([]);
-  const currentAccount = useAppSelector(
-    (state) => state.account.currentAccount
-  );
+  // const [transaction, setTransactions] = useState<Transaction[]>([]);
+  const transactions = useAppSelector((state) => state.account.accountTransactions);
+  const currentAccount = useAppSelector((state) => state.account.currentAccount);
   const [page, setPage] = useState(1);
   const [transSize, setTransSize] = useState(0);
 
@@ -31,7 +32,7 @@ export default function AccountDetails() {
       if (user) {
         let token: string = sessionStorage.getItem('token') || '';
         const result = await apiGetTransactions(currentAccount?.id, token, page-1);
-        setTransactions(result.payload.reverse());
+        dispatch(setAccountTransactions(result.payload.reverse()));
         const transCount = await apiGetTotalTransactionSize(currentAccount?.id);
         setTransSize(transCount.payload);
       }
@@ -62,7 +63,7 @@ export default function AccountDetails() {
       <div className="txn-wrap">
         <h1 className="title">Recent Transactions</h1>
         <StyledTable
-          transaction={transaction}
+          transaction={transactions}
           page={page}
           setPage={setPage}
           transSize={transSize}
