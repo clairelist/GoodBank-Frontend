@@ -7,6 +7,7 @@ import Register from '../components/register/Register';
 import { ProSidebarProvider } from 'react-pro-sidebar';
 import Loan from '../components/loans/loan';
 import CreditCardDetails from '../components/credit-cards/CreditCardDetails';
+import ResetPassword from '../components/reset-password/ResetPassword';
 import Profile from '../components/profile/Profile';
 
 
@@ -17,6 +18,7 @@ export const AppRoutes: React.FC<unknown> = () => (
     <Route path="/" element={<Home />} />
     <Route path="/login" element={<Login />} />
     <Route path="/register" element={<Register />} />
+    <Route path='/login/reset-password' element={<ResetPassword />} />
     <Route path="/details" element={
       <ProSidebarProvider>
         <AccountDetails />
