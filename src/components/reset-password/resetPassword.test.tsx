@@ -23,7 +23,7 @@ describe('Reset password flow', ()=>{
 
     it('should be able to type in a new password in the field', ()=>{
         render(<ResetPassword />);
-        let mockField = screen.getByLabelText('password');
+        let mockField = screen.getByLabelText('New password');
         fireEvent.change(mockField, {target: {value: 'marimite'}});
         expect((mockField as HTMLInputElement).value).toBe('marimite');
     });
