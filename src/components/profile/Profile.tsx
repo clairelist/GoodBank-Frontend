@@ -12,6 +12,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { apiUpdate } from '../../remote/banking-api/update.api';
 
+
+
 const theme = createTheme();
 
 //functions for taking the first + last and making it into an avatar with a color based on hash value
@@ -53,46 +55,49 @@ const Item = styled(Paper)(({ theme }) => ({
   }));
 
 interface State {
+    email: string;
     firstName: string;
     lastName: string;
-    email: string;
     address: string;
     city: string;
     state: string;
     zip: number;
-    showPassword: boolean;
+
 }
 
 export default function Profile() {
 
     const navigate = useNavigate();
     const user = useAppSelector((state) => state.user.user);
+    const token: string = sessionStorage.getItem('token') || '';
+
 
       const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        const response = await apiUpdate(
-          `${data.get('email')}`,
-          `${data.get('firstName')}`,
-          `${data.get('lastName')}`,
-          `${data.get('address')}`,
-          `${data.get('city')}`,
-          `${data.get('state')}`,
-          Number(`${data.get(('zip'))}`)
-        );
-        if (response.status >= 200 && response.status < 300) navigate('/ ');
-      };
+        const email =data.get('email');
+        const firstName = data.get('firstName');
+        const lastName = data.get('lastName');
+        const address = data.get('address');
+        const city = data.get('city');
+        const state = data.get('state');
+        const zip = data.get('zip');
 
-    const [values, setValues] = React.useState<State>({
-        firstName: user!.firstName,
-        lastName: user!.lastName,
-        email: user!.email,
-        address: user!.address,
-        city: user!.city,
-        state: user!.state,
-        zip: user!.zip,
-        showPassword: false,
-      });
+        const response = await apiUpdate(
+          `${email}`,
+          `${firstName}`,
+          `${lastName}`,
+          `${address}`,
+          `${city}`,
+          `${state}`,
+          Number(`${zip}`),
+          String(token)
+        );
+        if (response.status >= 200 && response.status < 300) {
+        navigate('/');
+    }
+  };
+
 
 return (
 <>
@@ -110,19 +115,22 @@ return (
                 </Item>
                 <Item>
                     <TextField
-                      id="outlined-helperText"
+                      id="firstName"
+                      name="firstName"
                       label="First Name"
                       defaultValue={user!.firstName}
                       helperText={user!.firstName}
                     />
                     <TextField
-                      id="outlined-helperText"
+                      id="lastName"
+                      name="lastName"
                       label="Last Name"
                       defaultValue={user!.lastName}
                       helperText={user!.lastName}
                     />
                     <TextField
-                      id="outlined-helperText"
+                      id="email"
+                      name="email"
                       label="Email Address"
                       defaultValue={user!.email}
                       helperText={user!.email}
@@ -130,36 +138,35 @@ return (
                 </Item>
                 <Item>
                     <TextField
-                      id="outlined-helperText"
+                      id="address"
+                      name="address"
                       label="Street Address"
                       defaultValue={user!.address}
                       helperText={user!.address}
                     />
                     <TextField
-                      id="outlined-helperText"
+                      id="city"
+                      name="city"
                       label="City"
                       defaultValue={user!.city}
                       helperText={user!.city}
                     />
                     <TextField
-                      id="outlined-helperText"
+                      id="state"
+                      name="state"
                       label="State"
                       defaultValue={user!.state}
                       helperText={user!.state}
                     />
                     <TextField
-                      id="outlined-helperText"
+                      id="zip"
                       label="Zip Code"
+                      name="zip"
                       defaultValue={user!.zip}
                       helperText={user!.zip}
                     />
                 </Item>
                 <Item>
-                    <TextField
-                      id="outlined-password-input"
-                      label="Password"
-                      type="password"
-                    />
                     <Button
                       type="submit"
                       variant="contained"
