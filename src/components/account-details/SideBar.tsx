@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Sidebar, Menu, MenuItem, sidebarClasses } from 'react-pro-sidebar';
-import CCPayment from './modals/CreateCreditCardPayment';
 import CreateTransaction from './modals/CreateTransaction';
 import TransferMoney from './modals/TransferMoney';
 import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
+import CCPayment from './modals/CreateCreditCardPayment';
 import SendAndArchiveIcon from '@mui/icons-material/SendAndArchive';
 import MoveDownIcon from '@mui/icons-material/MoveDown';
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
