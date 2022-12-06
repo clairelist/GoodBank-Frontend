@@ -21,15 +21,15 @@ export default function CreateTransactionForm(props: TransactionProps) {
       0,
       parseFloat(data.get('amount')?.toString() || '0'),
       data.get('description')?.toString() || '',
-      data.get('type')?.toString() || 'Expense',
-      undefined
+      data.get('type')?.toString() || 'EXPENSE'
+
     );
     apiUpsertTransaction(props.accountId, payload, token).then((response) => {
       props.afterUpsert(response.payload);
     });
   };
 
-  const [type, setType] = React.useState('Expense');
+  const [type, setType] = React.useState('EXPENSE');
 
   const handleTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setType(event.target.value);
@@ -37,11 +37,11 @@ export default function CreateTransactionForm(props: TransactionProps) {
 
   const types = [
     {
-      value: 'Expense',
+      value: 'EXPENSE',
       label: '-',
     },
     {
-      value: 'Income',
+      value: 'INCOME',
       label: '+',
     },
   ];
