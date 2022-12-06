@@ -16,16 +16,15 @@ function ResetPassword(){
     const navAfterTime = () => { 
         //@DOCS: used for the timeout, below, so our confirm message is displayed.
         navigate('/login');
-        console.log('timeout called?');
     }
-
-    
 
     const validate=(value: string, value2: string)=>{
         //TODO: ADD MIN LENGTH REQS HERE AND IN REGISTRATION
         if(value !== value2){
             setError(true);
             return true;
+            //NOTE: must both set the error, and return a boolean
+            //so that our check in submit handler works, below.
         } else {
             setError(false);
             return false;
@@ -39,16 +38,17 @@ function ResetPassword(){
           .value,
       });
     }
-    const handleNewPassChange = (e: SyntheticEvent) => { //used for confirmation that passwords are the same!
+    const handleNewPassChange = (e: SyntheticEvent) => { 
+        //used for confirmation that passwords are the same!
         setNewPassword((e.target as HTMLInputElement).value);
     }
     const handleSubmit = () => {
         if(validate(submission.password, newPassword) === true){
             return null;
         } else {
-            setConfirmation(true);
             bankingClient.patch('/user/reset-password', submission)
             .then(res=>{
+                setConfirmation(true);
                 setTimeout(navAfterTime, 1500);
             })
             .catch(err=>{
@@ -56,7 +56,6 @@ function ResetPassword(){
             })
         }
 }
-    
     return (
     <div>
         <Box
@@ -106,7 +105,7 @@ function ResetPassword(){
             onChange={handleNewPassChange}
           />
           </Box>
-          {error ? <p>"Passwords MUST match!"</p> : <></>}
+          {error ? <p>"Passwords MUST match, AND you must provide a valid EMAIL!"</p> : <></>}
           {confirmation ? <p>Your password has been RESET.</p> : 
               <Button
               type="submit"
