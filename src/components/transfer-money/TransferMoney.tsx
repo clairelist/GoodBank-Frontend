@@ -9,7 +9,7 @@ import { apiTransferTransaction } from '../../remote/banking-api/account.api';
 import { Transfer } from '../../models/Transfer';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { setAccountTransactions } from '../../features/account/accountSlice';
-import '../transfer-money/';
+//import '../transfer-money/';
 
 
 export default function TransferMoney(props: any) {
@@ -80,14 +80,14 @@ export default function TransferMoney(props: any) {
           onChange={handleChangeAccount}
         >
           {accounts.map(
-            ({ id, name }, index) => (
-              console.log('CHECKING ACCOUNT', id, name, index)
-              (
+            ({ id, name }, index) => {
+              console.log('CHECKING ACCOUNT', id, name, index);
+              return (
                 <MenuItem key={index} value={id}>
                   {name}
                 </MenuItem>
               )
-            )
+            }
           )}
         </Select>
       </FormControl>
