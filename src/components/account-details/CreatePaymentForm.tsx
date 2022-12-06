@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import { useAppSelector } from "../../app/hooks";
 import TextField from '@mui/material/TextField';
-import { Box, Button, Select } from '@mui/material';
+import { Box, Button, FormControl, InputLabel, Select, SelectChangeEvent } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import Grid from '@mui/material/Grid';
 import { CreditCardTransaction } from '../../models/CreditCardTransaction';
@@ -16,9 +16,10 @@ export default function CreatePaymentForm() {
     const currentCCAccount = useAppSelector((state) => state.creditCard.currentCreditCard);
     const creditCardTransactions = useAppSelector((state) => state.creditCardTransaction.creditCardTransactions);
     const [ccTransactions, setCCTransactions] = useState([]);
-
-    const [account, setAccount] = React.useState("Select Account");
-    const handleChangeAccount = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("HELP ME", accounts);
+    console.log("DIE LUKAS", currentCCAccount);
+    const [account, setAccount] = React.useState("");
+    const handleChangeAccount = (event: SelectChangeEvent) => {
       setAccount(event.target.value);
     };
 
@@ -58,23 +59,25 @@ export default function CreatePaymentForm() {
                 />
               </Grid>
               <Grid item>
+                <FormControl variant="standard" sx={{ m:1, minWidth: 120}}>
+                  <InputLabel id="account">To</InputLabel>
                 <Select
-                  required
                   id="account"
                   name="account"
                   label="From Account"
                   fullWidth
                   value={account}
                   onChange={handleChangeAccount}
-                  size="small"
                 >
-                  {...accounts.map((account) => (
-                    <MenuItem key={account.id} value={account.id}>
-                      {account.name}
+                  {accounts.map((accountz) => (
+                    
+                    <MenuItem key={accountz.id} value={accountz.id}>
+                      {accountz.name}
                     </MenuItem>
                   ))}
                   
                 </Select>
+                </FormControl>
               </Grid>
               <Grid item>
                 <Button
