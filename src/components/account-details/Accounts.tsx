@@ -16,7 +16,7 @@ import { v4 as uuidv4 } from 'uuid';
 export default function Accounts() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [checked, setChecked] = useState(false);
-  const [accounts, setAccounts] = useState([]);
+  const accounts = useAppSelector((state) => state.account.userAccounts);
   const user = useAppSelector((state) => state.user.user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -49,7 +49,6 @@ export default function Accounts() {
     //If no account in database but logged in, option to create an account appears
     Account = (
       <>
-        <Navbar />
         <Grid
           container
           sx={{
@@ -83,7 +82,6 @@ export default function Accounts() {
     //if logged in and there is an account
     Account = (
       <>
-        <Navbar />
         <Grid
           container
           sx={{

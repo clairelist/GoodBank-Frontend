@@ -4,12 +4,11 @@ import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
-import React, { useState } from 'react';
+import React from 'react';
 import { apiTransferTransaction } from '../../remote/banking-api/account.api';
 import { Transfer } from '../../models/Transfer';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { setAccountTransactions } from '../../features/account/accountSlice';
-
 
 
 export default function TransferMoney(props: any) {
@@ -75,14 +74,14 @@ export default function TransferMoney(props: any) {
           onChange={handleChangeAccount}
         >
           {accounts.map(
-            ({ id, name }, index) => (
-              console.log('CHECKING ACCOUNT', id, name, index),
-              (
+            ({ id, name }, index) => {
+              console.log('CHECKING ACCOUNT', id, name, index);
+              return (
                 <MenuItem key={index} value={id}>
                   {name}
                 </MenuItem>
               )
-            )
+            }
           )}
         </Select>
       </FormControl>

@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { Account } from '../../models/Account';
 import { Transaction } from '../../models/Transaction';
-import { Transfer } from '../../models/Transfer';
 
 export interface AccountState {
     currentAccount: Account;
@@ -22,7 +21,7 @@ const initialState: AccountState = {
         id: 0,
         name: "",
         balance: 0,
-        accountType: "",
+        accountType: '',
         creationDate: ""
     },
     userAccounts: [],

@@ -13,8 +13,6 @@ import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { apiRegister } from '../../remote/banking-api/auth.api';
 
-const theme = createTheme();
-
 export default function Register() {
   const navigate = useNavigate();
 

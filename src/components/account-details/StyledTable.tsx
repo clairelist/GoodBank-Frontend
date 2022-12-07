@@ -35,31 +35,62 @@ const readableDate = (date: any): React.Key => {
 }
 
 export default function CustomizedTables(props: any) {
-
   return (
     <>
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label='customized table'>
-        <TableHead>
-          <TableRow>
-            <StyledTableCell align='center'>Date</StyledTableCell>
-            <StyledTableCell align='center'>Description</StyledTableCell>
-            <StyledTableCell align='center'>Amount</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {props.transaction.map((trans: any) => (
-            <StyledTableRow key={uuidv4()}>
-              <StyledTableCell align='center' style={{color: trans.type !== 'EXPENSE' ? 'mediumseagreen' : 'crimson'}}>{readableDate(trans.creationDate)}</StyledTableCell>
-              <StyledTableCell align='center' style={{color: trans.type !== 'EXPENSE' ? 'mediumseagreen' : 'crimson'}}>{trans.description}</StyledTableCell>
-              <StyledTableCell align='center' style={{color: trans.type !== 'EXPENSE' ? 'mediumseagreen' : 'crimson'}}><span>{trans.type==='Expense' ? '-' : null}</span>${trans.amount}</StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-    <Pagination transactionCount={Math.floor(props.transSize / 5) + 1} page={props.page} setPage={props.setPage}/>
-
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 700 }} aria-label="customized table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell align="center">Date</StyledTableCell>
+              <StyledTableCell align="center">Description</StyledTableCell>
+              <StyledTableCell align="center">Amount</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {props.transaction.map((trans: any) => (
+              <StyledTableRow key={uuidv4()}>
+                <StyledTableCell
+                  align="center"
+                  style={{
+                    color:
+                      trans.type !== 'EXPENSE' ? 'mediumseagreen' : 'crimson',
+                  }}
+                >
+                  {readableDate(trans.creationDate)}
+                </StyledTableCell>
+                <StyledTableCell
+                  align="center"
+                  style={{
+                    color:
+                      trans.type !== 'EXPENSE' ? 'mediumseagreen' : 'crimson',
+                  }}
+                >
+                  {trans.description}
+                </StyledTableCell>
+                <StyledTableCell
+                  align="center"
+                  style={{
+                    color:
+                      trans.type !== 'EXPENSE' ? 'mediumseagreen' : 'crimson',
+                  }}
+                >
+                  <span>{trans.type === 'Expense' ? '-' : null}</span>$
+                  {trans.amount}
+                </StyledTableCell>
+              </StyledTableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <Pagination
+        transactionCount={
+          props.transSize % 5 === 0
+            ? props.transSize / 5
+            : Math.floor(props.transSize / 5) + 1
+        }
+        page={props.page}
+        setPage={props.setPage}
+      />
     </>
   );
 }
