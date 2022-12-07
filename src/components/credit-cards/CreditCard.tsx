@@ -6,6 +6,8 @@ import { setCurrentCreditCard, setUserCreditCards } from "../../features/credit/
 import { CreditCard } from "../../models/CreditCard";
 import { apiGetCreditCards } from "../../remote/banking-api/creditcard.api";
 import { v4 as uuidv4 } from 'uuid';
+import CreditCardIcon from '@mui/icons-material/CreditCard';
+import { Add } from "@mui/icons-material";
 
 export default function CreditCards() {
     const user = useAppSelector((state) => state.user.user);
@@ -86,6 +88,9 @@ export default function CreditCards() {
                         <Grid item mt={2} sm={12} md={12}>
                         <Card sx={{ margin: '0 auto', display: 'flex', maxWidth: '700px' }} key={uuidv4()}>
                             <CardContent>
+                            <CreditCardIcon >
+                                <Add sx={{ fontSize: "80px" }} />
+                            </CreditCardIcon>
                             <Typography variant="h3" color="text.secondary">
                                 {creditCard.cardNumber}
                             </Typography>
