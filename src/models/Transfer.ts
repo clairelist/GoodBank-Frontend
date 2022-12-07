@@ -6,4 +6,3 @@ account: Account;
 type: string;
 toAccountId: number;
 }
-

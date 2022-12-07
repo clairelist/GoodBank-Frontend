@@ -198,7 +198,7 @@ const Loan = () => {
           <Paper />
           <Paper elevation={3} />
         </>
-      ) : (
+      ) :  (
         <AdminLoan />
       )}
     </div>
