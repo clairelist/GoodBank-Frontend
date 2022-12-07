@@ -1,10 +1,9 @@
 import bankingClient, { bankingApiResponse } from './bankingClient';
-import { User } from '../../models/user';
-import State  from '../../components/profile/Profile';
 
-const baseURL = '/profile'
+const baseURL = '/user'
 
 export const apiUpdate = async (
+    id: number,
     email: string,
     firstName: string,
     lastName: string,
@@ -15,17 +14,20 @@ export const apiUpdate = async (
     token: string
 ): Promise<bankingApiResponse> => {
     const response = await bankingClient.patch<any>(
-    `${baseURL}/update`,
+    `${baseURL}/profile`,
     {
+      id,
       email,
       firstName,
       lastName,
       address,
       city,
       state,
-      zip,
+      zip
+    },
+    {
       headers: { 'authorization': token },
-      withCredentials: true,
-    });
+      withCredentials: true
+    })
     return { status: response.status, headers: response.headers, payload: response.data };
 };

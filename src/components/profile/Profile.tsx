@@ -3,7 +3,6 @@ import { useAppSelector } from '../../app/hooks';
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-import Navbar from '../navbar/Navbar';
 import Avatar from '@mui/material/Avatar';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
@@ -11,8 +10,8 @@ import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { apiUpdate } from '../../remote/banking-api/update.api';
-
-
+import { useDispatch } from 'react-redux';
+import { signIn } from '../../features/user/userSlice';
 
 const theme = createTheme();
 
@@ -70,12 +69,12 @@ export default function Profile() {
     const navigate = useNavigate();
     const user = useAppSelector((state) => state.user.user);
     const token: string = sessionStorage.getItem('token') || '';
-
+    const dispatch = useDispatch();
 
       const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        const email =data.get('email');
+        const email = data.get('email');
         const firstName = data.get('firstName');
         const lastName = data.get('lastName');
         const address = data.get('address');
@@ -83,25 +82,28 @@ export default function Profile() {
         const state = data.get('state');
         const zip = data.get('zip');
 
-        const response = await apiUpdate(
-          `${email}`,
-          `${firstName}`,
-          `${lastName}`,
-          `${address}`,
-          `${city}`,
-          `${state}`,
-          Number(`${zip}`),
-          String(token)
-        );
-        if (response.status >= 200 && response.status < 300) {
-        navigate('/');
-    }
+        if (user) {
+          const response = await apiUpdate(
+            user.id,
+            `${email}`,
+            `${firstName}`,
+            `${lastName}`,
+            `${address}`,
+            `${city}`,
+            `${state}`,
+            Number(`${zip}`),
+            String(token)
+          );
+          if (response.status >= 200 && response.status < 300) {
+            dispatch(signIn(response.payload));  
+            navigate('/');
+          }
+        } 
   };
 
 
 return (
 <>
-    <Navbar />
     <ThemeProvider theme={theme}>
         <Grid container justifyContent="center" marginTop={7}>
                     <Item>
