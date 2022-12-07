@@ -15,12 +15,9 @@ import {logout} from '../../features/user/userSlice';
 import SavingsIcon from '@mui/icons-material/Savings';
 import { setNotificationTimer } from '../../features/notification/notificationSlice';
 
-
-
 export default function Navbar() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
   const user = useAppSelector((state) => state.user.user);
 
   function handleAuth() {
