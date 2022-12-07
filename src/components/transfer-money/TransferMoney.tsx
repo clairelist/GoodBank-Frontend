@@ -9,7 +9,7 @@ import { apiTransferTransaction } from '../../remote/banking-api/account.api';
 import { Transfer } from '../../models/Transfer';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { setAccountTransactions } from '../../features/account/accountSlice';
-import '../transfer-money/';
+
 
 
 export default function TransferMoney(props: any) {
@@ -18,7 +18,6 @@ export default function TransferMoney(props: any) {
     (state) => state.account.currentAccount
   );
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.user.user);
   const accounts = useAppSelector((state) => state.account.userAccounts);
 
   const [amount, setAmount] = React.useState('');
@@ -37,8 +36,6 @@ export default function TransferMoney(props: any) {
       };
        
     const response = await apiTransferTransaction(currentAccount.id, transfer);
-    console.log('response', response);
-    console.log('transfer', transfer);
     if (response.status >= 200 && response.status < 300){
         dispatch(setAccountTransactions(response.payload));
     } 
@@ -47,12 +44,10 @@ export default function TransferMoney(props: any) {
   const handleChangeAccount = (event: SelectChangeEvent) => {
     setAccount(event.target.value);
   };
-  console.log('Handle change Account', account);
 
   const handleChangeAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAmount(event.target.value);
   };
-  console.log('Handle change', amount);
 
   return (
     <>
