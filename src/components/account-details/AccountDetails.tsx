@@ -11,89 +11,92 @@ import './AccountDetails.css';
 import SideBar from './SideBar';
 import StyledTable from './StyledTable';
 
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import {
+  Box,
+  List,
+  ListItemButton,
+  ListItemText,
+  Popover,
+} from '@mui/material';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { setAccountTransactions } from '../../features/account/accountSlice';
-import { Box, List, ListItemButton, ListItemText, Popover } from '@mui/material';
 
 export default function AccountDetails() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.user);
   // const [transaction, setTransactions] = useState<Transaction[]>([]);
-  const transactions = useAppSelector((state) => state.account.accountTransactions);
+  const transactions = useAppSelector(
+    (state) => state.account.accountTransactions
+  );
   const [allTransaction, setAllTransactions] = useState<Transaction[]>([]);
-  const currentAccount = useAppSelector((state) => state.account.currentAccount);
+  const currentAccount = useAppSelector(
+    (state) => state.account.currentAccount
+  );
   const [page, setPage] = useState(1);
   const [transSize, setTransSize] = useState(0);
   const [mode, setMode] = useState('RECENT');
-const fetchData = async () => {
-  if (user) {
-    let token: string = sessionStorage.getItem('token') || '';
-    const result = await apiGetTransactions(
-      currentAccount?.id,
-      token,
-      page - 1
-    );
-    dispatch(setAccountTransactions(result.payload));
-    const transCount = await apiGetTotalTransactionSize(currentAccount?.id);
-    setTransSize(transCount.payload);
-  }
-};
-const fetchAll = async() => {
-  if (user) {
-    let token: string = sessionStorage.getItem('token') || '';
-    const result = await apiGetAllTransactions(
-      currentAccount?.id,
-      token,
-    );
-    setAllTransactions(result.payload);
-  }
-}
-const generatePageByMode = (currentMode: string) => {
-
-  return allTransaction
-                  .filter((x) => x.type === currentMode)
-                  .slice(
-                    (page - 1) * 5,
-                    allTransaction.filter((x) => x.type === currentMode).length <=
-                      5
-                      ? undefined: (page - 1) * 5 + 5)
-
-
-}
+  const fetchData = async () => {
+    if (user) {
+      let token: string = sessionStorage.getItem('token') || '';
+      const result = await apiGetTransactions(
+        currentAccount?.id,
+        token,
+        page - 1
+      );
+      dispatch(setAccountTransactions(result.payload));
+      const transCount = await apiGetTotalTransactionSize(currentAccount?.id);
+      setTransSize(transCount.payload);
+    }
+  };
+  const fetchAll = async () => {
+    if (user) {
+      let token: string = sessionStorage.getItem('token') || '';
+      const result = await apiGetAllTransactions(currentAccount?.id, token);
+      setAllTransactions(result.payload);
+    }
+  };
+  const generatePageByMode = (currentMode: string) => {
+    return allTransaction
+      .filter((x) => x.type === currentMode)
+      .slice(
+        (page - 1) * 5,
+        allTransaction.filter((x) => x.type === currentMode).length <= 5
+          ? undefined
+          : (page - 1) * 5 + 5
+      );
+  };
 
   useEffect(() => {
     if (!user) {
       navigate('/');
     }
-    if(mode === 'RECENT'){
-    fetchData();
-    fetchAll();
-    } 
+    if (mode === 'RECENT') {
+      fetchData();
+      fetchAll();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, navigate, page]);
+  }, [user, navigate, page, currentAccount]);
 
+  const [anchorEl, setAnchorEl] = useState(null);
 
-const [anchorEl, setAnchorEl] = useState(null);
+  const changeMode = (newMode: string) => {
+    if (newMode.toLowerCase() !== mode.toLowerCase()) {
+      setPage(1);
+      setMode(newMode);
+    }
+  };
 
-const changeMode = ( newMode: string ) => {
-  if (newMode.toLowerCase() !== mode.toLowerCase()) {
-    setPage(1);
-    setMode(newMode);
-  }
-}
+  const handleClick = (event: any) => {
+    setAnchorEl(event.currentTarget);
+  };
 
-const handleClick = (event: any) => {
-  setAnchorEl(event.currentTarget);
-};
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
-const handleClose = () => {
-  setAnchorEl(null);
-};
-
-const open = Boolean(anchorEl);
-const id = open ? 'simple-popover' : undefined;
-
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
 
   return (
     <>
@@ -172,8 +175,7 @@ const id = open ? 'simple-popover' : undefined;
               ? transactions
               : mode === 'EXPENSE'
               ? generatePageByMode('EXPENSE')
-              : 
-              generatePageByMode('INCOME')
+              : generatePageByMode('INCOME')
           }
           page={page}
           setPage={setPage}
