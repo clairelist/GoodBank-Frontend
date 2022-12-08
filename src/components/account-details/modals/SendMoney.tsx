@@ -21,12 +21,10 @@ export default function SendMoney(props: any) {
     <>
       <Modal
       open={props.open}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Money Transfer
+            Send Money
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 8 }}>
             <Send onClose={props.handleClose} />
