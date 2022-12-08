@@ -1,18 +1,11 @@
 import React from 'react';
 import {
-  ListItem,
-  ListItemButton,
   ListItemText,
   ListItemIcon,
-  Typography,
   MenuItem,
   IconButton,
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import Button from '@mui/material/Button';
-import Menu, { MenuProps } from '@mui/material/Menu';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import DraftsIcon from '@mui/icons-material/Drafts';
+import Menu from '@mui/material/Menu';
 import SendIcon from '@mui/icons-material/Send';
 import { useNavigate } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -23,44 +16,6 @@ import { logout } from '../../../features/user/userSlice';
 import { setNotificationTimer } from '../../../features/notification/notificationSlice';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
-// const StyledMenu = withStyles({
-//   paper: {
-//     border: '1px solid #d3d4d5',
-//   },
-// })((props: MenuProps) => (
-//   <Menu
-//     elevation={0}
-//     getContentAnchorEl={null}
-//     anchorOrigin={{
-//       vertical: 'bottom',
-//       horizontal: 'center',
-//     }}
-//     transformOrigin={{
-//       vertical: 'top',
-//       horizontal: 'center',
-//     }}
-//     {...props}
-//   />
-// ));
-
-// const Item = styled(Menu)(({ theme }) => ({
-//   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-//   ...theme.typography.body2,
-//   padding: theme.spacing(1),
-//   textAlign: 'center',
-//   color: theme.palette.text.secondary,
-// }));
-
-// const StyledMenuItem = withStyles((theme: any) => ({
-//   root: {
-//     '&:focus': {
-//       backgroundColor: theme.palette.primary.main,
-//       '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
-//         color: theme.palette.common.white,
-//       },
-//     },
-//   },
-// }))(MenuItem);
 
 const ProfileMenu = () => {
     const user = useAppSelector((state) => state.user.user);
@@ -70,15 +25,15 @@ const ProfileMenu = () => {
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  function handleClick(event: React.MouseEvent<HTMLElement>) {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  function handleClose() {
     setAnchorEl(null);
   };
 
-  const handleSignOut = () => {
+  function handleSignOut() {
 
     apiLogout();
     dispatch(logout());

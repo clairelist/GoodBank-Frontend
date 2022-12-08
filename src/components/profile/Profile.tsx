@@ -9,7 +9,7 @@ import * as React from 'react';
 import { useDispatch } from 'react-redux';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../app/hooks';
-import userSlice, { signIn } from '../../features/user/userSlice';
+import { signIn } from '../../features/user/userSlice';
 import { UserUpdateRequest } from '../../models/user';
 import { apiUpdate } from '../../remote/banking-api/update.api';
 
