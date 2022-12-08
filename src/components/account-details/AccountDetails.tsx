@@ -10,9 +10,15 @@ import {
 import './AccountDetails.css';
 import SideBar from './SideBar';
 import StyledTable from './StyledTable';
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import {
+  Box,
+  List,
+  ListItemButton,
+  ListItemText,
+  Popover,
+} from '@mui/material';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { setAccountTransactions } from '../../features/account/accountSlice';
-import { Box, List, ListItemButton, ListItemText, Popover } from '@mui/material';
 
 export default function AccountDetails() {
   const navigate = useNavigate();
@@ -20,11 +26,13 @@ export default function AccountDetails() {
   const user = useAppSelector((state) => state.user.user);
   const transactions = useAppSelector((state) => state.account.accountTransactions);
   const [allTransaction, setAllTransactions] = useState<Transaction[]>([]);
-  const currentAccount = useAppSelector((state) => state.account.currentAccount);
+  const currentAccount = useAppSelector(
+    (state) => state.account.currentAccount
+  );
   const [page, setPage] = useState(1);
   const [transSize, setTransSize] = useState(0);
   const [mode, setMode] = useState('RECENT');
-
+  
   const fetchData = async () => {
     if (user) {
       let token: string = sessionStorage.getItem('token') || '';
@@ -38,26 +46,22 @@ export default function AccountDetails() {
       setTransSize(transCount.payload);
     }
   };
-
   const fetchAll = async () => {
     if (user) {
       let token: string = sessionStorage.getItem('token') || '';
-      const result = await apiGetAllTransactions(
-        currentAccount?.id,
-        token,
-      );
+      const result = await apiGetAllTransactions(currentAccount?.id, token);
       setAllTransactions(result.payload);
     }
   };
-
   const generatePageByMode = (currentMode: string) => {
     return allTransaction
       .filter((x) => x.type === currentMode)
       .slice(
         (page - 1) * 5,
-        allTransaction.filter((x) => x.type === currentMode).length <=
-          5
-          ? undefined : (page - 1) * 5 + 5)
+        allTransaction.filter((x) => x.type === currentMode).length <= 5
+          ? undefined
+          : (page - 1) * 5 + 5
+      );
   };
 
   useEffect(() => {
@@ -69,7 +73,7 @@ export default function AccountDetails() {
       fetchAll();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, navigate, page]);
+  }, [user, navigate, page, currentAccount]);
 
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -78,7 +82,7 @@ export default function AccountDetails() {
       setPage(1);
       setMode(newMode);
     }
-  }
+  };
 
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -167,9 +171,8 @@ export default function AccountDetails() {
             mode === 'RECENT'
               ? transactions
               : mode === 'EXPENSE'
-                ? generatePageByMode('EXPENSE')
-                :
-                generatePageByMode('INCOME')
+              ? generatePageByMode('EXPENSE')
+              : generatePageByMode('INCOME')
           }
           page={page}
           setPage={setPage}
