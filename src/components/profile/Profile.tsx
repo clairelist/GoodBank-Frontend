@@ -7,11 +7,10 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import { apiUpdate } from '../../remote/banking-api/update.api';
 import { useDispatch } from 'react-redux';
 import { signIn } from '../../features/user/userSlice';
-import { Navigate } from 'react-router-dom';
 import { UserUpdateRequest } from '../../models/user';
 
 const theme = createTheme();
