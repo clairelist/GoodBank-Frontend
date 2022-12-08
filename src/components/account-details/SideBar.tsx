@@ -37,7 +37,7 @@ export default function SideBar() {
         <CreateTransaction handleClose={handleCreateTransactionClose} open={openCreateTransaction} />
         <MenuItem><SendAndArchiveIcon /> Send Money </MenuItem>
         <MenuItem onClick={handleTransferMoneyOpen}><MoveDownIcon /> Transfer Money </MenuItem>
-        <TransferMoney handleClose={handleTransferMoneyClose} open={openTransferMoney} />
+        <TransferMoney handleClose={handleTransferMoneyClose} open={openTransferMoney}/>
         <MenuItem onClick={handleCreatePaymentOpen}><LocalAtmIcon /> Make a Payment </MenuItem>
         <CCPayment handleClose={handleCreatePaymentClose} open={openCreatePayment}/>
         <MenuItem><CancelIcon /> Close Account </MenuItem>

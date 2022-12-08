@@ -10,7 +10,6 @@ import {
 import './AccountDetails.css';
 import SideBar from './SideBar';
 import StyledTable from './StyledTable';
-
 import {
   Box,
   List,
@@ -25,10 +24,7 @@ export default function AccountDetails() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.user);
-  // const [transaction, setTransactions] = useState<Transaction[]>([]);
-  const transactions = useAppSelector(
-    (state) => state.account.accountTransactions
-  );
+  const transactions = useAppSelector((state) => state.account.accountTransactions);
   const [allTransaction, setAllTransactions] = useState<Transaction[]>([]);
   const currentAccount = useAppSelector(
     (state) => state.account.currentAccount
@@ -36,6 +32,7 @@ export default function AccountDetails() {
   const [page, setPage] = useState(1);
   const [transSize, setTransSize] = useState(0);
   const [mode, setMode] = useState('RECENT');
+  
   const fetchData = async () => {
     if (user) {
       let token: string = sessionStorage.getItem('token') || '';
@@ -91,7 +88,7 @@ export default function AccountDetails() {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  function handleClose() {
     setAnchorEl(null);
   };
 
@@ -183,8 +180,8 @@ export default function AccountDetails() {
             mode === 'RECENT'
               ? transSize
               : mode === 'EXPENSE'
-              ? allTransaction.filter((x) => x.type === 'EXPENSE').length
-              : allTransaction.filter((x) => x.type === 'INCOME').length
+                ? allTransaction.filter((x) => x.type === 'EXPENSE').length
+                : allTransaction.filter((x) => x.type === 'INCOME').length
           }
           mode={mode}
         />
