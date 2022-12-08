@@ -33,7 +33,6 @@ const AdminLoan = () => {
     );
   };
 
-
   return (
     <Paper style={{width: '70%', margin: 'auto'}}>
       <h1 style={{textAlign: 'center'}}>Pending Loans</h1>
@@ -45,7 +44,7 @@ const AdminLoan = () => {
               <p>Loan ID: {loan.loanID}</p>
               <p>Loan User ID: {loan.userId}</p>
               <p>Loan Reason: {loan.reason}</p>
-              <p>Loan Initial Amount: ${loan.initialAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
+              <p>Loan Initial Amount: ${loan.initialAmount}</p>
               <p>Created on: {loan.creationDate.toString().slice(0, 10)}</p>
               </div>
               <div style={{marginBottom: '35px'}}>
