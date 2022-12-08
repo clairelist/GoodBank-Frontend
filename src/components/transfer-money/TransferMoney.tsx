@@ -25,26 +25,36 @@ export default function TransferMoney(props: any) {
   );
   const dispatch = useAppDispatch();
   const accounts = useAppSelector((state) => state.account.userAccounts);
+  const transferType = useAppSelector((state) => state.account.transferType);
 
   const [amount, setAmount] = React.useState('');
   const [account, setAccount] = React.useState('');
-
+  const [otherAccount, setOtherAccount] = React.useState('');
+ 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const update = new FormData(event.currentTarget);
-
+    let transfer: Transfer;
     //making new transaction
-    let transfer: Transfer = {
-      amount: parseFloat(update.get('amount')?.toString() || '0'),
-      account: currentAccount,
-      type: update.get('type')?.toString() || 'TRANSFER',
-      toAccountId: Number(update.get('account') || account),
-    };
-
+    if(transferType === "betweenAccounts"){
+      transfer = {
+        amount: parseFloat(update.get('amount')?.toString() || '0'),
+        account: currentAccount,
+        type: update.get('type')?.toString() || 'TRANSFER',
+        toAccountId: Number(update.get('account') || account),
+      };
+    }else{
+      transfer = {
+        amount: parseFloat(update.get('amount')?.toString() || '0'),
+        account: currentAccount,
+        type: update.get('type')?.toString() || 'TRANSFER',
+        toAccountId: Number(update.get('otherAccount') || otherAccount),
+      };
+    }
+      
     const response = await apiTransferTransaction(currentAccount.id, transfer);
     if (response.status >= 200 && response.status < 300) {
       dispatch(setAccountTransactions(response.payload));
-      dispatch(setCurrentAccount(currentAccount));
       props.onClose();
     }
   };
@@ -53,9 +63,56 @@ export default function TransferMoney(props: any) {
     setAccount(event.target.value);
   };
 
+  const setOtherUserAccount = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setOtherAccount(event.target.value);
+  };
+
   const handleChangeAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAmount(event.target.value);
   };
+
+  function renderTransactionType(){
+    if(transferType === "betweenAccounts"){
+      return (
+        <FormControl
+        id="content2"
+        variant="standard"
+        sx={{ m: 1, minWidth: 120 }}
+      >
+        <InputLabel id="account">To</InputLabel>
+        <Select
+          labelId="account"
+          id="account"
+          name="account"
+          label="To"
+          fullWidth
+          value={account}
+          onChange={handleChangeAccount}
+        >
+          {accounts.map(({ id, name }, index) => {
+            return (
+              <MenuItem key={index} value={id}>
+                {name}
+              </MenuItem>
+            );
+          })}
+        </Select>
+      </FormControl>
+
+      )
+    }
+    return(
+      <TextField
+          id="content2"
+          label="To"
+          value={otherAccount}
+          helperText="Receiving Account"
+          variant="standard"
+          placeholder=" Enter Account number"
+          onChange={setOtherUserAccount}
+        ></TextField>
+    )
+  } 
 
   return (
     <>
@@ -71,30 +128,7 @@ export default function TransferMoney(props: any) {
           }}
         ></TextField>
 
-        <FormControl
-          id="content2"
-          variant="standard"
-          sx={{ m: 1, minWidth: 120 }}
-        >
-          <InputLabel id="account">To</InputLabel>
-          <Select
-            labelId="account"
-            id="account"
-            name="account"
-            label="To"
-            fullWidth
-            value={account}
-            onChange={handleChangeAccount}
-          >
-            {accounts.map(({ id, name }, index) => {
-              return (
-                <MenuItem key={index} value={id}>
-                  {name}
-                </MenuItem>
-              );
-            })}
-          </Select>
-        </FormControl>
+       {renderTransactionType()}
 
         <FormControl
           id="content3"
