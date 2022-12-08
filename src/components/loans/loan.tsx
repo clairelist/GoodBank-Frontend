@@ -63,6 +63,8 @@ const Loan = () => {
       setError('Fields cannot be empty!')
     }else if(Number(values.amount) <= 0){
       setAmountError('Amount must be greater than 0!')
+    }else if(values.amount.search(/\D/) !== -1){
+      setAmountError('Amount must be a number!')
     }else{
 
       if (user) {
@@ -134,6 +136,7 @@ const Loan = () => {
                         Amount*
                       </InputLabel>
                       <FilledInput
+
                         id="filled-adornment-amount"
                         value={values.amount}
                         onChange={handleChange('amount')}
