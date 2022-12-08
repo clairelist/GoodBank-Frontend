@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import Send from '../../send-money/SendMoney';
+import Transfer from './TransferMoney';
 
 const style = {
   position: 'absolute',
@@ -27,7 +27,7 @@ export default function SendMoney(props: any) {
             Send Money
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 8 }}>
-            <Send onClose={props.handleClose} />
+            <Transfer onClose={props.handleClose} />
           </Typography>
         </Box>
       </Modal>
