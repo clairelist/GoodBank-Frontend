@@ -36,6 +36,7 @@ export default function CreatePaymentForm() {
       token
     );
     setCCTransactions(response.payload);
+    
   }
 
   return (
@@ -53,8 +54,8 @@ export default function CreatePaymentForm() {
             />
           </Grid>
           <Grid item>
-            <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel id="account">To</InputLabel>
+            <FormControl variant="standard" sx={{ m: 1, minWidth: "100%" }}>
+              <InputLabel id="account">Payment From:</InputLabel>
               <Select
                 id="account"
                 name="account"

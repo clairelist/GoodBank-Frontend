@@ -9,7 +9,7 @@ import { apiTransferTransaction } from '../../remote/banking-api/account.api';
 import { Transfer } from '../../models/Transfer';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { setAccountTransactions } from '../../features/account/accountSlice';
-
+import { useNavigate } from 'react-router-dom';
 
 export default function TransferMoney(props: any) {
 
@@ -17,41 +17,37 @@ export default function TransferMoney(props: any) {
     (state) => state.account.currentAccount
   );
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.user.user);
   const accounts = useAppSelector((state) => state.account.userAccounts);
-
   const [amount, setAmount] = React.useState('');
   const [account, setAccount] = React.useState('');
+  const navigate = useNavigate();
   
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const update = new FormData(event.currentTarget);
-
       //making new transaction 
-      let transfer: Transfer = {
-       amount: parseFloat(update.get('amount')?.toString() || '0'),
-       account: currentAccount, 
-       type: update.get('type')?.toString() || 'TRANSFER', 
-       toAccountId: Number(update.get('account') || account)
-      };
-       
+    let transfer: Transfer = {
+      amount: parseFloat(update.get('amount')?.toString() || '0'),
+      account: currentAccount, 
+      type: update.get('type')?.toString() || 'TRANSFER', 
+      toAccountId: Number(update.get('account') || account)
+    };
     const response = await apiTransferTransaction(currentAccount.id, transfer);
-    console.log('response', response);
-    console.log('transfer', transfer);
     if (response.status >= 200 && response.status < 300){
         dispatch(setAccountTransactions(response.payload));
-    } 
+        props.onClose();
+        navigate("/")
+    }
+    
   };
 
   const handleChangeAccount = (event: SelectChangeEvent) => {
     setAccount(event.target.value);
   };
-  console.log('Handle change Account', account);
 
   const handleChangeAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAmount(event.target.value);
   };
-  console.log('Handle change', amount);
 
   return (
     <>
