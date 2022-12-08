@@ -11,8 +11,9 @@ import { useNavigate } from 'react-router-dom';
 import Tooltip from '@mui/material/Tooltip';
 import NotificationToggle from './notifications/NotificationToggle';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import {logout} from '../../features/user/userSlice';
+import { logout } from '../../features/user/userSlice';
 import SavingsIcon from '@mui/icons-material/Savings';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import { setNotificationTimer } from '../../features/notification/notificationSlice';
 
 export default function Navbar() {
@@ -47,6 +48,28 @@ export default function Navbar() {
           <div>
             {/* notifications button */}
             {user ? <NotificationToggle /> : ''}
+
+            {/* user profile button */}
+            {user ? (
+              <Tooltip
+                disableFocusListener
+                disableTouchListener
+                title={user ? 'Profile' : 'Login'}
+              >
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={() => navigate('/profile')}
+                  color="inherit"
+                >
+                  <AccountBoxIcon />
+                </IconButton>
+              </Tooltip>
+            ) : (
+              ''
+            )}
 
             {/* authenticate button */}
             <Tooltip

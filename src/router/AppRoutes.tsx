@@ -8,6 +8,7 @@ import { ProSidebarProvider } from 'react-pro-sidebar';
 import Loan from '../components/loans/loan';
 import CreditCardDetails from '../components/credit-cards/CreditCardDetails';
 import ResetPassword from '../components/reset-password/ResetPassword';
+import Profile from '../components/profile/Profile';
 
 
 
@@ -29,5 +30,6 @@ export const AppRoutes: React.FC<unknown> = () => (
         <CreditCardDetails />
       </ProSidebarProvider>
     } />
+    <Route path="/profile" element={<Profile/>} />
   </Routes>
 );
