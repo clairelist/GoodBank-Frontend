@@ -4,13 +4,13 @@ import axios from 'axios';
 // Very simple, but it also doesn't give us much abstraction
 const bankingClient = axios.create({
   withCredentials: true,
-  // switch baseURL to local to run locally. DO NOT DELETE - UNCOMMENT ONLY
+  // switch these in your .env file
   baseURL: `${process.env.REACT_APP_API_URL}`,
-  // baseURL: 'http://localhost:8080',
   headers: {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': 'http://localhost:3000',
   },
+  validateStatus: () => true
 });
 
 bankingClient.interceptors.request.use(

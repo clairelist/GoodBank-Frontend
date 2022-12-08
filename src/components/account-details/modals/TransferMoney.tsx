@@ -15,22 +15,21 @@ const style = {
   p: 4,
 };
 
-export default function CreateTransaction(props: any) {
+export default function TransferMoney(props: any) {
 
   return (
     <>
       <Modal
-        open={props.open}
-        onClose={props.handleClose}
+      open={props.open}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Money Transfer
+            Send Money
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 8 }}>
-            <Transfer />
+            <Transfer onClose={props.handleClose} />
           </Typography>
         </Box>
       </Modal>
