@@ -34,7 +34,7 @@ export default function CCPayment(props: any) {
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Payment Form Here
-            <CreatePaymentForm/>
+            <CreatePaymentForm handleClose={props.handleClose}/>
           </Typography>
         </Box>
         </Modal>

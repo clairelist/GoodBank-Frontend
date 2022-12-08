@@ -19,14 +19,13 @@ import {
 import { Transfer } from '../../models/Transfer';
 import { apiTransferTransaction } from '../../remote/banking-api/account.api';
 
+
 export default function TransferMoney(props: any) {
   const currentAccount = useAppSelector(
     (state) => state.account.currentAccount
   );
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.user.user);
   const accounts = useAppSelector((state) => state.account.userAccounts);
-
   const [amount, setAmount] = React.useState('');
   const [account, setAccount] = React.useState('');
 
