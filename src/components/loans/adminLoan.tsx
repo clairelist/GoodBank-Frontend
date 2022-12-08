@@ -33,16 +33,16 @@ const AdminLoan = () => {
   };
   return (
     <Paper>
-      <h1>this is just a test hahahahahahah!!!! (Pending Loans)</h1>
+      <h1 style={{textAlign: 'center'}}>Pending Loans</h1>
       {loans.length > 0
         ? loans.map((loan: LoanDetails) => (
-            <div key={loan.loanID + 1}>
+            <div key={loan.loanID + 1} style={{borderBottom:'1px solid black', borderRadius: '5px'}}>
               <p>LoanID: {loan.loanID}</p>
               <p>LoanUserID: {loan.userId}</p>
               <p>LoanReason: {loan.reason}</p>
               <p>LoanInitialAmount: {loan.initialAmount}</p>
               <p>CreationDate: {loan.creationDate.toString()}</p>
-              <div>
+              <div style={{marginBottom: '15px'}}>
                 <Button
                   variant="contained"
                   color="primary"

@@ -3,6 +3,7 @@ import { Sidebar, Menu, MenuItem, sidebarClasses } from 'react-pro-sidebar';
 import CreateTransaction from './modals/CreateTransaction';
 import TransferMoney from './modals/TransferMoney';
 import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
+import CCPayment from './modals/CreateCreditCardPayment';
 import SendAndArchiveIcon from '@mui/icons-material/SendAndArchive';
 import MoveDownIcon from '@mui/icons-material/MoveDown';
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
@@ -12,7 +13,9 @@ export default function SideBar() {
   const [openCreateTransaction, setOpenCreateTransaction] = useState(false);
   const handleCreateTransactionOpen = () => { setOpenCreateTransaction(true); };
   const handleCreateTransactionClose = () => { setOpenCreateTransaction(false); };
-
+  const [openCreatePayment, setOpenCreatePayment] = useState(false);
+  const handleCreatePaymentOpen = () => { setOpenCreatePayment(true); };
+  const handleCreatePaymentClose = () => { setOpenCreatePayment(false); };
   //TransferMoney
   const [openTransferMoney, setOpenTransferMoney] = useState(false);
   const handleTransferMoneyOpen = () => { setOpenTransferMoney(true); };
@@ -34,8 +37,9 @@ export default function SideBar() {
         <CreateTransaction handleClose={handleCreateTransactionClose} open={openCreateTransaction} />
         <MenuItem><SendAndArchiveIcon /> Send Money </MenuItem>
         <MenuItem onClick={handleTransferMoneyOpen}><MoveDownIcon /> Transfer Money </MenuItem>
-        <TransferMoney handleClose={handleTransferMoneyClose} open={openTransferMoney} />
-        <MenuItem><LocalAtmIcon /> Make a Payment </MenuItem>
+        <TransferMoney handleClose={handleTransferMoneyClose} open={openTransferMoney}/>
+        <MenuItem onClick={handleCreatePaymentOpen}><LocalAtmIcon /> Make a Payment </MenuItem>
+        <CCPayment handleClose={handleCreatePaymentClose} open={openCreatePayment}/>
         <MenuItem><CancelIcon /> Close Account </MenuItem>
       </Menu>
     </Sidebar>
