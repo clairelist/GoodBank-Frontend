@@ -85,7 +85,7 @@ export default function Login() {
             id="password"
             autoComplete="current-password"
           />
-          <Alert severity="error">{error}</Alert>
+          {error === '' ? '' : <Alert severity="error">{error}</Alert>}
           <Rlink to={'reset-password'}>Forgot password?</Rlink>
           <Button
             type="submit"
@@ -98,9 +98,9 @@ export default function Login() {
           </Button>
           <Grid container>
             <Grid item>
-              <Link href="register" variant="body2">
+              <Rlink to={'../register'}>
                 {"Don't have an account? Sign Up"}
-              </Link>
+              </Rlink>
             </Grid>
           </Grid>
         </Box>
