@@ -1,17 +1,17 @@
-import * as React from 'react';
-import { useAppSelector } from '../../app/hooks';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import Avatar from '@mui/material/Avatar';
-import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
-import { useNavigate, Navigate } from 'react-router-dom';
-import { apiUpdate } from '../../remote/banking-api/update.api';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import { createTheme, styled, ThemeProvider } from '@mui/material/styles';
+import TextField from '@mui/material/TextField';
+import * as React from 'react';
 import { useDispatch } from 'react-redux';
-import { signIn } from '../../features/user/userSlice';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../app/hooks';
+import userSlice, { signIn } from '../../features/user/userSlice';
 import { UserUpdateRequest } from '../../models/user';
+import { apiUpdate } from '../../remote/banking-api/update.api';
 
 const theme = createTheme();
 

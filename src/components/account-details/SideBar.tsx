@@ -8,37 +8,30 @@ import SendAndArchiveIcon from '@mui/icons-material/SendAndArchive';
 import MoveDownIcon from '@mui/icons-material/MoveDown';
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 import CancelIcon from '@mui/icons-material/Cancel';
-import SendMoney from './modals/SendMoney';
 import { useAppDispatch } from '../../app/hooks';
 import { setTransferType } from '../../features/account/accountSlice';
 
 export default function SideBar() {
-
   const dispatch = useAppDispatch();
+
   const [openCreateTransaction, setOpenCreateTransaction] = useState(false);
   const handleCreateTransactionOpen = () => { setOpenCreateTransaction(true); };
   const handleCreateTransactionClose = () => { setOpenCreateTransaction(false); };
+
   const [openCreatePayment, setOpenCreatePayment] = useState(false);
   const handleCreatePaymentOpen = () => { setOpenCreatePayment(true); };
   const handleCreatePaymentClose = () => { setOpenCreatePayment(false); };
-
-
-  //TransferMoney
+  
   const [openTransferMoney, setOpenTransferMoney] = useState(false);
   const handleTransferMoneyOpen = () => {
      setOpenTransferMoney(true);
      dispatch(setTransferType("betweenAccounts"));
     };
   const handleTransferMoneyClose = () => { setOpenTransferMoney(false); };
-
-  //SendMoney
-  const [openSendMoney, setOpenSendMoney] = useState(false);
   const handleSendMoneyOpen = () => { 
     setOpenTransferMoney(true);
     dispatch(setTransferType("betweenUsers"));
   };
-  // const handleSendMoneyClose = () => { setOpenSendMoney(false); };
-
 
   return (
     <Sidebar

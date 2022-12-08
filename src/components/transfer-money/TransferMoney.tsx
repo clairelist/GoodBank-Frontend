@@ -12,10 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import {
-  setAccountTransactions,
-  setCurrentAccount,
-} from '../../features/account/accountSlice';
+import { setAccountTransactions } from '../../features/account/accountSlice';
 import { Transfer } from '../../models/Transfer';
 import { apiTransferTransaction } from '../../remote/banking-api/account.api';
 
@@ -26,7 +23,6 @@ export default function TransferMoney(props: any) {
   const dispatch = useAppDispatch();
   const accounts = useAppSelector((state) => state.account.userAccounts);
   const transferType = useAppSelector((state) => state.account.transferType);
-
   const [amount, setAmount] = React.useState('');
   const [account, setAccount] = React.useState('');
   const [otherAccount, setOtherAccount] = React.useState('');
@@ -35,7 +31,6 @@ export default function TransferMoney(props: any) {
     event.preventDefault();
     const update = new FormData(event.currentTarget);
     let transfer: Transfer;
-    //making new transaction
     if(transferType === "betweenAccounts"){
       transfer = {
         amount: parseFloat(update.get('amount')?.toString() || '0'),
@@ -43,7 +38,7 @@ export default function TransferMoney(props: any) {
         type: update.get('type')?.toString() || 'TRANSFER',
         toAccountId: Number(update.get('account') || account),
       };
-    }else{
+    } else {
       transfer = {
         amount: parseFloat(update.get('amount')?.toString() || '0'),
         account: currentAccount,
@@ -98,8 +93,7 @@ export default function TransferMoney(props: any) {
           })}
         </Select>
       </FormControl>
-
-      )
+      );
     }
     return(
       <TextField
@@ -111,7 +105,7 @@ export default function TransferMoney(props: any) {
           placeholder=" Enter Account number"
           onChange={setOtherUserAccount}
         ></TextField>
-    )
+    );
   } 
 
   return (
@@ -127,9 +121,7 @@ export default function TransferMoney(props: any) {
             readOnly: true,
           }}
         ></TextField>
-
-       {renderTransactionType()}
-
+        {renderTransactionType()}
         <FormControl
           id="content3"
           sx={{ m: 1, width: '25ch' }}
