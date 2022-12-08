@@ -88,7 +88,7 @@ export default function AccountDetails() {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  function handleClose() {
     setAnchorEl(null);
   };
 
