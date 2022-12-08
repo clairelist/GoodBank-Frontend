@@ -8,12 +8,13 @@ import Grid from '@mui/material/Grid';
 import { CreditCardTransaction } from '../../models/CreditCardTransaction';
 import { apiMakeCreditCardPayment } from '../../remote/banking-api/creditcard.api';
 
-export default function CreatePaymentForm() {
+export default function CreatePaymentForm(props: any) {
   const user = useAppSelector((state) => state.user.user);
   const accounts = useAppSelector((state) => state.account.userAccounts);
   const currentCCAccount = useAppSelector((state) => state.creditCard.currentCreditCard);
   const [ccTransactions, setCCTransactions] = useState([]);
   const [account, setAccount] = React.useState("Select an Account");
+
   const handleChangeAccount = (event: SelectChangeEvent) => {
     setAccount(event.target.value);
   };
@@ -36,7 +37,7 @@ export default function CreatePaymentForm() {
       token
     );
     setCCTransactions(response.payload);
-    
+    props.handleClose();
   }
 
   return (
