@@ -30,14 +30,14 @@ const Loans = () => {
       container
       sx={{
         display: 'flex',
-        alignItems: 'center',
+        alignItems: 'flexStart',
         direction: 'column',
         justifyContent: 'center',
       }}
       columns={12}
     >
       <Typography variant="h2" sx={{ marginTop: '20px' }}>
-        Your Loans
+        Loans
       </Typography>
       {loans
         .filter((x: LoanDetails) => x.status !== 'DENIED')

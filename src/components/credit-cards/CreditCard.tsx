@@ -74,7 +74,7 @@ export default function CreditCards() {
                     container
                     sx={{
                     display: 'flex',
-                    alignItems: 'center',
+                    alignItems: 'flexStart',
                     direction: 'column',
                     justifyContent: 'center',
                     }}

@@ -50,7 +50,7 @@ export default function Accounts() {
           container
           sx={{
             display: 'flex',
-            alignItems: 'center',
+            alignItems: 'flexStart',
             direction: 'column',
             justifyContent: 'center',
           }}
@@ -83,14 +83,14 @@ export default function Accounts() {
           container
           sx={{
             display: 'flex',
-            alignItems: 'center',
+            alignItems: 'flexStart',
             direction: 'column',
             justifyContent: 'center',
           }}
           columns={12}
         >
           <Typography variant="h2" sx={{ marginTop: '20px' }}>
-            Your Accounts
+            Accounts
           </Typography>
           {accounts?.map((account: Account) => (
             <AccountListItem key={account.id} account={account} />
