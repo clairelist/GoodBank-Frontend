@@ -1,16 +1,14 @@
 import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { setCurrentAccount, setUserAccounts } from '../../features/account/accountSlice';
+import {  setUserAccounts } from '../../features/account/accountSlice';
 import { Account } from '../../models/Account';
 import { apiGetAccounts } from '../../remote/banking-api/account.api';
 import OpenAccount from '../home/OpenAccountForm';
-import { v4 as uuidv4 } from 'uuid';
+import AccountListItem from './AccountListItem';
 
 export default function Accounts() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -95,37 +93,7 @@ export default function Accounts() {
             Your Accounts
           </Typography>
           {accounts?.map((account: Account) => (
-            <React.Fragment key={uuidv4()}>
-              <Grid item mt={2} sm={12} md={12} >
-                <Card
-                  sx={{ margin: '0 auto', display: 'flex', maxWidth: '700px' }}
-                >
-                  <CardContent>
-                    <Typography variant="h3" color="text.secondary">
-                      {account?.name}
-                    </Typography>
-
-                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                      Created On: {account?.creationDate}
-                    </Typography>
-                    <Button
-                      onClick={() => {
-                        dispatch(setCurrentAccount(account));
-                        navigate('/details');
-                      }}
-                    >
-                      Account Details
-                    </Button>
-                    <Typography
-                      variant="h5"
-                      sx={{ display: 'flex', justifyContent: 'flex-end' }}
-                    >
-                      Balance: {account?.balance}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            </React.Fragment>
+            <AccountListItem key={account.id} account={account} />
           ))}
 
           {/* <Grid item sm={12} md={12}>
