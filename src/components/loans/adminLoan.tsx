@@ -11,7 +11,6 @@ import {
 const AdminLoan = () => {
   const user = useAppSelector((state) => state.user.user);
   const [loans, setLoans] = useState([]);
-  const now = new Date();
 
   useEffect(() => {
     const getLoans = async () => {
