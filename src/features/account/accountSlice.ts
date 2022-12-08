@@ -7,6 +7,7 @@ export interface AccountState {
     currentAccount: Account;
     userAccounts: Account[];
     accountTransactions: Transaction[];
+    transferType: string;
     /*id: number;
     name: string;
     balance: number;
@@ -25,7 +26,8 @@ const initialState: AccountState = {
         creationDate: ""
     },
     userAccounts: [],
-    accountTransactions: []
+    accountTransactions: [],
+    transferType: ""
     
 };
 
@@ -41,13 +43,17 @@ export const accountSlice = createSlice({
         },
         setAccountTransactions: (state, action: PayloadAction<Transaction[]>) => {
             state.accountTransactions = [...action.payload];
+        },
+        setTransferType: (state, action: PayloadAction<string>) => {
+            state.transferType = action.payload;
         }
     }
 })
 
-export const { setCurrentAccount, setUserAccounts, setAccountTransactions } = accountSlice.actions;
+export const { setCurrentAccount, setUserAccounts, setAccountTransactions, setTransferType } = accountSlice.actions;
 export const selectCurrentAccount = (state: RootState) => state.account.currentAccount;
 export const getUserAccounts = (state: RootState) => state.account.userAccounts;
 export const getAccountTransactions = (state: RootState) => state.account.accountTransactions;
+export const getTransferType = (state: RootState) => state.account.transferType;
 
 export default accountSlice.reducer;
