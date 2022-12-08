@@ -9,7 +9,7 @@ import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
-import { useNavigate, Link as Rlink } from 'react-router-dom';
+import { Link as Rlink, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { signIn } from '../../features/user/userSlice';
 import { apiLogin } from '../../remote/banking-api/auth.api';
@@ -21,17 +21,21 @@ export default function Login() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const email = data.get('email');
-    const password = data.get('password');
+    try {
+      const data = new FormData(event.currentTarget);
+      const email = data.get('email');
+      const password = data.get('password');
 
-    const response = await apiLogin(`${email}`, `${password}`);
-    if (response.status >= 200 && response.status < 300) {
-      let token = response.headers['authorization'];
-      if (token) {
-        sessionStorage.setItem('token', token);
+      const response = await apiLogin(`${email}`, `${password}`);
+      if (response.status >= 200 && response.status < 300) {
+        let token = response.headers['authorization'];
+        if (token) {
+          sessionStorage.setItem('token', token);
+        }
+        dispatch(signIn(response.payload));
       }
-      dispatch(signIn(response.payload));
+    } catch (error) {
+      return <p>Invalid Credentials!</p>;
     }
   };
 
@@ -39,7 +43,7 @@ export default function Login() {
     if (user) {
       navigate('/');
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   return (
