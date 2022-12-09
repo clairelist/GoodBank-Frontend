@@ -84,9 +84,9 @@ export default function TransferMoney(props: any) {
           value={account}
           onChange={handleChangeAccount}
         >
-          {accounts.map(({ id, name }, index) => {
+          {accounts.map(({ id, name }) => {
             return (
-              <MenuItem key={index} value={id}>
+              <MenuItem key={id} value={id}>
                 {name}
               </MenuItem>
             );
