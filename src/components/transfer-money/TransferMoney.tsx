@@ -84,7 +84,8 @@ export default function TransferMoney(props: any) {
         <FormControl
           id="content2"
           variant="standard"
-          sx={{ m: 1, minWidth: 120 }}
+          fullWidth
+          sx={{ mt: 1, minWidth: 120 }}
         >
           <InputLabel id="account">To</InputLabel>
           <Select
@@ -92,7 +93,6 @@ export default function TransferMoney(props: any) {
             id="account"
             name="account"
             label="To"
-            fullWidth
             value={account}
             onChange={handleChangeAccount}
           >
@@ -114,6 +114,7 @@ export default function TransferMoney(props: any) {
         value={otherAccount}
         helperText="Receiving Account"
         variant="standard"
+        fullWidth
         placeholder=" Enter Account number"
         onChange={setOtherUserAccount}
       ></TextField>
@@ -126,9 +127,10 @@ export default function TransferMoney(props: any) {
         <TextField
           id="content1"
           label="From"
-          value={currentAccount.id}
+          value={currentAccount.name}
           helperText="Current Account"
           variant="standard"
+          fullWidth
           InputProps={{
             readOnly: true,
           }}
@@ -136,7 +138,7 @@ export default function TransferMoney(props: any) {
         {renderTransactionType()}
         <FormControl
           id="content3"
-          sx={{ m: 1, width: '25ch' }}
+          sx={{ m: 1, minWidth: 120, mt: 4 }}
           variant="outlined"
         >
           <Input
@@ -147,14 +149,32 @@ export default function TransferMoney(props: any) {
             placeholder="0.00"
             onChange={handleChangeAmount}
             value={amount}
+            fullWidth
             startAdornment={<InputAdornment position="start">$</InputAdornment>}
           />
           <InputLabel htmlFor="amount">Amount</InputLabel>
         </FormControl>
-        <Button type="submit">Submit</Button>
-        <Button autoFocus type="button" onClick={props.onClose}>
-          Close
-        </Button>
+        <div style={{ display: 'flex' }}>
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{ mt: 1 }}
+            color="secondary"
+            style={{ marginRight: 'auto' }}
+          >
+            Submit
+          </Button>
+          <Button
+            autoFocus
+            type="button"
+            onClick={props.onClose}
+            variant="contained"
+            sx={{ mt: 1 }}
+            color="secondary"
+          >
+            Close
+          </Button>
+        </div>
       </Box>
     </>
   );
