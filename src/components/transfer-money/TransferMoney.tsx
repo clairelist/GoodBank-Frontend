@@ -11,6 +11,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import {
   setAccountTransactions,
@@ -28,6 +29,7 @@ export default function TransferMoney(props: any) {
   const accounts = useAppSelector((state) => state.account.userAccounts);
   const [amount, setAmount] = React.useState('');
   const [account, setAccount] = React.useState('');
+  const [errorMessage, setErrorMessage] = React.useState(''); 
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -54,7 +56,12 @@ export default function TransferMoney(props: any) {
   };
 
   const handleChangeAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAmount(event.target.value);
+    if (Number(event.target.value) <= 0){
+      setErrorMessage('Amount must be greater than 0');
+    } else {
+      setAmount(event.target.value);
+      setErrorMessage('');
+    }
   };
 
   return (
@@ -113,6 +120,7 @@ export default function TransferMoney(props: any) {
           />
           <InputLabel htmlFor="amount">Amount</InputLabel>
         </FormControl>
+        <p>{errorMessage}</p>
         <Button type="submit">Submit</Button>
         <Button autoFocus type="button" onClick={props.onClose}>
           Close

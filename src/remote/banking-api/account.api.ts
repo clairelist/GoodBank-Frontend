@@ -103,6 +103,8 @@ transfer: Transfer
     response.data.forEach((transaction) => {
       let num = transaction.amount;
     transaction.amount = Math.round((num + Number.EPSILON) * 100) / 100;
+    
     });
+  
     return { status: response.status, headers: response.headers, payload: response.data };
 };
