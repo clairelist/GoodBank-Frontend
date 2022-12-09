@@ -102,19 +102,19 @@ export default function AccountDetails() {
         <div className="account-wrap">
           <div className="account-details">
             <h2>{currentAccount.name}</h2>
-            <h1>{currentAccount.balance}</h1>
-            <Button
+            <h1>${currentAccount.balance.toLocaleString(navigator.language, { minimumFractionDigits: 2 })}</h1>
+            <Button sx={{ color: 'black', border: '1px solid black' }}
               onClick={() => {
                 navigate('/');
               }}
             >
-              Go Back
+              Back to Accounts
             </Button>
           </div>
         </div>
       </div>
       <div className="txn-wrap">
-        <div style={{ display: 'flex', width: '100%', alignItems: 'center' }}>
+        <div style={{ display: 'flex', width: '100%', alignItems: 'center', color: '#5E548E' }}>
           <h1 className="title">Recent Transactions</h1>
           <Button
             variant="contained"
@@ -171,8 +171,8 @@ export default function AccountDetails() {
             mode === 'RECENT'
               ? transactions
               : mode === 'EXPENSE'
-              ? generatePageByMode('EXPENSE')
-              : generatePageByMode('INCOME')
+                ? generatePageByMode('EXPENSE')
+                : generatePageByMode('INCOME')
           }
           page={page}
           setPage={setPage}
