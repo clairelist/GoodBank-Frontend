@@ -13,7 +13,6 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { setNotificationTimer } from '../../../features/notification/notificationSlice';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import HomeIcon from '@mui/icons-material/Home';
 import { logout } from '../../../features/user/userSlice';
 import { apiLogout } from '../../../remote/banking-api/auth.api';
