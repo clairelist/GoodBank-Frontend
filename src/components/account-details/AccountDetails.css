@@ -42,6 +42,7 @@
 .title {
   text-align: center;
   color: #9F86C0;
+  z-index: 10;
 }
 
 .top-container {
@@ -54,4 +55,9 @@ SideBar { grid-area: 1 / 1 / 2 / 2; }
 
 .ad-button {
   color: white;
+}
+
+.go-back-button { 
+  color: black;
+  border: 1px solid black;
 }

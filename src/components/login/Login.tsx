@@ -37,9 +37,6 @@ export default function Login() {
     } else {
       setError('Invalid credentials!');
     }
-    else {
-      console.log('Invalid Credentials');
-    }
   };
 
   React.useEffect(() => {

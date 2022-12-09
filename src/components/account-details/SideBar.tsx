@@ -40,11 +40,12 @@ export default function SideBar() {
           backgroundColor: 'white',
           marginTop: '25px',
           borderRight: 'none',
-          color: '#5E548E'
+          color: '#5E548E',
+          paddingTop: '3rem'
         }
       }}>
       <Menu>
-        <MenuItem />
+        {/* <MenuItem /> */}
         <MenuItem onClick={handleCreateTransactionOpen}><PointOfSaleIcon /> Create Transaction </MenuItem>
         <CreateTransaction handleClose={handleCreateTransactionClose} open={openCreateTransaction} />
 
@@ -57,7 +58,7 @@ export default function SideBar() {
         <MenuItem onClick={handleCreatePaymentOpen}><LocalAtmIcon /> Make a Payment </MenuItem>
         <CCPayment handleClose={handleCreatePaymentClose} open={openCreatePayment} />
 
-        <MenuItem><CancelIcon /> Close Account </MenuItem>
+        {/* <MenuItem><CancelIcon /> Close Account </MenuItem> */}
       </Menu>
     </Sidebar>
   )
