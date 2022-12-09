@@ -1,4 +1,5 @@
 import LockOutlined from '@mui/icons-material/LockOutlined';
+import { Alert } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -14,6 +15,7 @@ import { apiRegister } from '../../remote/banking-api/auth.api';
 
 export default function Register() {
   const navigate = useNavigate();
+  const [error, setError] = React.useState('');
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -24,7 +26,21 @@ export default function Register() {
       `${data.get('firstName')}`,
       `${data.get('lastName')}`
     );
-    if (response.status >= 200 && response.status < 300) navigate('/login');
+    const passLength = String(data.get('password')).length;
+    if (response.status >= 200 && response.status < 300) {
+      navigate('/login');
+    } else if (
+      data.get('email') === '' ||
+      data.get('password') === '' ||
+      data.get('firstName') === null ||
+      data.get('lastName') === null
+    ) {
+      setError('Please check missing fields');
+    } else if (passLength <= 3) {
+      setError('Password must be greater than 3 characters');
+    } else {
+      setError('Username already in use');
+    }
   };
 
   return (
@@ -94,6 +110,7 @@ export default function Register() {
           >
             Sign Up
           </Button>
+          {error === '' ? '' : <Alert severity="error">{error}</Alert>}
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link href="login" variant="body2">
