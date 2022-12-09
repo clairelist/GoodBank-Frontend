@@ -8,12 +8,20 @@ import { Account } from '../../models/Account';
 import { apiCreateAccount } from '../../remote/banking-api/account.api';
 import { useNavigate } from 'react-router-dom';
 import { setCurrentAccount } from '../../features/account/accountSlice';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 export default function OpenAccount(prop: any) {
   const user = useAppSelector((state) => state.user.user);
   const navigate = useNavigate();
   const currentDate = new Date();
   const dispatch = useAppDispatch();
+  const [type, setType] = React.useState('');
+
+  const handleChange = (event: SelectChangeEvent) => {
+      setType(event.target.value);
+    };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     if (user) {
@@ -48,9 +56,20 @@ export default function OpenAccount(prop: any) {
         <InputLabel htmlFor="name">Name</InputLabel>
         <Input id="name" fullWidth required name="name" type="text" />
 
-        <InputLabel htmlFor="name">Account Type</InputLabel>
-        <Input id="type" fullWidth required name="type" type="text" />
-
+      <FormControl required sx={{mt: 2, mb: 2, minWidth: 120 }}>
+        <InputLabel id="demo-simple-select-helper-label">Type</InputLabel>
+        <Select
+          labelId="demo-simple-select-helper-label"
+          id="demo-simple-select-helper"
+          name="type"
+          value={type}
+          label="type"
+          onChange={handleChange}
+        >
+          <MenuItem value={'CHECKING'}>CHECKING</MenuItem>
+          <MenuItem value={'SAVINGS'}>SAVINGS</MenuItem>
+        </Select>
+        </FormControl>
         <InputLabel htmlFor="name">Balance</InputLabel>
         <Input id="balance" fullWidth required name="balance" type="text" />
         <Button type="submit">Submit</Button>
