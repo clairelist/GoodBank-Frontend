@@ -26,7 +26,7 @@ export default function TransferMoney(props: any) {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Money Transfer
+            Send Money
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 8 }}>
             <Transfer onClose={props.handleClose} />

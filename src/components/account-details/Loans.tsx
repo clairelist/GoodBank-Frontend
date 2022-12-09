@@ -1,30 +1,28 @@
+import SavingsIcon from '@mui/icons-material/Savings';
+import { CardContent } from '@mui/material';
+import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import Card from '@mui/material/Card';
-import { LoanDetails } from '../../models/LoanDetails';
-import { useAppSelector } from '../../app/hooks';
-import { apiGetLoans } from '../../remote/banking-api/loan.api';
 import React, { useEffect, useState } from 'react';
-import { CardContent } from '@mui/material';
-import SavingsIcon from '@mui/icons-material/Savings';
+import { useAppSelector } from '../../app/hooks';
+import { LoanDetails } from '../../models/LoanDetails';
+import { apiGetLoans } from '../../remote/banking-api/loan.api';
 
 const Loans = () => {
-    const user = useAppSelector((state) => state.user.user);
-    const [loans, setLoans] = useState([]);
+  const user = useAppSelector((state) => state.user.user);
+  const [loans, setLoans] = useState([]);
 
-    useEffect(()=>{
-        const getLoans = async () => {
-            if (user) {
-              let token: string = sessionStorage.getItem('token') || "";
-              const response = await apiGetLoans(
-                user.id, token
-              );
-                setLoans(response.payload);
-            }
-        }
-        getLoans();
-    }, [user])
-        
+  useEffect(() => {
+    const getLoans = async () => {
+      if (user) {
+        let token: string = sessionStorage.getItem('token') || '';
+        const response = await apiGetLoans(user.id, token);
+        setLoans(response.payload);
+      }
+    };
+    getLoans();
+  }, [user]);
+
   return (
     <Grid
       container
@@ -83,7 +81,9 @@ const Loans = () => {
                       fontSize: '1rem',
                     }}
                   >
-                    {loan.status === 'PENDING' ? 'AWAITING FOR APPROVAL' : 'DENIED'}
+                    {loan.status === 'PENDING'
+                      ? 'AWAITING FOR APPROVAL'
+                      : 'APPROVED'}
                   </Typography>
                 </CardContent>
               </Card>
@@ -92,6 +92,6 @@ const Loans = () => {
         ))}
     </Grid>
   );
-}
+};
 
-export default Loans
+export default Loans;
