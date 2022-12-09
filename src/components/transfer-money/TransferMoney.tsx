@@ -12,7 +12,10 @@ import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { setAccountTransactions } from '../../features/account/accountSlice';
+import {
+  setAccountTransactions,
+  setCurrentAccount,
+} from '../../features/account/accountSlice';
 import { Transfer } from '../../models/Transfer';
 import { apiTransferTransaction } from '../../remote/banking-api/account.api';
 
@@ -26,12 +29,12 @@ export default function TransferMoney(props: any) {
   const [amount, setAmount] = React.useState('');
   const [account, setAccount] = React.useState('');
   const [otherAccount, setOtherAccount] = React.useState('');
- 
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const update = new FormData(event.currentTarget);
     let transfer: Transfer;
-    if(transferType === "betweenAccounts"){
+    if (transferType === 'betweenAccounts') {
       transfer = {
         amount: parseFloat(update.get('amount')?.toString() || '0'),
         account: currentAccount,
@@ -46,11 +49,20 @@ export default function TransferMoney(props: any) {
         toAccountId: Number(update.get('otherAccount') || otherAccount),
       };
     }
-      
+
     const response = await apiTransferTransaction(currentAccount.id, transfer);
     if (response.status >= 200 && response.status < 300) {
       dispatch(setAccountTransactions(response.payload));
       props.onClose();
+      dispatch(
+        setCurrentAccount({
+          id: currentAccount.id,
+          name: currentAccount.name,
+          balance: currentAccount.balance - transfer.amount,
+          accountType: currentAccount.accountType,
+          creationDate: currentAccount.creationDate,
+        })
+      );
     }
   };
 
@@ -66,47 +78,47 @@ export default function TransferMoney(props: any) {
     setAmount(event.target.value);
   };
 
-  function renderTransactionType(){
-    if(transferType === "betweenAccounts"){
+  function renderTransactionType() {
+    if (transferType === 'betweenAccounts') {
       return (
         <FormControl
-        id="content2"
-        variant="standard"
-        sx={{ m: 1, minWidth: 120 }}
-      >
-        <InputLabel id="account">To</InputLabel>
-        <Select
-          labelId="account"
-          id="account"
-          name="account"
-          label="To"
-          fullWidth
-          value={account}
-          onChange={handleChangeAccount}
+          id="content2"
+          variant="standard"
+          sx={{ m: 1, minWidth: 120 }}
         >
-          {accounts.map(({ id, name }) => {
-            return (
-              <MenuItem key={id} value={id}>
-                {name}
-              </MenuItem>
-            );
-          })}
-        </Select>
-      </FormControl>
+          <InputLabel id="account">To</InputLabel>
+          <Select
+            labelId="account"
+            id="account"
+            name="account"
+            label="To"
+            fullWidth
+            value={account}
+            onChange={handleChangeAccount}
+          >
+            {accounts.map(({ id, name }) => {
+              return (
+                <MenuItem key={id} value={id}>
+                  {name}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        </FormControl>
       );
     }
-    return(
+    return (
       <TextField
-          id="content2"
-          label="To"
-          value={otherAccount}
-          helperText="Receiving Account"
-          variant="standard"
-          placeholder=" Enter Account number"
-          onChange={setOtherUserAccount}
-        ></TextField>
+        id="content2"
+        label="To"
+        value={otherAccount}
+        helperText="Receiving Account"
+        variant="standard"
+        placeholder=" Enter Account number"
+        onChange={setOtherUserAccount}
+      ></TextField>
     );
-  } 
+  }
 
   return (
     <>

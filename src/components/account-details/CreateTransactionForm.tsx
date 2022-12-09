@@ -1,4 +1,3 @@
-import * as React from 'react';
 import {
   Box,
   Button,
@@ -11,13 +10,16 @@ import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
+import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import {
+  setAccountTransactions,
+  setCurrentAccount,
+} from '../../features/account/accountSlice';
 import { Transaction } from '../../models/Transaction';
 import { apiUpsertTransaction } from '../../remote/banking-api/account.api';
 import './AccountDetails.css';
-import { setAccountTransactions } from '../../features/account/accountSlice';
-import { useNavigate } from 'react-router-dom';
-
 
 export default function CreateTransactionForm(props: any) {
   const currentAccount = useAppSelector(
@@ -45,8 +47,9 @@ export default function CreateTransactionForm(props: any) {
       0,
       Number(data.get('amount')) || 0,
       data.get('description')?.toString() || '',
-      data.get('type')?.toString() || 'INCOME' || 'EXPENSE',
+      data.get('type')?.toString() || 'INCOME' || 'EXPENSE'
     );
+
     const response = await apiUpsertTransaction(
       currentAccount.id,
       transaction,
@@ -54,11 +57,24 @@ export default function CreateTransactionForm(props: any) {
     );
     console.log('response', response);
     console.log('transaction', transaction);
+
     if (response.status >= 200 && response.status < 300) {
       dispatch(setAccountTransactions(response.payload));
+      //create getAccount api call
       props.onClose();
+      dispatch(
+        setCurrentAccount({
+          id: currentAccount.id,
+          name: currentAccount.name,
+          balance:
+            transaction.type === 'INCOME'
+              ? currentAccount.balance + transaction.amount
+              : currentAccount.balance - transaction.amount,
+          accountType: currentAccount.accountType,
+          creationDate: currentAccount.creationDate,
+        })
+      );
     }
-    navigate('/details')
   };
   const handleType = (event: SelectChangeEvent): void => {
     setType(event.target.value);
