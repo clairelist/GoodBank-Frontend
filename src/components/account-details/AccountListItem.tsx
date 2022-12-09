@@ -1,10 +1,11 @@
-import { Card, CardContent, Grid, Typography, Button } from '@mui/material';
+import { Card, CardContent, Box, Typography, Button } from '@mui/material';
 import React from 'react';
 import { useAppDispatch } from '../../app/hooks';
 import { useNavigate } from 'react-router-dom';
 import { setCurrentAccount } from '../../features/account/accountSlice';
 import { Account } from '../../models/Account';
 import { priceFormatter } from '../../features/util/generalUtils';
+import { cardButtonStyles, cardStyles } from '../home/Home';
 
 interface IAccountListItemProps {
   account: Account;
@@ -22,35 +23,33 @@ export default function AccountListItem(props: IAccountListItemProps) {
 
   return (
     <>
-      <Grid item mt={2} sm={12} md={12}>
-        <Card sx={{ margin: '0 auto', display: 'flex', maxWidth: '700px' }} variant="outlined">
-          <CardContent>
-            <Typography variant="h3" color="text.secondary">
-              {account?.name}
-            </Typography>
-            
-            {convertedTime ?
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+      <Card sx={cardStyles} variant="outlined">
+        <CardContent>
+          <Typography variant="h3">{account?.name}</Typography>
+
+          {convertedTime ? (
+            <Typography sx={{ mb: 1.5 }}>
               Created On: {convertedTime}
             </Typography>
-            : ''}
+          ) : (
+            ''
+          )}
+          <Box sx={{ display: 'flex', justifyContent: 'space-between'}}>
             <Button
               onClick={() => {
                 dispatch(setCurrentAccount(account));
                 navigate('/details');
               }}
+              sx={cardButtonStyles}
             >
-              Account Details
+              Details
             </Button>
-            <Typography
-              variant="h5"
-              sx={{ display: 'flex', justifyContent: 'flex-end' }}
-            >
+            <Typography variant="h5">
               Balance: {priceFormatter.format(account?.balance)}
             </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
+          </Box>
+        </CardContent>
+      </Card>
     </>
   );
 }
