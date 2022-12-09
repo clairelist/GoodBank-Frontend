@@ -11,7 +11,6 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import {
   setAccountTransactions,
@@ -20,39 +19,60 @@ import {
 import { Transfer } from '../../models/Transfer';
 import { apiTransferTransaction } from '../../remote/banking-api/account.api';
 
-
 export default function TransferMoney(props: any) {
   const currentAccount = useAppSelector(
     (state) => state.account.currentAccount
   );
   const dispatch = useAppDispatch();
   const accounts = useAppSelector((state) => state.account.userAccounts);
+  const transferType = useAppSelector((state) => state.account.transferType);
   const [amount, setAmount] = React.useState('');
   const [account, setAccount] = React.useState('');
   const [errorMessage, setErrorMessage] = React.useState(''); 
+  const [otherAccount, setOtherAccount] = React.useState('');
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const update = new FormData(event.currentTarget);
-
-    //making new transaction
-    let transfer: Transfer = {
-      amount: parseFloat(update.get('amount')?.toString() || '0'),
-      account: currentAccount,
-      type: update.get('type')?.toString() || 'TRANSFER',
-      toAccountId: Number(update.get('account') || account),
-    };
+    let transfer: Transfer;
+    if (transferType === 'betweenAccounts') {
+      transfer = {
+        amount: parseFloat(update.get('amount')?.toString() || '0'),
+        account: currentAccount,
+        type: update.get('type')?.toString() || 'TRANSFER',
+        toAccountId: Number(update.get('account') || account),
+      };
+    } else {
+      transfer = {
+        amount: parseFloat(update.get('amount')?.toString() || '0'),
+        account: currentAccount,
+        type: update.get('type')?.toString() || 'TRANSFER',
+        toAccountId: Number(update.get('otherAccount') || otherAccount),
+      };
+    }
 
     const response = await apiTransferTransaction(currentAccount.id, transfer);
     if (response.status >= 200 && response.status < 300) {
       dispatch(setAccountTransactions(response.payload));
-      dispatch(setCurrentAccount(currentAccount));
       props.onClose();
+      dispatch(
+        setCurrentAccount({
+          id: currentAccount.id,
+          name: currentAccount.name,
+          balance: currentAccount.balance - transfer.amount,
+          accountType: currentAccount.accountType,
+          creationDate: currentAccount.creationDate,
+        })
+      );
     }
   };
 
   const handleChangeAccount = (event: SelectChangeEvent) => {
     setAccount(event.target.value);
+  };
+
+  const setOtherUserAccount = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setOtherAccount(event.target.value);
   };
 
   const handleChangeAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,24 +84,14 @@ export default function TransferMoney(props: any) {
     }
   };
 
-  return (
-    <>
-      <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-        <TextField
-          id="content1"
-          label="From"
-          value={currentAccount.id}
-          helperText="Current Account"
-          variant="standard"
-          InputProps={{
-            readOnly: true,
-          }}
-        ></TextField>
-
+  function renderTransactionType() {
+    if (transferType === 'betweenAccounts') {
+      return (
         <FormControl
           id="content2"
           variant="standard"
-          sx={{ m: 1, minWidth: 120 }}
+          fullWidth
+          sx={{ mt: 1, minWidth: 120 }}
         >
           <InputLabel id="account">To</InputLabel>
           <Select
@@ -89,23 +99,52 @@ export default function TransferMoney(props: any) {
             id="account"
             name="account"
             label="To"
-            fullWidth
             value={account}
             onChange={handleChangeAccount}
           >
-            {accounts.map(({ id, name }, index) => {
+            {accounts.map(({ id, name }) => {
               return (
-                <MenuItem key={index} value={id}>
+                <MenuItem key={id} value={id}>
                   {name}
                 </MenuItem>
               );
             })}
           </Select>
         </FormControl>
+      );
+    }
+    return (
+      <TextField
+        id="content2"
+        label="To"
+        value={otherAccount}
+        helperText="Receiving Account"
+        variant="standard"
+        fullWidth
+        placeholder=" Enter Account number"
+        onChange={setOtherUserAccount}
+      ></TextField>
+    );
+  }
 
+  return (
+    <>
+      <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <TextField
+          id="content1"
+          label="From"
+          value={currentAccount.name}
+          helperText="Current Account"
+          variant="standard"
+          fullWidth
+          InputProps={{
+            readOnly: true,
+          }}
+        ></TextField>
+        {renderTransactionType()}
         <FormControl
           id="content3"
-          sx={{ m: 1, width: '25ch' }}
+          sx={{ m: 1, minWidth: 120, mt: 4 }}
           variant="outlined"
         >
           <Input
@@ -116,15 +155,33 @@ export default function TransferMoney(props: any) {
             placeholder="0.00"
             onChange={handleChangeAmount}
             value={amount}
+            fullWidth
             startAdornment={<InputAdornment position="start">$</InputAdornment>}
           />
           <InputLabel htmlFor="amount">Amount</InputLabel>
         </FormControl>
         <p>{errorMessage}</p>
-        <Button type="submit">Submit</Button>
-        <Button autoFocus type="button" onClick={props.onClose}>
-          Close
-        </Button>
+        <div style={{ display: 'flex' }}>
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{ mt: 1 }}
+            color="secondary"
+            style={{ marginRight: 'auto' }}
+          >
+            Submit
+          </Button>
+          <Button
+            autoFocus
+            type="button"
+            onClick={props.onClose}
+            variant="contained"
+            sx={{ mt: 1 }}
+            color="secondary"
+          >
+            Close
+          </Button>
+        </div>
       </Box>
     </>
   );

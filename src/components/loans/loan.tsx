@@ -1,5 +1,6 @@
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import FilledInput from '@mui/material/FilledInput';
 import FormControl from '@mui/material/FormControl';
@@ -12,6 +13,7 @@ import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import * as React from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../app/hooks';
 import { apiCreateLoan } from '../../remote/banking-api/loan.api';
@@ -38,6 +40,8 @@ const Loan = () => {
   const now = new Date();
   const user = useAppSelector((state) => state.user.user);
   const navigate = useNavigate();
+  const [errors, setError]= useState('');
+  const [amountError, setAmountError]= useState('');
 
   const [values, setValues] = React.useState<State>({
     reason: '',
@@ -52,7 +56,18 @@ const Loan = () => {
 
   const handleSubmit = async () => {
     console.log('amount', values.amount, 'reason', values.reason);
-    if (user) {
+    setError('');
+    setAmountError('');
+
+    if((!values.amount || !values.reason || !values.password)){
+      setError('Fields cannot be empty!')
+    }else if(Number(values.amount) <= 0){
+      setAmountError('Amount must be greater than 0!')
+    }else if(values.amount.search(/\D/) !== -1){
+      setAmountError('Amount must be a number!')
+    }else{
+
+      if (user) {
       const response = await apiCreateLoan(
         user.id,
         values.reason,
@@ -61,6 +76,7 @@ const Loan = () => {
       console.log(response.payload);
       navigate('/');
     }
+  }
   };
 
   const handleChange =
@@ -81,26 +97,26 @@ const Loan = () => {
     event.preventDefault();
   };
   return (
-    <div style={{ width: '80%', margin: 'auto' }}>
+    <div style={{ width: '50%', margin: '12% auto' }}>
       {user?.type === 'CLIENT' ? (
         <>
-          <Paper elevation={0}>
+          <Paper elevation={5}>
             <Grid
               container
-              rowSpacing={1}
+              rowSpacing={3}
               columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+              style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}
             >
-              <Grid item xs={6}>
-                <Item>{!user ? '' : 'Hello! Looking for a loan?'}</Item>
+              <Grid item xs={6} >
+                <Item style={{width: '50%', margin: 'auto'}}>
+                  {!user ? '' : `Hello ${user.firstName}, looking for a loan?`}
+                  </Item>
               </Grid>
-              <Grid item xs={6}>
-                <Item>
-                  <ol></ol>
-                </Item>
-              </Grid>
-              <Grid item xs={12}>
-                <Item>
-                  <div>
+              <Grid item xs={12} >
+                <Item style={{boxShadow: 'none'}}>
+              <Typography style={{fontWeight: 'bold'}} color="primary">{errors}</Typography>
+              <Typography style={{fontWeight: 'bold'}} color="primary">{amountError}</Typography>
+                  <div >
                     <TextField
                       label="Current Date"
                       disabled
@@ -120,6 +136,7 @@ const Loan = () => {
                         Amount*
                       </InputLabel>
                       <FilledInput
+
                         id="filled-adornment-amount"
                         value={values.amount}
                         onChange={handleChange('amount')}
@@ -160,7 +177,7 @@ const Loan = () => {
                         }
                       />
                     </FormControl>
-                    <FormControl fullWidth sx={{ m: 1 }} variant="filled">
+                    <FormControl fullWidth sx={{ m: -1, marginTop: '5px', marginBottom: '5px', width: '76%' }} variant="filled">
                       <InputLabel htmlFor="filled-adornment-reason">
                         Reason*
                       </InputLabel>
@@ -179,8 +196,8 @@ const Loan = () => {
                   </div>
                 </Item>
               </Grid>
-              <Grid item xs={12}>
-                <Item>
+              <Grid item xs={12} >
+                <Item style={{width: '40%', margin: 'auto'}}>
                   <Button
                     variant="contained"
                     onClick={() => handleSubmit()}
@@ -196,7 +213,7 @@ const Loan = () => {
             </Grid>
           </Paper>
           <Paper />
-          <Paper elevation={3} />
+          <Paper elevation={0} />
         </>
       ) :  (
         <AdminLoan />

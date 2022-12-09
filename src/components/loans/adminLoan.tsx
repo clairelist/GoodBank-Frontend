@@ -31,19 +31,24 @@ const AdminLoan = () => {
       loans.filter((x: LoanDetails) => x.loanID !== response.payload.loanID)
     );
   };
+
   return (
-    <Paper>
-      <h1>this is just a test hahahahahahah!!!! (Pending Loans)</h1>
+    <Paper style={{width: '70%', margin: 'auto'}}>
+      <h1 style={{textAlign: 'center'}}>Pending Loans</h1>
       {loans.length > 0
         ? loans.map((loan: LoanDetails) => (
-            <div key={loan.loanID + 1}>
-              <p>LoanID: {loan.loanID}</p>
-              <p>LoanUserID: {loan.userId}</p>
-              <p>LoanReason: {loan.reason}</p>
-              <p>LoanInitialAmount: {loan.initialAmount}</p>
-              <p>CreationDate: {loan.creationDate.toString()}</p>
-              <div>
+            <div key={loan.loanID + 1} style={{ textAlign: 'center', borderBottom:'3px solid black', borderRadius: '5px'}}>
+              <div style={{display: 'inline-block', textAlign: 'left', fontWeight: 'bold'}}>
+
+              <p>Loan ID: {loan.loanID}</p>
+              <p>Loan User ID: {loan.userId}</p>
+              <p>Loan Reason: {loan.reason}</p>
+              <p>Loan Initial Amount: ${loan.initialAmount}</p>
+              <p>Created on: {loan.creationDate.toString().slice(0, 10)}</p>
+              </div>
+              <div style={{marginBottom: '35px'}}>
                 <Button
+                  style={{marginRight: '50px'}}
                   variant="contained"
                   color="primary"
                   size="small"

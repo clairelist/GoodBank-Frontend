@@ -1,15 +1,16 @@
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { Alert } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
-import { useNavigate, Link as Rlink } from 'react-router-dom';
+import { useState } from 'react';
+import { Link as Rlink, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { signIn } from '../../features/user/userSlice';
 import { apiLogin } from '../../remote/banking-api/auth.api';
@@ -18,6 +19,7 @@ export default function Login() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.user);
   const navigate = useNavigate();
+  const [error, setError] = useState('');
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -26,12 +28,14 @@ export default function Login() {
     const password = data.get('password');
 
     const response = await apiLogin(`${email}`, `${password}`);
-    if (response.status >= 200 && response.status < 300) {
+    if (response.status === 200) {
       let token = response.headers['authorization'];
       if (token) {
         sessionStorage.setItem('token', token);
       }
       dispatch(signIn(response.payload));
+    } else {
+      setError('Invalid credentials!');
     }
   };
 
@@ -39,7 +43,7 @@ export default function Login() {
     if (user) {
       navigate('/');
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   return (
@@ -80,6 +84,7 @@ export default function Login() {
             id="password"
             autoComplete="current-password"
           />
+          {error === '' ? '' : <Alert severity="error">{error}</Alert>}
           <Rlink to={'reset-password'}>Forgot password?</Rlink>
           <Button
             type="submit"
@@ -92,9 +97,9 @@ export default function Login() {
           </Button>
           <Grid container>
             <Grid item>
-              <Link href="register" variant="body2">
+              <Rlink to={'../register'}>
                 {"Don't have an account? Sign Up"}
-              </Link>
+              </Rlink>
             </Grid>
           </Grid>
         </Box>

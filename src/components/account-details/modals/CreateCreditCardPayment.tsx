@@ -1,5 +1,5 @@
 import { Box, Modal, Typography } from "@mui/material";
-import CreatePaymentForm from "../CreatePaymentForm"
+import CreatePaymentForm from "../CreatePaymentForm";
 // make ccpayment
 // we need to grab the current credit card ID, current user ID and
 // an accountID from a dropdown list
@@ -20,25 +20,19 @@ const style = {
 export default function CCPayment(props: any) {
     //is this grabbing a user already in state?
     //yes, if not previously set it will be initialState, otherwise it will have values
-    
-
     return (
         <>
-        <Modal
-            open={props.open}
-            onClose={props.handleClose}
-            >
+          <Modal open={props.open} onClose={props.handleClose}>
             <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Create Payment
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Payment Form Here
-            <CreatePaymentForm handleClose={props.handleClose}/>
-          </Typography>
-        </Box>
-        </Modal>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+                Create Payment
+              </Typography>
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                Payment Form Here
+                <CreatePaymentForm handleClose={props.handleClose}/>
+              </Typography>
+            </Box>
+          </Modal>
         </>
     )
-
 }
