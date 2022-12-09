@@ -57,6 +57,7 @@ export default function CreatePaymentForm(props: any) {
         totalLimit: currentCCAccount.totalLimit,
         availableBalance:
           currentCCAccount.availableBalance + Number(data.get('payment')),
+          status: currentCCAccount.status
       })
     );
     props.handleClose();

@@ -5,6 +5,7 @@ export class CreditCard {
     expirationDate: any;
     totalLimit: number;
     availableBalance: number;
+    status: string;
 
 constructor(
         _id: number,
@@ -12,7 +13,8 @@ constructor(
         _ccv: number,
         _expirationDate: any,
         _totalLimit: number,
-        _availableBalance: number, 
+        _availableBalance: number,
+        _status: string
     ){
         this.id = _id;
         this.cardNumber = _cardNumber;
@@ -20,5 +22,6 @@ constructor(
         this.expirationDate = _expirationDate;
         this.totalLimit = _totalLimit;
         this.availableBalance = _availableBalance;
+        this.status = _status;
     }
 }
