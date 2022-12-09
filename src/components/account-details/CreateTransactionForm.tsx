@@ -11,7 +11,6 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import {
   setAccountTransactions,
@@ -38,7 +37,6 @@ export default function CreateTransactionForm(props: any) {
   ];
   const [type, setType] = React.useState('');
   const [amount, setAmount] = React.useState('');
-  const navigate = useNavigate();
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
