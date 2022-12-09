@@ -24,12 +24,12 @@ export default function CreditCardDetails() {
           <div className="account-details">
             <h2>Card Number: {currentCreditCard.cardNumber}</h2>
             <h1>Outstanding Balance: {(currentCreditCard.totalLimit - currentCreditCard.availableBalance)}</h1>
-            <Button
+            <Button sx={{ color: 'black', border: '1px solid black' }}
               onClick={() => {
                 navigate('/');
               }}
             >
-              Go Back
+              Back to Accounts
             </Button>
           </div>
         </div>
