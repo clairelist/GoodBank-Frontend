@@ -1,4 +1,5 @@
 import {
+  Alert,
   Box,
   Button,
   InputAdornment,
@@ -37,6 +38,8 @@ export default function CreateTransactionForm(props: any) {
   ];
   const [type, setType] = React.useState('');
   const [amount, setAmount] = React.useState('');
+  const [errorMessage, setErrorMessage] = React.useState('');
+  const navigate = useNavigate();
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -79,6 +82,12 @@ export default function CreateTransactionForm(props: any) {
   };
   const handleAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAmount(event.target.value);
+    if (Number(event.target.value) <= 0) {
+      setErrorMessage('Amount must be greater than 0');
+    } else {
+      setAmount(event.target.value);
+      setErrorMessage('');
+    }
   };
   return (
     <>
@@ -110,6 +119,11 @@ export default function CreateTransactionForm(props: any) {
             ))}
           </Select>
         </FormControl>
+        {errorMessage === '' ? (
+          ''
+        ) : (
+          <Alert severity="error">{errorMessage}</Alert>
+        )}
         <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
           <Input
             required
