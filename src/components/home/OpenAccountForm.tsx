@@ -61,12 +61,13 @@ export default function OpenAccount(prop: any) {
         <Select
           labelId="demo-simple-select-helper-label"
           id="demo-simple-select-helper"
+          name="type"
           value={type}
           label="type"
           onChange={handleChange}
         >
-          <MenuItem value={"CHECKING"}>CHECKING</MenuItem>
-          <MenuItem value={"SAVINGS"}>SAVINGS</MenuItem>
+          <MenuItem value={'CHECKING'}>CHECKING</MenuItem>
+          <MenuItem value={'SAVINGS'}>SAVINGS</MenuItem>
         </Select>
         </FormControl>
         <InputLabel htmlFor="name">Balance</InputLabel>
