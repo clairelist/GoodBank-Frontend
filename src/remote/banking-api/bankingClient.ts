@@ -11,6 +11,7 @@ const bankingClient = axios.create({
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': 'http://localhost:3000',
   },
+  validateStatus: () => true
 });
 
 bankingClient.interceptors.request.use(
