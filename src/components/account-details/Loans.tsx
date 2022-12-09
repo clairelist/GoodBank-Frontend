@@ -1,12 +1,11 @@
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import Card from '@mui/material/Card';
-import { LoanDetails } from '../../models/LoanDetails';
-import { useAppSelector } from '../../app/hooks';
-import { apiGetLoans } from '../../remote/banking-api/loan.api';
-import React, { useEffect, useState } from 'react';
-import { CardContent, Stack } from '@mui/material';
 import SavingsIcon from '@mui/icons-material/Savings';
+import Typography from '@mui/material/Typography';
+import React, { useEffect, useState } from 'react';
+import { useAppSelector } from '../../app/hooks';
+import { LoanDetails } from '../../models/LoanDetails';
+import { apiGetLoans } from '../../remote/banking-api/loan.api';
+import { CardContent, Stack, Card } from '@mui/material';
+
 import { cardStyles } from '../home/Home';
 
 const Loans = () => {

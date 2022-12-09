@@ -1,19 +1,30 @@
+import {
+  Box,
+  Button,
+  FormControl,
+  InputLabel,
+  Select,
+  SelectChangeEvent,
+} from '@mui/material';
+import Grid from '@mui/material/Grid';
+import MenuItem from '@mui/material/MenuItem';
+import TextField from '@mui/material/TextField';
 import * as React from 'react';
 import { useState } from 'react';
-import { useAppSelector } from "../../app/hooks";
-import TextField from '@mui/material/TextField';
-import { Box, Button, FormControl, InputLabel, Select, SelectChangeEvent } from '@mui/material';
-import MenuItem from '@mui/material/MenuItem';
-import Grid from '@mui/material/Grid';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { setCurrentCreditCard } from '../../features/credit/creditCardSlice';
 import { CreditCardTransaction } from '../../models/CreditCardTransaction';
 import { apiMakeCreditCardPayment } from '../../remote/banking-api/creditcard.api';
 
 export default function CreatePaymentForm(props: any) {
   const user = useAppSelector((state) => state.user.user);
+  const dispatch = useAppDispatch();
   const accounts = useAppSelector((state) => state.account.userAccounts);
-  const currentCCAccount = useAppSelector((state) => state.creditCard.currentCreditCard);
+  const currentCCAccount = useAppSelector(
+    (state) => state.creditCard.currentCreditCard
+  );
   const [ccTransactions, setCCTransactions] = useState([]);
-  const [account, setAccount] = React.useState("Select an Account");
+  const [account, setAccount] = React.useState('Select an Account');
 
   const handleChangeAccount = (event: SelectChangeEvent) => {
     setAccount(event.target.value);
@@ -26,19 +37,30 @@ export default function CreatePaymentForm(props: any) {
     const response = await apiMakeCreditCardPayment(
       new CreditCardTransaction(
         0,
-        Number(data.get("payment")) || 0,
-        "",
-        "",
+        Number(data.get('payment')) || 0,
+        '',
+        '',
         currentCCAccount.id,
-        Number(data.get("account")) || 0
+        Number(data.get('account')) || 0
         //this will be an accountid selected from the drop down menu
       ),
       Number(user?.id),
       token
     );
     setCCTransactions(response.payload);
+    dispatch(
+      setCurrentCreditCard({
+        id: currentCCAccount.id,
+        cardNumber: currentCCAccount.cardNumber,
+        ccv: currentCCAccount.ccv,
+        expirationDate: currentCCAccount.expirationDate,
+        totalLimit: currentCCAccount.totalLimit,
+        availableBalance:
+          currentCCAccount.availableBalance + Number(data.get('payment')),
+      })
+    );
     props.handleClose();
-  }
+  };
 
   return (
     <React.Fragment>
@@ -55,7 +77,7 @@ export default function CreatePaymentForm(props: any) {
             />
           </Grid>
           <Grid item>
-            <FormControl variant="standard" sx={{ m: 1, minWidth: "100%" }}>
+            <FormControl variant="standard" sx={{ m: 1, minWidth: '100%' }}>
               <InputLabel id="account">Payment From:</InputLabel>
               <Select
                 id="account"
@@ -86,5 +108,5 @@ export default function CreatePaymentForm(props: any) {
         </Grid>
       </Box>
     </React.Fragment>
-  )
+  );
 }
