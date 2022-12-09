@@ -39,7 +39,6 @@ export default function CreateTransactionForm(props: any) {
   const [type, setType] = React.useState('');
   const [amount, setAmount] = React.useState('');
   const [errorMessage, setErrorMessage] = React.useState('');
-  const navigate = useNavigate();
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
