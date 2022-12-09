@@ -1,4 +1,5 @@
 import {
+  Alert,
   Box,
   Button,
   InputAdornment,
@@ -160,7 +161,7 @@ export default function TransferMoney(props: any) {
           />
           <InputLabel htmlFor="amount">Amount</InputLabel>
         </FormControl>
-        <p>{errorMessage}</p>
+        {errorMessage === '' ? '' : <Alert severity="error">{errorMessage}</Alert>}
         <div style={{ display: 'flex' }}>
           <Button
             type="submit"
