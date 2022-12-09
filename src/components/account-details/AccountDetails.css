@@ -1,16 +1,26 @@
 .account-wrap {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
   height: 300px;
   width: 95%;
   padding: 20px;
 }
 
 .account-details {
-  margin-left: 20%;
-  padding-right: 40px;
+  padding: 2rem 10rem;
   text-align: center;
-  grid-area: 1 / 4 / 2 / 5;
+  /* background-color: #9F86C0; */
+  color: white;
+  background: rgb(159,134,192);
+  background: linear-gradient(90deg, rgba(159,134,192,1) 0%, rgba(192,187,216,1) 47%, rgba(159,134,192,1) 100%);  
+  border: 3px solid #231942;
+  box-shadow: 4px 10px 6px 1px rgba(94, 84, 142, 0.5);
+  border-radius: 12px;
 }
+
+
 
 .form-wrap {
   width: 50%;
@@ -31,15 +41,23 @@
 
 .title {
   text-align: center;
+  color: #9F86C0;
+  z-index: 10;
 }
 
 .top-container {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 1fr;
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
 }
 
 SideBar { grid-area: 1 / 1 / 2 / 2; }
 
+.ad-button {
+  color: white;
+}
+
+.go-back-button { 
+  color: black;
+  border: 1px solid black;
+}
