@@ -60,7 +60,7 @@ export default function CreditCards() {
               <Typography variant="h3">{creditCard.cardNumber}</Typography>
 
               <Typography sx={{ mb: 1.5 }}>
-                Credit Card Limit: {creditCard.totalLimit}
+                Credit Card Limit: {priceFormatter.format(creditCard.totalLimit)}
               </Typography>
               <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Button
