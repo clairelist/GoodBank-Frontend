@@ -15,7 +15,7 @@ import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { logout } from '../../../features/user/userSlice';
 import { setNotificationTimer } from '../../../features/notification/notificationSlice';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
-
+import HomeIcon from '@mui/icons-material/Home';
 
 const ProfileMenu = () => {
     const user = useAppSelector((state) => state.user.user);
@@ -55,6 +55,12 @@ const ProfileMenu = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
+        <MenuItem onClick={() => navigate('/')}>
+          <ListItemIcon>
+            <HomeIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText primary="Home" />
+        </MenuItem>
         <MenuItem onClick={() => navigate('/profile')}>
           <ListItemIcon>
             <AccountBoxIcon fontSize="small" />
@@ -65,7 +71,13 @@ const ProfileMenu = () => {
           <ListItemIcon>
             <SendIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText primary={(userExists && (user.type) === 'CLIENT') ? "Apply for a loan" : "Admin Dashboard"} />
+          <ListItemText
+            primary={
+              userExists && user.type === 'CLIENT'
+                ? 'Apply for a loan'
+                : 'Admin Dashboard'
+            }
+          />
         </MenuItem>
         <MenuItem onClick={() => handleSignOut()}>
           <ListItemIcon>
