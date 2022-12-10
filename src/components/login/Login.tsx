@@ -1,5 +1,5 @@
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { Alert } from '@mui/material';
+import { Alert, Card, CardContent } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -15,6 +15,13 @@ import { Link as Rlink, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { signIn } from '../../features/user/userSlice';
 import { apiLogin } from '../../remote/banking-api/auth.api';
+import CardActions from '@mui/material/CardActions';
+
+import hero from '../../images/laughing2.jpg';
+import './Login.css';
+
+import LoginBody from './Login-Body';
+import Footer from './footer/Footer';
 
 export default function Login() {
   const dispatch = useAppDispatch();
@@ -48,16 +55,23 @@ export default function Login() {
   }, [user]);
 
   return (
-    <Container component="main" maxWidth="xs">
+    <>
+    <Container maxWidth="xl">  
       <CssBaseline />
-      <Box
-        sx={{
+      
+      <div className="f-page">
+      
+        <img className="hero" src={hero} alt="piggy" />
+      
+<Card className='overlay' sx={{ maxWidth: 345 }}>
+      <CardContent>
+        {/* sx={{
           marginTop: 8,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
         }}
-      >
+      > */}
         <Avatar sx={{ m: 1, bgcolor: 'primary.light' }}>
           <LockOutlinedIcon />
         </Avatar>
@@ -86,7 +100,7 @@ export default function Login() {
             autoComplete="current-password"
           />
           {error === '' ? '' : <Alert severity="error">{error}</Alert>}
-          <Rlink to={'reset-password'}>Forgot password?</Rlink>
+          <Rlink className='loginlinks' to={'reset-password'}>Forgot password?</Rlink>
           <Button
             type="submit"
             color="secondary"
@@ -96,15 +110,26 @@ export default function Login() {
           >
             Sign In
           </Button>
-          <Grid container>
+        </Box>
+        </CardContent>
+        <CardActions>
+        <Grid container>
             <Grid item>
-              <Rlink to={'../register'}>
+              <Rlink className='loginlinks' to={'../register'}>
                 {"Don't have an account? Sign Up"}
               </Rlink>
             </Grid>
           </Grid>
-        </Box>
-      </Box>
+        </CardActions>
+        </Card>
+        </div>
+        <LoginBody/>
+        <div className="advertising">
+          <h1>Do what is best for you!</h1>
+        </div>
+        <Footer/>
     </Container>
+    
+    </>
   );
 }
