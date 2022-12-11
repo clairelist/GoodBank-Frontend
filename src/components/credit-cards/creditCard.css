@@ -7,14 +7,14 @@
     background: #231942;
     background: linear-gradient(75deg, #231942 0%, #5E548E 25%, #9F86C0 47%, #BE95C4 87%, #E0B1CB 100%);
     color: white;
-    width: 22vw
+    width: 22vw;
+    min-width: 400px
 }
 
 .card-number {
     display: block;
     align-self: center;
     font-size: 1.5em;
-   
 }
 
 .card-image{

@@ -6,6 +6,7 @@ import { setCurrentAccount } from '../../features/account/accountSlice';
 import { Account } from '../../models/Account';
 import { priceFormatter } from '../../features/util/generalUtils';
 import { cardButtonStyles, cardStyles } from '../home/Home';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 
 interface IAccountListItemProps {
   account: Account;
@@ -23,14 +24,23 @@ export default function AccountListItem(props: IAccountListItemProps) {
 
   return (
     <Card sx={cardStyles} variant="outlined">
-      <CardContent>
-        <Typography variant="h3">{account?.name}</Typography>
-
+      <CardContent sx={{width: '100%'}}>
+        <Box sx={{display: 'flex'}}>
+          <Typography variant="h4">
+            {account?.name}
+          </Typography>
+          <AccountBalanceWalletIcon fontSize="large" sx={{ marginLeft: 'auto' }} />
+        </Box>
         {convertedTime ? (
-          <Typography sx={{ mb: 1.5 }}>Created On: {convertedTime}</Typography>
+          <Typography sx={{ 
+            mb: 1.5,
+            borderBottom: '1px solid white'
+          }}> Created On: {convertedTime} </Typography>
         ) : (
           ''
         )}
+
+        
         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Button
             onClick={() => {
@@ -41,8 +51,8 @@ export default function AccountListItem(props: IAccountListItemProps) {
           >
             Details
           </Button>
-          <Typography variant="h5">
-            Balance: {priceFormatter.format(account?.balance)}
+          <Typography variant="body2" sx={{fontWeight: '600', fontSize: '1rem' }}>
+            BALANCE: {priceFormatter.format(account?.balance)}
           </Typography>
         </Box>
       </CardContent>

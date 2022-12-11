@@ -1,7 +1,7 @@
 const welcomeMessages = [
     "Welcome back, %NAME%!", 
     "It's always a Good™ day to bank with The Good™ Bank, %NAME%!",
-    "Feelin' Good™, %NAME%.",
+    "Feelin' Good™, %NAME%?",
     'Then %NAME% said, “Let there be savings!” and there were savings. And %NAME% saw that the savings and low interest rates were Good™.'
 ]
 

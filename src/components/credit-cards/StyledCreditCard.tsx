@@ -45,13 +45,20 @@ export default function StyledCreditCard(props: IProps) {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
+              marginY: '1em'
             }}
           >
-            <p>
-              Balance: {priceFormatter.format(creditCard.availableBalance)}{' '}
+            <Typography
+              variant="body2"
+              sx={{
+                fontWeight: '600',
+                fontSize: '1rem',
+              }}
+            >
+              BALANCE: {priceFormatter.format(creditCard.availableBalance)}{' '}
               <br />
-              Limit: {priceFormatter.format(creditCard.totalLimit)}
-            </p>
+              LIMIT: {priceFormatter.format(creditCard.totalLimit)}
+            </Typography>
 
             <Button
               onClick={() => {

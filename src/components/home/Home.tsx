@@ -11,8 +11,10 @@ export const cardStyles: SxProps = {
   margin: '0 auto',
   display: 'flex',
   width: '25vw',
+  minWidth: '400px',
   backgroundColor: '#9F86C0',
-  color: 'white'
+  color: 'white',
+  borderRadius: '16px'
 };
 
 export const cardButtonStyles: SxProps = {
