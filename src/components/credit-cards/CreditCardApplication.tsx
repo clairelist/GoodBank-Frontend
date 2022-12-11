@@ -108,7 +108,7 @@ const CreditCardApplication = () => {
                         />
                         <FormControl sx={{ m: 1, width: '25ch' }} variant="filled">
                         <InputLabel htmlFor="filled-adornment-amount">
-                            Amount*
+                            Requested Amount*
                         </InputLabel>
                         <FilledInput
                             id="filled-adornment-amount"
