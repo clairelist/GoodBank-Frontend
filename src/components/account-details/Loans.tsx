@@ -1,4 +1,3 @@
-import SavingsIcon from '@mui/icons-material/Savings';
 import Typography from '@mui/material/Typography';
 import React, { useEffect, useState } from 'react';
 import { useAppSelector } from '../../app/hooks';
@@ -46,7 +45,7 @@ const Loans = () => {
               <CardContent sx={{ width: '100%' }}>
                 <div style={{ display: 'flex' }}>
                   <Typography variant="h4">{loan.reason}</Typography>
-                  <SavingsIcon fontSize="large" sx={{ marginLeft: 'auto' }} />
+                  <img style={{marginLeft: 'auto', width: '40px', height: '40px'}} src="loan.png" />
                 </div>
                 <Typography sx={{ mb: 1.5, borderBottom: '1px solid white' }}>
                   Loan Date: {convertedTime}
