@@ -72,6 +72,7 @@ export default function CreatePaymentForm(props: any) {
               id="filled-multiline-static"
               name="payment"
               label="Amount to Pay"
+              value=''
               fullWidth
               size="small"
             />
