@@ -197,7 +197,7 @@ const Loan = () => {
                 </Item>
               </Grid>
               <Grid item xs={12} >
-                <Item style={{width: '40%', margin: 'auto'}}>
+                <Item>
                   <Button
                     variant="contained"
                     onClick={() => handleSubmit()}

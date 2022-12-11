@@ -58,15 +58,19 @@ export default function StyledCreditCard(props: IProps) {
               LIMIT: {priceFormatter.format(creditCard.totalLimit)}
             </Typography>
 
-            <Button
-              onClick={() => {
-                dispatch(setCurrentCreditCard(creditCard));
-                navigate('/credit-card-details');
-              }}
-              sx={cardButtonStyles}
-            >
-              Details
-            </Button>
+            {creditCard.status === 'PENDING' 
+              ? 'Pending' 
+              : 
+              <Button
+                onClick={() => {
+                  dispatch(setCurrentCreditCard(creditCard));
+                  navigate('/credit-card-details');
+                }}
+                sx={cardButtonStyles}
+              >
+                Details
+              </Button>
+            }
           </Box>
 
           <Box sx={{ display: 'flex', alignItems: 'center' }}>

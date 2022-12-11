@@ -65,6 +65,12 @@ const ProfileMenu = () => {
           </ListItemIcon>
           <ListItemText primary="Profile" />
         </MenuItem>
+        <MenuItem onClick={() => navigate("/credit-card-application")}>
+          <ListItemIcon>
+            <SendIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText primary={"Apply for a credit card"} />
+        </MenuItem>
         <MenuItem onClick={() => navigate('/loan')}>
           <ListItemIcon>
             <SendIcon fontSize="small" />
