@@ -1,4 +1,3 @@
-import { Add } from '@mui/icons-material';
 import { Card, CardContent, Typography, Box, Button } from '@mui/material';
 import React from 'react';
 import { useDispatch } from 'react-redux';
@@ -7,10 +6,9 @@ import { setCurrentCreditCard } from '../../features/credit/creditCardSlice';
 import { priceFormatter } from '../../features/util/generalUtils';
 import { CreditCard } from '../../models/CreditCard';
 import ContactlessIcon from '@mui/icons-material/Contactless';
-import { cardButtonStyles, cardStyles } from '../home/Home';
+import { cardButtonStyles } from '../home/Home';
 import './creditCard.css';
-import userEvent from '@testing-library/user-event';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { useAppSelector } from '../../app/hooks';
 
 interface IProps {
   creditCard: CreditCard;

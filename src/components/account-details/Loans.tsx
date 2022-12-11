@@ -7,7 +7,6 @@ import { CardContent, Stack, Card, Box } from '@mui/material';
 
 import { cardStyles } from '../home/Home';
 import { priceFormatter } from '../../features/util/generalUtils';
-import { flexbox } from '@mui/system';
 
 const Loans = () => {
   const user = useAppSelector((state) => state.user.user);

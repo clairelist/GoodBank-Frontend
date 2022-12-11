@@ -5,7 +5,7 @@ const welcomeMessages = [
     'Then %NAME% said, “Let there be savings!” and there were savings. And %NAME% saw that the savings and low interest rates were Good™.'
 ]
 
-export const randomIntRange = (min: number, max: number) =>  Math.floor(Math.random() * (max - min) ) + min;
+const randomIntRange = (min: number, max: number) =>  Math.floor(Math.random() * (max - min) ) + min;
 
 export const chooseWelcomeMessage = (name: string) => {
     const len = welcomeMessages.length;
