@@ -102,9 +102,7 @@ export default function CreatePaymentForm(props: any) {
               variant="contained"
               sx={{ mt: 1 }}
               color="secondary"
-            >
-              Submit Payment?
-            </Button>
+            >Submit Payment?</Button>
           </Grid>
         </Grid>
       </Box>

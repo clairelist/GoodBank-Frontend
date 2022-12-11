@@ -4,7 +4,7 @@ import { store } from "../app/store";
 import CreatePaymentForm from "../components/account-details/CreatePaymentForm"
 import { Account } from "../models/Account"
 import { User } from "../models/user"
-
+import { setCurrentCreditCard } from "../features/credit/creditCardSlice";
 //describe is for grouping test cases
 describe('Create CC Payment form test suite', () => {
     //beforeAll
@@ -45,6 +45,11 @@ describe('Create CC Payment form test suite', () => {
     })
 
     it('Submit payment button calls handleSubmit', () => {
-    const paymentButton = 
+        render(<Provider store={store}><CreatePaymentForm/></Provider>)
+    const paymentButton = screen.getByText("Submit Payment?");
+
+    fireEvent.click(paymentButton)
+
+    expect(setCurrentCreditCard).toBeCalled;
     })
 });
