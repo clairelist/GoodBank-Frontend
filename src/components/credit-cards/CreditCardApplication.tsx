@@ -73,25 +73,23 @@ const CreditCardApplication = () => {
     }
 
     return (
-        <div style={{ width: '80%', margin: 'auto' }}>
+        <div style={{ width: '50%', margin: '12% auto' }}>
         {user?.type === 'CLIENT' ? (
             <>
-            <Paper elevation={0}>
+            <Paper elevation={5}>
                 <Grid
                 container
-                rowSpacing={1}
+                rowSpacing={3}
                 columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+                style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}
                 >
                 <Grid item xs={6}>
-                    <Item>{!user ? '' : 'Ready to apply for a credit card?'}</Item>
-                </Grid>
-                <Grid item xs={6}>
-                    <Item>
-                    <ol></ol>
+                    <Item style={{width: '50%', margin: 'auto'}}>
+                        {!user ? '' : 'Ready to apply for a credit card?'}
                     </Item>
                 </Grid>
                 <Grid item xs={12}>
-                    <Item>
+                    <Item style={{boxShadow: 'none'}}>
                     <div>
                         <TextField
                         label="Current Date"
@@ -152,22 +150,6 @@ const CreditCardApplication = () => {
                             }
                         />
                         </FormControl>
-                        {/* <FormControl fullWidth sx={{ m: 1 }} variant="filled">
-                        <InputLabel htmlFor="filled-adornment-reason">
-                            Reason*
-                        </InputLabel>
-                        <FilledInput
-                            id="filled-adornment-reason"
-                            value={values.reason}
-                            onChange={handleChange('reason')}
-                            startAdornment={
-                            <InputAdornment position="start"></InputAdornment>
-                            }
-                        />
-                        <FormHelperText id="filled-weight-helper-text">
-                            Please give a brief explanation for this credit card application request.
-                        </FormHelperText>
-                        </FormControl> */}
                     </div>
                     </Item>
                 </Grid>
@@ -188,7 +170,7 @@ const CreditCardApplication = () => {
                 </Grid>
             </Paper>
             <Paper />
-            <Paper elevation={3} />
+            <Paper elevation={0} />
             </>
         ) :  (
             <AdminLoan />
