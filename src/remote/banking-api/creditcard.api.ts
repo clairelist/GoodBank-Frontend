@@ -34,14 +34,14 @@ export const apiMakeCreditCardPayment = async (
 };
 
 export const apiCreateCCApplication = async (
-    userId: number,
-    initialAmount: number
+    initialAmount: number,
+    token: string
 ): Promise<bankingApiResponse> => {
     const response = await bankingClient.post<CreditCard>(
-        `/credit-card-application`,
-        { initialAmount, userId },
+        `${baseURL}/credit-card-application`,
+        { initialAmount },
         {
-            headers: { 'Current-User': userId },
+            headers: { 'authorization': token },
             withCredentials: true
         }
     );
