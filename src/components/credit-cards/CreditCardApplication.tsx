@@ -15,7 +15,6 @@ import TextField from '@mui/material/TextField';
 import { apiCreateCCApplication } from '../../remote/banking-api/creditcard.api';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 import AdminLoan from '../loans/adminLoan';
-import Navbar from '../navbar/Navbar';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -49,7 +48,7 @@ const CreditCardApplication = () => {
     const handleSubmit = async () => {
         if(user) {
             let token: string = sessionStorage.getItem('token') || '';
-            const response = await apiCreateCCApplication(
+            apiCreateCCApplication(
                 Number(values.amount),
                 token
             );
