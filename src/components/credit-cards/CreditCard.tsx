@@ -9,16 +9,10 @@ import {
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import {
-  setCurrentCreditCard,
-  setUserCreditCards,
-} from '../../features/credit/creditCardSlice';
+import { setUserCreditCards } from '../../features/credit/creditCardSlice';
 import { CreditCard } from '../../models/CreditCard';
 import { apiGetCreditCards } from '../../remote/banking-api/creditcard.api';
-import CreditCardIcon from '@mui/icons-material/CreditCard';
-import { Add } from '@mui/icons-material';
-import { cardButtonStyles, cardStyles } from '../home/Home';
-import { priceFormatter } from '../../features/util/generalUtils';
+import StyledCreditCard from './StyledCreditCard';
 
 export default function CreditCards() {
   const user = useAppSelector((state) => state.user.user);
@@ -52,32 +46,7 @@ export default function CreditCards() {
         </Typography>
 
         {creditCards?.map((creditCard: CreditCard) => (
-          <Card key={creditCard.id} sx={cardStyles} variant="outlined">
-            <CardContent>
-              <CreditCardIcon>
-                <Add sx={{ fontSize: '80px' }} />
-              </CreditCardIcon>
-              <Typography variant="h3">{creditCard.cardNumber}</Typography>
-
-              <Typography sx={{ mb: 1.5 }}>
-                Credit Card Limit: {priceFormatter.format(creditCard.totalLimit)}
-              </Typography>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Button
-                  onClick={() => {
-                    dispatch(setCurrentCreditCard(creditCard));
-                    navigate('/credit-card-details');
-                  }}
-                  sx={cardButtonStyles}
-                >
-                  Details
-                </Button>
-                <Typography variant="h5">
-                  Balance: {priceFormatter.format(creditCard.availableBalance)}
-                </Typography>
-              </Box>
-            </CardContent>
-          </Card>
+          <StyledCreditCard creditCard={creditCard} />
         ))}
       </Stack>
     </>

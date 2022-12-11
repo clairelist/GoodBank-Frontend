@@ -24,6 +24,8 @@ const Loans = () => {
     getLoans();
   }, [user]);
 
+  if (loans.length < 1) return <></>;
+
   return (
     <Stack spacing={2} sx={{alignItems: 'center'}} >
       
@@ -67,7 +69,7 @@ const Loans = () => {
               </Typography>
               <Typography
                 variant="body2"
-                color="primary"
+                color="white"
                 sx={{
                   borderTop: '1px solid black',
                   fontWeight: '600',

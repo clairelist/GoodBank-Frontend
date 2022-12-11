@@ -22,34 +22,30 @@ export default function AccountListItem(props: IAccountListItemProps) {
   }
 
   return (
-    <>
-      <Card sx={cardStyles} variant="outlined">
-        <CardContent>
-          <Typography variant="h3">{account?.name}</Typography>
+    <Card sx={cardStyles} variant="outlined">
+      <CardContent>
+        <Typography variant="h3">{account?.name}</Typography>
 
-          {convertedTime ? (
-            <Typography sx={{ mb: 1.5 }}>
-              Created On: {convertedTime}
-            </Typography>
-          ) : (
-            ''
-          )}
-          <Box sx={{ display: 'flex', justifyContent: 'space-between'}}>
-            <Button
-              onClick={() => {
-                dispatch(setCurrentAccount(account));
-                navigate('/details');
-              }}
-              sx={cardButtonStyles}
-            >
-              Details
-            </Button>
-            <Typography variant="h5">
-              Balance: {priceFormatter.format(account?.balance)}
-            </Typography>
-          </Box>
-        </CardContent>
-      </Card>
-    </>
+        {convertedTime ? (
+          <Typography sx={{ mb: 1.5 }}>Created On: {convertedTime}</Typography>
+        ) : (
+          ''
+        )}
+        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Button
+            onClick={() => {
+              dispatch(setCurrentAccount(account));
+              navigate('/details');
+            }}
+            sx={cardButtonStyles}
+          >
+            Details
+          </Button>
+          <Typography variant="h5">
+            Balance: {priceFormatter.format(account?.balance)}
+          </Typography>
+        </Box>
+      </CardContent>
+    </Card>
   );
 }
