@@ -79,6 +79,7 @@ export default function TransferMoney(props: any) {
   const handleChangeAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (Number(event.target.value) <= 0){
       setErrorMessage('Amount must be greater than 0');
+      setAmount('');
     } else {
       setAmount(event.target.value);
       setErrorMessage('');
@@ -104,11 +105,13 @@ export default function TransferMoney(props: any) {
             onChange={handleChangeAccount}
           >
             {accounts.map(({ id, name }) => {
-              return (
-                <MenuItem key={id} value={id}>
-                  {name}
-                </MenuItem>
-              );
+              if(id != currentAccount.id){
+                return (
+                  <MenuItem key={id} value={id}>
+                    {name}
+                  </MenuItem>
+                );
+              }
             })}
           </Select>
         </FormControl>

@@ -8,11 +8,13 @@ import SendAndArchiveIcon from '@mui/icons-material/SendAndArchive';
 import MoveDownIcon from '@mui/icons-material/MoveDown';
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 import CancelIcon from '@mui/icons-material/Cancel';
-import { useAppDispatch } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { setTransferType } from '../../features/account/accountSlice';
 
 export default function SideBar() {
   const dispatch = useAppDispatch();
+
+  const accounts = useAppSelector((state) => state.account.userAccounts);
 
   const [openCreateTransaction, setOpenCreateTransaction] = useState(false);
   const handleCreateTransactionOpen = () => { setOpenCreateTransaction(true); };
@@ -33,6 +35,18 @@ export default function SideBar() {
     dispatch(setTransferType("betweenUsers"));
   };
 
+  function moreThanOneAccount() {
+    if(accounts.length > 1) {
+      return (
+        <>
+          <MenuItem onClick={handleTransferMoneyOpen}><MoveDownIcon /> Transfer Money </MenuItem>
+          <TransferMoney handleClose={handleTransferMoneyClose} open={openTransferMoney} />
+        </>  
+      )
+    }
+    return <></>
+  }
+
   return (
     <Sidebar
       rootStyles={{
@@ -52,8 +66,7 @@ export default function SideBar() {
         <MenuItem onClick={handleSendMoneyOpen}><SendAndArchiveIcon /> Send Money </MenuItem>
         <TransferMoney handleClose={handleTransferMoneyClose} open={openTransferMoney} />
 
-        <MenuItem onClick={handleTransferMoneyOpen}><MoveDownIcon /> Transfer Money </MenuItem>
-        <TransferMoney handleClose={handleTransferMoneyClose} open={openTransferMoney} />
+        {moreThanOneAccount()}
 
         <MenuItem onClick={handleCreatePaymentOpen}><LocalAtmIcon /> Make a Payment </MenuItem>
         <CCPayment handleClose={handleCreatePaymentClose} open={openCreatePayment} />

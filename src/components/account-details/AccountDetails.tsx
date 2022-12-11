@@ -103,7 +103,7 @@ export default function AccountDetails() {
           <div className="account-details">
             <h2>{currentAccount.name}</h2>
             <h1>${currentAccount.balance.toLocaleString(navigator.language, { minimumFractionDigits: 2 })}</h1>
-            <Button sx={{ color: 'black', border: '1px solid black' }}
+            <Button sx={{ color: 'black', width: '200px', border: '1px solid black' }}
               onClick={() => {
                 navigate('/');
               }}
