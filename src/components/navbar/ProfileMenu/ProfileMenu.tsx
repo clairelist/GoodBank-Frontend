@@ -13,6 +13,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { setNotificationTimer } from '../../../features/notification/notificationSlice';
+import HomeIcon from '@mui/icons-material/Home';
 import { logout } from '../../../features/user/userSlice';
 import { apiLogout } from '../../../remote/banking-api/auth.api';
 
@@ -52,6 +53,12 @@ const ProfileMenu = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
+        <MenuItem onClick={() => navigate('/')}>
+          <ListItemIcon>
+            <HomeIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText primary="Home" />
+        </MenuItem>
         <MenuItem onClick={() => navigate('/profile')}>
           <ListItemIcon>
             <AccountBoxIcon fontSize="small" />
