@@ -1,0 +1,9 @@
+.welcome-background {
+    background: rgb(159,134,192);
+    background: linear-gradient(180deg, #9F86C0EE 0%, #E0B1CBDD 50%, #fff 100%);  
+}
+
+.page-background {
+    background: #fff;
+    min-height: 75vh
+}
