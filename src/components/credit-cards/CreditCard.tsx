@@ -42,7 +42,7 @@ export default function CreditCards() {
         </Typography>
 
         {creditCards?.map((creditCard: CreditCard) => (
-          <StyledCreditCard creditCard={creditCard} />
+          <StyledCreditCard key={creditCard.id} creditCard={creditCard} />
         ))}
       </Stack>
     </>

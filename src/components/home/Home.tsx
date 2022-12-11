@@ -1,7 +1,7 @@
 import Accounts from '../account-details/Accounts';
 import CreditCard from '../credit-cards/CreditCard';
 import Loans from '../account-details/Loans';
-import { Container, Divider, SxProps, Typography } from '@mui/material';
+import { Container, SxProps, Typography } from '@mui/material';
 import { useAppSelector } from '../../app/hooks';
 import { chooseWelcomeMessage } from '../../features/util/generalUtils';
 import { Navigate } from 'react-router-dom';
