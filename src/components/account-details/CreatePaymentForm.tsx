@@ -1,4 +1,5 @@
 import {
+  Alert,
   Box,
   Button,
   FormControl,
@@ -11,6 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import * as React from 'react';
 import { useState } from 'react';
+import { isConstructorDeclaration } from 'typescript';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { setCurrentCreditCard } from '../../features/credit/creditCardSlice';
 import { CreditCardTransaction } from '../../models/CreditCardTransaction';
@@ -25,10 +27,22 @@ export default function CreatePaymentForm(props: any) {
   );
   const [, setCCTransactions] = useState([]);
   const [account, setAccount] = React.useState('Select an Account');
+  const [amount, setAmount] = useState('')
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleChangeAccount = (event: SelectChangeEvent) => {
     setAccount(event.target.value);
   };
+
+  const handleChangeAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (Number(event.target.value) <= 0) {
+      setErrorMessage('Amount must be greater than 0');
+      setAmount('');
+    } else {
+      setAmount(event.target.value);
+      setErrorMessage('');
+    }
+  }
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -69,12 +83,20 @@ export default function CreatePaymentForm(props: any) {
           <Grid item>
             <TextField
               required
+              type="number"
               id="filled-multiline-static"
               name="payment"
               label="Amount to Pay"
               fullWidth
               size="small"
+              value={amount}
+              onChange={handleChangeAmount}
             />
+            {errorMessage === '' ? (
+              ''
+            ) : (
+              <Alert severity="error">{errorMessage}</Alert>
+            )}
           </Grid>
           <Grid item>
             <FormControl variant="standard" sx={{ m: 1, minWidth: '100%' }}>
