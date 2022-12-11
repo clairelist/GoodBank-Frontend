@@ -5,6 +5,7 @@ import CreatePaymentForm from "../components/account-details/CreatePaymentForm"
 import { Account } from "../models/Account"
 import { User } from "../models/user"
 import { setCurrentCreditCard } from "../features/credit/creditCardSlice";
+import { apiMakeCreditCardPayment } from "../remote/banking-api/creditcard.api";
 //describe is for grouping test cases
 describe('Create CC Payment form test suite', () => {
     //beforeAll
@@ -50,6 +51,17 @@ describe('Create CC Payment form test suite', () => {
 
     fireEvent.click(paymentButton)
 
-    expect(setCurrentCreditCard).toBeCalled;
+    expect(apiMakeCreditCardPayment).toBeCalled;
+    })
+
+    it('Account dropdown on change calls handleChangeAccount', () => {
+        render(<Provider store={store}><CreatePaymentForm/></Provider>)
+        
+        const accountChange = screen.getByText("From Account");
+
+        fireEvent.click(accountChange);
+
+        expect(setAccount).toBeCalled;
+
     })
 });
