@@ -40,8 +40,8 @@ export default function LoginBody() {
   return (
     <>
       <div className="cards">
-        {cards.map((card, i) => (
-          <Box className="flex" key={i}>
+        {cards.map((card) => (
+          <Box className="flex" key={card.name}>
             <Box>
               <Card>
                 <CardActionArea>
