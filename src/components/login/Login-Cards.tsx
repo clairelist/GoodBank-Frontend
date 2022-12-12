@@ -14,7 +14,7 @@ import home from '../../images/svg/house.png';
 import card from '../../images/svg/cards.png';
 import { useNavigate } from 'react-router-dom';
 
-export default function loginBody() {
+export default function LoginBody() {
   const navigate = useNavigate();
   function navigateRegister() {
     navigate('/register');
