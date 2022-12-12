@@ -1,4 +1,4 @@
-import { Box, Grid, Paper, styled } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import React from 'react';
 import piggy from '../../images/piggy.jpg';
 
