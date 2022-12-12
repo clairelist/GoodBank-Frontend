@@ -20,8 +20,10 @@ import CardActions from '@mui/material/CardActions';
 import hero from '../../images/laughing2.jpg';
 import './Login.css';
 
-import LoginBody from './Login-Body';
+import LoginCards from './Login-Cards';
+import LoginAd from './Login-Ad';
 import Footer from './footer/Footer';
+
 
 export default function Login() {
   const dispatch = useAppDispatch();
@@ -61,7 +63,7 @@ export default function Login() {
       
       <div className="f-page">
       
-        <img className="hero" src={hero} alt="piggy" />
+        <img className="hero" src={hero} alt="laughs" />
       
 <Card className='overlay' sx={{ maxWidth: 345 }}>
       <CardContent>
@@ -123,10 +125,8 @@ export default function Login() {
         </CardActions>
         </Card>
         </div>
-        <LoginBody/>
-        <div className="advertising">
-          <h1>Do what is best for you!</h1>
-        </div>
+        <LoginCards/>
+        <LoginAd />
         <Footer/>
     </Container>
     
