@@ -60,7 +60,6 @@ export default function CreatePaymentForm(props: any) {
       Number(user?.id),
       token
     );
-    // setCCTransactions(response.payload);
     dispatch(
       setCurrentCreditCard({
         id: currentCCAccount.id,
@@ -71,7 +70,6 @@ export default function CreatePaymentForm(props: any) {
         availableBalance:
           currentCCAccount.availableBalance + Number(data.get('payment')),
           status: currentCCAccount.status
-          //response.payload for amount
       })
     );
     props.handleClose();

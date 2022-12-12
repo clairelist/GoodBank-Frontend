@@ -7,11 +7,9 @@ import { User } from "../models/user"
 import { setCurrentCreditCard } from "../features/credit/creditCardSlice";
 import { apiMakeCreditCardPayment } from "../remote/banking-api/creditcard.api";
 import setAccount from "../components/account-details/CreatePaymentForm";
-import { CreditCard } from "../models/CreditCard";
-
 
 //describe is for grouping test cases
-jest.mock
+// jestmock
 describe('Create CC Payment form test suite', () => {
     //beforeAll
     //beforeEach
