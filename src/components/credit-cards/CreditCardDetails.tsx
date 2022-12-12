@@ -1,4 +1,4 @@
-import { Box, Button, List, ListItemButton, ListItemText, Popover } from "@mui/material";
+import { Box, Button, List, ListItemButton, ListItemText, Popover, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
@@ -6,7 +6,9 @@ import { setUserCreditCardTransactions } from "../../features/credit/creditCardT
 import { apiGetCreditCardTransactions } from "../../remote/banking-api/creditcard.api";
 import SideBar from "../account-details/SideBar";
 import StyledTable from "../account-details/StyledTable";
-
+import { priceFormatter } from '../../features/util/generalUtils';
+import './creditCard.css';
+import StyledCreditCard from './StyledCreditCard';
 
 export default function CreditCardDetails() {
   const navigate = useNavigate();
@@ -64,24 +66,62 @@ export default function CreditCardDetails() {
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
+  const formatDate = (dateStr: string) => new Date(dateStr).toLocaleDateString('en-US');
+  const formatNum = (n: number) => {
+    // adding the spaces in the card number
+    const input = n.toString();
+    let output = '';
+    let counter = 0;
+    for (let i = 0; i < input.length; i++){
+      let strToAdd = input[i];
+      counter++;
+      if (counter >= 4) {
+        strToAdd += ' ';
+        counter = 0;
+      }
+      output += strToAdd;
+    }
+    return output;
+  }
+
   return (
     <>
-      <div className={'top-container'}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <SideBar />
-        <div className="account-wrap">
-          <div className="account-details">
-            <h2>Card Number: {currentCreditCard.cardNumber}</h2>
-            <h1>Outstanding Balance: {(currentCreditCard.totalLimit - currentCreditCard.availableBalance)}</h1>
-            <Button sx={{ color: 'black', border: '1px solid black' }}
-              onClick={() => {
-                navigate('/');
-              }}
-            >
-              Back to Accounts
-            </Button>
-          </div>
-        </div>
-      </div>
+
+        <Stack spacing={2} sx={{ alignItems: 'center', mt: '4em' }}>
+          <StyledCreditCard creditCard={currentCreditCard} />
+        </Stack>
+        
+        <Stack spacing={2} sx={{ mt: '4em', mx: '1em', color: "#5E548E" }}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', pb: '1em', borderBottom: '1px solid #E0B1CB' }}>
+            <Typography>CARD NUMBER:</Typography>
+            <Typography sx={{ml: '1em'}}> {formatNum(currentCreditCard.cardNumber)} </Typography>
+          </Box>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', pb: '1em', borderBottom: '1px solid #E0B1CB' }}>
+            <Typography>CCV:</Typography>
+            <Typography> {currentCreditCard.ccv} </Typography>
+          </Box>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', pb: '1em', borderBottom: '1px solid #E0B1CB' }}>
+            <Typography>EXPIRATION DATE:</Typography>
+            <Typography> {formatDate(currentCreditCard.expirationDate)}  </Typography>
+          </Box>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', pb: '1em', borderBottom: '1px solid #E0B1CB' }}>
+            <Typography>REMAINING BALANCE:</Typography>
+            <Typography> {priceFormatter.format((currentCreditCard.totalLimit - currentCreditCard.availableBalance))}  </Typography>
+          </Box>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', pb: '1em', borderBottom: '1px solid #E0B1CB' }}>
+            <Typography>LIMIT:</Typography>
+            <Typography> {priceFormatter.format(currentCreditCard.totalLimit)}  </Typography>
+          </Box>
+          {currentCreditCard.status ? 
+            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Typography>ACCOUNT STATUS:</Typography>
+              <Typography> {currentCreditCard.status} </Typography>
+            </Box>
+          : ''}
+        </Stack>
+      </Box>
 
       <div className="txn-wrap">
         <div style={{ display: 'flex', width: '100%', alignItems: 'center', color: '#5E548E' }}>
@@ -157,6 +197,7 @@ export default function CreditCardDetails() {
         />
       </div>
     </>
-  )
 
+
+  );
 }
