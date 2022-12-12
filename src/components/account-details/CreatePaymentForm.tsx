@@ -24,7 +24,7 @@ export default function CreatePaymentForm(props: any) {
   const currentCCAccount = useAppSelector(
     (state) => state.creditCard.currentCreditCard
   );
-  const [, setCCTransactions] = useState([]);
+  // const [CCTransactions, setCCTransactions] = useState([]);
   const [account, setAccount] = React.useState('Select an Account');
   const [amount, setAmount] = useState('')
   const [errorMessage, setErrorMessage] = useState('');
@@ -60,19 +60,19 @@ export default function CreatePaymentForm(props: any) {
       Number(user?.id),
       token
     );
-    setCCTransactions(response.payload);
-    dispatch(
-      setCurrentCreditCard({
-        id: currentCCAccount.id,
-        cardNumber: currentCCAccount.cardNumber,
-        ccv: currentCCAccount.ccv,
-        expirationDate: currentCCAccount.expirationDate,
-        totalLimit: currentCCAccount.totalLimit,
-        availableBalance:
-          currentCCAccount.availableBalance + Number(data.get('payment')),
-          status: currentCCAccount.status
-      })
-    );
+    // setCCTransactions(response.payload);
+    // dispatch(
+    //   setCurrentCreditCard({
+    //     id: currentCCAccount.id,
+    //     cardNumber: currentCCAccount.cardNumber,
+    //     ccv: currentCCAccount.ccv,
+    //     expirationDate: currentCCAccount.expirationDate,
+    //     totalLimit: currentCCAccount.totalLimit,
+    //     availableBalance:
+    //       currentCCAccount.availableBalance + Number(data.get('payment')),
+    //       status: currentCCAccount.status
+    //   })
+    // );
     props.handleClose();
   };
 
@@ -87,7 +87,6 @@ export default function CreatePaymentForm(props: any) {
               id="filled-multiline-static"
               name="payment"
               label="Amount to Pay"
-              value=''
               fullWidth
               size="small"
               value={amount}
