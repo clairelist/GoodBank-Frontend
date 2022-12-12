@@ -1,3 +1,4 @@
+import { CreditCard } from '../../models/CreditCard';
 import { CreditCardTransaction } from '../../models/CreditCardTransaction';
 import bankingClient, { bankingApiResponse } from './bankingClient';
 
@@ -30,4 +31,19 @@ export const apiMakeCreditCardPayment = async (
         }
     );
     return { status: response.status, headers: response.headers, payload: response.data as CreditCardTransaction[] };
+};
+
+export const apiCreateCCApplication = async (
+    initialAmount: number,
+    token: string
+): Promise<bankingApiResponse> => {
+    const response = await bankingClient.post<CreditCard>(
+        `${baseURL}/credit-card-application`,
+        { initialAmount },
+        {
+            headers: { 'authorization': token },
+            withCredentials: true
+        }
+    );
+    return {status: response.status, headers: response.headers, payload: response.data as CreditCard}
 };

@@ -31,8 +31,6 @@ interface State {
   reason: string;
   amount: string;
   password: string;
-  weight: string;
-  weightRange: string;
   showPassword: boolean;
 }
 
@@ -47,15 +45,13 @@ const Loan = () => {
     reason: '',
     amount: '',
     password: '',
-    weight: '',
-    weightRange: '',
-    showPassword: false,
+    showPassword: false
   });
 
   // this is where we stopped, we have the values of the fields we just have to send the to the backend
 
   const handleSubmit = async () => {
-    console.log('amount', values.amount, 'reason', values.reason);
+    console.log('amount', values.amount, 'reason', values.reason, 'password', values.password);
     setError('');
     setAmountError('');
 
@@ -71,10 +67,15 @@ const Loan = () => {
       const response = await apiCreateLoan(
         user.id,
         values.reason,
-        Number(values.amount)
+        Number(values.amount),
+        values.password
       );
-      console.log(response.payload);
+      if(response.status === 400){
+        setError(response.payload);
+      }
+      else {
       navigate('/');
+    }
     }
   }
   };
@@ -143,12 +144,12 @@ const Loan = () => {
                         startAdornment={
                           <InputAdornment position="start">$</InputAdornment>
                         }
-                        aria-describedby="filled-weight-helper-text"
+                        aria-describedby="filled-amount-helper-text"
                         inputProps={{
                           'aria-label': 'amount',
                         }}
                       />
-                      <FormHelperText id="filled-weight-helper-text"></FormHelperText>
+                      <FormHelperText id="filled-amount-helper-text"></FormHelperText>
                     </FormControl>
                     <FormControl sx={{ m: 1, width: '25ch' }} variant="filled">
                       <InputLabel htmlFor="filled-adornment-password">
@@ -189,7 +190,7 @@ const Loan = () => {
                           <InputAdornment position="start"></InputAdornment>
                         }
                       />
-                      <FormHelperText id="filled-weight-helper-text">
+                      <FormHelperText id="filled-reason-helper-text">
                         Please give a brief explanation for this loan request.
                       </FormHelperText>
                     </FormControl>
@@ -197,7 +198,7 @@ const Loan = () => {
                 </Item>
               </Grid>
               <Grid item xs={12} >
-                <Item style={{width: '40%', margin: 'auto'}}>
+                <Item>
                   <Button
                     variant="contained"
                     onClick={() => handleSubmit()}

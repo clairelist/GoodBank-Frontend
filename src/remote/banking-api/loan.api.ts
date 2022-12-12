@@ -6,11 +6,12 @@ const baseURL = '/loans';
 export const apiCreateLoan = async (
   userId: number,
   reason: string,
-  initialAmount: number
+  initialAmount: number,
+  password: string
 ): Promise<bankingApiResponse> => {
   const response = await bankingClient.post<LoanDetails>(
     `${baseURL}/${userId}`,
-    { reason, initialAmount },
+    { reason, initialAmount, password },
     {
       headers: { 'Current-User': userId },
       withCredentials: true,
