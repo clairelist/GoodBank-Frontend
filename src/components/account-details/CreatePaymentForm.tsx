@@ -61,18 +61,19 @@ export default function CreatePaymentForm(props: any) {
       token
     );
     // setCCTransactions(response.payload);
-    // dispatch(
-    //   setCurrentCreditCard({
-    //     id: currentCCAccount.id,
-    //     cardNumber: currentCCAccount.cardNumber,
-    //     ccv: currentCCAccount.ccv,
-    //     expirationDate: currentCCAccount.expirationDate,
-    //     totalLimit: currentCCAccount.totalLimit,
-    //     availableBalance:
-    //       currentCCAccount.availableBalance + Number(data.get('payment')),
-    //       status: currentCCAccount.status
-    //   })
-    // );
+    dispatch(
+      setCurrentCreditCard({
+        id: currentCCAccount.id,
+        cardNumber: currentCCAccount.cardNumber,
+        ccv: currentCCAccount.ccv,
+        expirationDate: currentCCAccount.expirationDate,
+        totalLimit: currentCCAccount.totalLimit,
+        availableBalance:
+          currentCCAccount.availableBalance + Number(data.get('payment')),
+          status: currentCCAccount.status
+          //response.payload for amount
+      })
+    );
     props.handleClose();
   };
 
