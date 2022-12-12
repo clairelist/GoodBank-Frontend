@@ -47,3 +47,27 @@ export const apiCreateCCApplication = async (
     );
     return {status: response.status, headers: response.headers, payload: response.data as CreditCard}
 };
+
+export const apiGetPendingCreditCards = async (
+    token: string
+): Promise<bankingApiResponse> => {
+    const response = await bankingClient.get<any>(`${baseURL}/get-pending`, {
+        headers: { 'authorization': token },
+        withCredentials: true,
+    });
+    return { status: response.status, headers: response.headers, payload: response.data };
+};
+
+export const apiUpdateCreditCardStatus = async (
+    currentCard: CreditCard,
+    token: string
+): Promise<bankingApiResponse> => {
+    const response = await bankingClient.put<CreditCard>(`${baseURL}/get-pending`, 
+    {...currentCard},
+    {
+        headers: { 'authorization': token },
+        withCredentials: true,
+    });
+    return { status: response.status, headers: response.headers, payload: response.data as CreditCard };
+};
+
