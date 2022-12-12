@@ -24,7 +24,6 @@ export default function CreatePaymentForm(props: any) {
   const currentCCAccount = useAppSelector(
     (state) => state.creditCard.currentCreditCard
   );
-  const [, setCCTransactions] = useState([]);
   const [account, setAccount] = React.useState('Select an Account');
   const [amount, setAmount] = useState('')
   const [errorMessage, setErrorMessage] = useState('');
@@ -60,7 +59,6 @@ export default function CreatePaymentForm(props: any) {
       Number(user?.id),
       token
     );
-    setCCTransactions(response.payload);
     dispatch(
       setCurrentCreditCard({
         id: currentCCAccount.id,
@@ -123,9 +121,7 @@ export default function CreatePaymentForm(props: any) {
               variant="contained"
               sx={{ mt: 1 }}
               color="secondary"
-            >
-              Submit Payment?
-            </Button>
+            >Submit Payment?</Button>
           </Grid>
         </Grid>
       </Box>
