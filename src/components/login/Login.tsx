@@ -6,7 +6,6 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
@@ -23,7 +22,6 @@ import './Login.css';
 import LoginCards from './Login-Cards';
 import LoginAd from './Login-Ad';
 import Footer from './footer/Footer';
-
 
 export default function Login() {
   const dispatch = useAppDispatch();
@@ -56,81 +54,85 @@ export default function Login() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
-  
   return (
     <>
-    <Container maxWidth="xl">  
-      <CssBaseline />
-      
-      <div className="f-page">
-      
-        <img className="hero" src={hero} alt="laughs" />
-      
-<Card className='overlay' sx={{ maxWidth: 345 }}>
-      <CardContent
-        sx={{
-          marginTop: 3,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        <Avatar sx={{ m: 1, bgcolor: 'primary.light' }}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          {error === '' ? '' : <Alert severity="error">{error}</Alert>}
-          <Rlink className='loginlinks' to={'reset-password'}>Forgot password?</Rlink>
-          <Button
-            type="submit"
-            color="secondary"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Sign In
-          </Button>
-        </Box>
-        </CardContent>
-        <CardActions>
-        <Grid container>
-            <Grid item>
-              <Rlink className='loginlinks' to={'../register'}>
-                {"Don't have an account? Sign Up"}
-              </Rlink>
-            </Grid>
-          </Grid>
-        </CardActions>
-        </Card>
+      <Container maxWidth="xl">
+        <CssBaseline />
+
+        <div className="f-page">
+          <img className="hero" src={hero} alt="laughs" />
+
+          <Card className="overlay" sx={{ maxWidth: 345 }}>
+            <CardContent
+              sx={{
+                marginTop: 3,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+              }}
+            >
+              <Avatar sx={{ m: 1, bgcolor: 'primary.light' }}>
+                <LockOutlinedIcon />
+              </Avatar>
+              <Typography component="h1" variant="h5">
+                Sign in
+              </Typography>
+              <Box
+                component="form"
+                onSubmit={handleSubmit}
+                noValidate
+                sx={{ mt: 1 }}
+              >
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  autoFocus
+                />
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                />
+                {error === '' ? '' : <Alert severity="error">{error}</Alert>}
+                <Rlink className="loginlinks" to={'reset-password'}>
+                  Forgot password?
+                </Rlink>
+                <Button
+                  type="submit"
+                  color="secondary"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  Sign In
+                </Button>
+              </Box>
+            </CardContent>
+            <CardActions>
+              <Grid container>
+                <Grid item>
+                  <Rlink className="loginlinks" to={'../register'}>
+                    {"Don't have an account? Sign Up"}
+                  </Rlink>
+                </Grid>
+              </Grid>
+            </CardActions>
+          </Card>
         </div>
-        <LoginCards/>
+        <LoginCards />
         <LoginAd />
-        <Footer/>
-    </Container>
-    
+        <Footer />
+      </Container>
     </>
   );
 }

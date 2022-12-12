@@ -43,15 +43,15 @@ a.loginlinks{
   }
 
   .advertising{
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding-top: 10px;
+    padding-bottom: 5px;
   }
 
   
 .sentences{
     font-size: 50px;
     font-style: normal;
-    padding: 20px 10px 40px 0;
+    padding: 30px 10px 0 0;
     text-indent: 15px;
     text-align: center;
 }
@@ -73,8 +73,8 @@ a.loginlinks{
 img.piggy{
     width:100%;
     height:100%;
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding-top: 10px;
+    padding-bottom: 5px;
 }
 
   /* footer */
@@ -83,7 +83,6 @@ footer{
     list-style: none;
     font-size: 20px;
     padding: 20px;
-    display: flex;
     left: 0;
     bottom: 0;
     width: 100%;
