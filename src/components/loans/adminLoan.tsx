@@ -70,7 +70,10 @@ const AdminLoan = () => {
           maxWidth: '400px',
         }}
       >
-        <Paper sx={{ backgroundColor: '#f0f8ff' }}>
+        <Paper
+          sx={{ backgroundColor: '#f0f8ff', border: '3px solid #BE95C4' }}
+          elevation={6}
+        >
           <Typography
             variant="h3"
             sx={{
@@ -139,7 +142,10 @@ const AdminLoan = () => {
           maxWidth: '400px',
         }}
       >
-        <Paper sx={{ backgroundColor: '#f0f8ff' }}>
+        <Paper
+          sx={{ backgroundColor: '#f0f8ff', border: '3px solid #BE95C4' }}
+          elevation={6}
+        >
           <Typography
             variant="h3"
             style={{ textAlign: 'center', padding: '.375rem' }}
