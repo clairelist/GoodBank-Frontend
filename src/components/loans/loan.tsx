@@ -98,7 +98,9 @@ const Loan = () => {
     event.preventDefault();
   };
   return (
-    <div style={{ width: '50%', margin: '12% auto' }}>
+    <div
+      style={{ width: '80%', margin: '12% auto', maxWidth:'800px' }}
+    >
       {user?.type === 'CLIENT' ? (
         <>
           <Paper elevation={5}>
@@ -106,18 +108,26 @@ const Loan = () => {
               container
               rowSpacing={3}
               columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-              style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
             >
-              <Grid item xs={6} >
-                <Item style={{width: '50%', margin: 'auto'}}>
+              <Grid item xs={6}>
+                <Item style={{ width: '50%', margin: 'auto' }}>
                   {!user ? '' : `Hello ${user.firstName}, looking for a loan?`}
-                  </Item>
+                </Item>
               </Grid>
-              <Grid item xs={12} >
-                <Item style={{boxShadow: 'none'}}>
-              <Typography style={{fontWeight: 'bold'}} color="primary">{errors}</Typography>
-              <Typography style={{fontWeight: 'bold'}} color="primary">{amountError}</Typography>
-                  <div >
+              <Grid item xs={12}>
+                <Item style={{ boxShadow: 'none' }}>
+                  <Typography style={{ fontWeight: 'bold' }} color="primary">
+                    {errors}
+                  </Typography>
+                  <Typography style={{ fontWeight: 'bold' }} color="primary">
+                    {amountError}
+                  </Typography>
+                  <div>
                     <TextField
                       label="Current Date"
                       disabled
@@ -137,7 +147,6 @@ const Loan = () => {
                         Amount*
                       </InputLabel>
                       <FilledInput
-
                         id="filled-adornment-amount"
                         value={values.amount}
                         onChange={handleChange('amount')}
@@ -178,7 +187,16 @@ const Loan = () => {
                         }
                       />
                     </FormControl>
-                    <FormControl fullWidth sx={{ m: -1, marginTop: '5px', marginBottom: '5px', width: '76%' }} variant="filled">
+                    <FormControl
+                      fullWidth
+                      sx={{
+                        m: -1,
+                        marginTop: '5px',
+                        marginBottom: '5px',
+                        width: '76%',
+                      }}
+                      variant="filled"
+                    >
                       <InputLabel htmlFor="filled-adornment-reason">
                         Reason*
                       </InputLabel>
@@ -197,7 +215,7 @@ const Loan = () => {
                   </div>
                 </Item>
               </Grid>
-              <Grid item xs={12} >
+              <Grid item xs={12}>
                 <Item>
                   <Button
                     variant="contained"
@@ -216,7 +234,7 @@ const Loan = () => {
           <Paper />
           <Paper elevation={0} />
         </>
-      ) :  (
+      ) : (
         <AdminLoan />
       )}
     </div>

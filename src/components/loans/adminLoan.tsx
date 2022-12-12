@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import { useEffect, useState } from 'react';
@@ -53,107 +53,152 @@ const AdminLoan = () => {
     };
 
   return (
-    <Paper style={{ width: '70%', margin: 'auto', backgroundColor: 'primary' }}>
-      <Typography variant="h3" style={{ textAlign: 'center' }}>
-        Pending Loans
-      </Typography>
-      {loans.length > 0
-        ? loans.map((loan: LoanDetails) => (
-            <div
-              key={loan.loanID + 1}
-              style={{
-                textAlign: 'center',
-                borderBottom: '3px solid black',
-                borderRadius: '5px',
-              }}
-            >
-              <div
-                style={{
-                  display: 'inline-block',
-                  textAlign: 'left',
-                  fontWeight: 'bold',
-                }}
-              >
-                <p>Loan ID: {loan.loanID}</p>
-                <p>Loan User ID: {loan.userId}</p>
-                <p>Loan Reason: {loan.reason}</p>
-                <p>Loan Initial Amount: ${loan.initialAmount}</p>
-                <p>Created on: {loan.creationDate.toString().slice(0, 10)}</p>
-              </div>
-              <div style={{ marginBottom: '35px' }}>
-                <Button
-                  style={{ marginRight: '50px' }}
-                  variant="contained"
-                  color="primary"
-                  size="small"
-                  onClick={() => handleStatus(loan, 'APPROVED')}
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'flex-start',
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexDirection: 'column',
+          maxWidth: '400px',
+        }}
+      >
+        <Paper sx={{ backgroundColor: '#f0f8ff' }}>
+          <Typography
+            variant="h3"
+            sx={{
+              textAlign: 'center',
+              marginBottom: '1rem',
+              padding: '.375rem',
+            }}
+          >
+            Pending Loans
+          </Typography>
+          {loans.length > 0
+            ? loans.map((loan: LoanDetails) => (
+                <div
+                  key={loan.loanID + 1}
+                  style={{
+                    textAlign: 'center',
+                    borderTop: '3px solid black',
+                    marginBottom: '1.5rem',
+                  }}
                 >
-                  Approve
-                </Button>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  size="small"
-                  onClick={() => handleStatus(loan, 'DENIED')}
-                >
-                  Deny
-                </Button>
-              </div>
-            </div>
-          ))
-        : ''}
-      <Typography variant="h3" style={{ textAlign: 'center' }}>
-        Pending Credit Cards
-      </Typography>
+                  <div
+                    style={{
+                      display: 'inline-block',
+                      textAlign: 'left',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    <p>Loan ID: {loan.loanID}</p>
+                    <p>Loan User ID: {loan.userId}</p>
+                    <p>Loan Reason: {loan.reason}</p>
+                    <p>Loan Initial Amount: ${loan.initialAmount}</p>
+                    <p>
+                      Created on: {loan.creationDate.toString().slice(0, 10)}
+                    </p>
+                  </div>
+                  <div style={{ marginBottom: '35px' }}>
+                    <Button
+                      style={{ marginRight: '50px' }}
+                      variant="contained"
+                      color="primary"
+                      size="small"
+                      onClick={() => handleStatus(loan, 'APPROVED')}
+                    >
+                      Approve
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      size="small"
+                      onClick={() => handleStatus(loan, 'DENIED')}
+                    >
+                      Deny
+                    </Button>
+                  </div>
+                </div>
+              ))
+            : ''}
+        </Paper>
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexDirection: 'column',
+          maxWidth: '400px',
+        }}
+      >
+        <Paper sx={{ backgroundColor: '#f0f8ff' }}>
+          <Typography
+            variant="h3"
+            style={{ textAlign: 'center', padding: '.375rem' }}
+          >
+            Pending Credit Cards
+          </Typography>
 
-      {creditCards.length > 0
-        ? creditCards.map((creditCard: CreditCard) => (
-            <div
-              key={creditCard.id + 1}
-              style={{
-                textAlign: 'center',
-                borderBottom: '3px solid black',
-                borderRadius: '5px',
-              }}
-            >
-              <div
-                style={{
-                  display: 'inline-block',
-                  textAlign: 'left',
-                  fontWeight: 'bold',
-                }}
-              >
-                <p>creditCard ID: {creditCard.id}</p>
-                <p>creditCard Card Number: {creditCard.cardNumber}</p>
-                <p>creditCard CCV: {creditCard.ccv}</p>
-                <p>creditCard Initial Amount: ${creditCard.availableBalance}</p>
-                <p>
-                  Expiration Date: {creditCard.expirationDate.toString().slice(0, 10)}
-                </p>
-              </div>
-              <div style={{ marginBottom: '35px' }}>
-                <Button
-                  style={{ marginRight: '50px' }}
-                  variant="contained"
-                  color="primary"
-                  size="small"
-                  onClick={() => handleCardStatus(creditCard, 'APPROVED')}
+          {creditCards.length > 0
+            ? creditCards.map((creditCard: CreditCard) => (
+                <div
+                  key={creditCard.id + 1}
+                  style={{
+                    textAlign: 'center',
+                    borderTop: '3px solid black',
+                  }}
                 >
-                  Approve
-                </Button>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  size="small"
-                  onClick={() => handleCardStatus(creditCard, 'DENIED')}
-                >
-                  Deny
-                </Button>
-              </div>
-            </div>
-          ))
-        : ''}
-    </Paper>
+                  <div
+                    style={{
+                      display: 'inline-block',
+                      textAlign: 'left',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    <p>creditCard ID: {creditCard.id}</p>
+                    <p>creditCard Card Number: {creditCard.cardNumber}</p>
+                    <p>creditCard CCV: {creditCard.ccv}</p>
+                    <p>
+                      creditCard Initial Amount: ${creditCard.availableBalance}
+                    </p>
+                    <p>
+                      Expiration Date:{' '}
+                      {creditCard.expirationDate.toString().slice(0, 10)}
+                    </p>
+                  </div>
+                  <div style={{ marginBottom: '35px' }}>
+                    <Button
+                      style={{ marginRight: '50px' }}
+                      variant="contained"
+                      color="primary"
+                      size="small"
+                      onClick={() => handleCardStatus(creditCard, 'APPROVED')}
+                    >
+                      Approve
+                    </Button>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      size="small"
+                      onClick={() => handleCardStatus(creditCard, 'DENIED')}
+                    >
+                      Deny
+                    </Button>
+                  </div>
+                </div>
+              ))
+            : ''}
+        </Paper>
+      </div>
+    </div>
   );
 };
 
