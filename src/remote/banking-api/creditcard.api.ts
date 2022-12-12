@@ -21,7 +21,7 @@ export const apiMakeCreditCardPayment = async (
     userId: number,
     token: string,
 ): Promise<bankingApiResponse> => {
-    const response = await bankingClient.post<CreditCardTransaction[]>(
+    const response = await bankingClient.post<number>(
         `${baseURL}/${userId}/payment`,
         creditCardTransaction, 
         {
@@ -30,7 +30,7 @@ export const apiMakeCreditCardPayment = async (
         withCredentials: true,
         }
     );
-    return { status: response.status, headers: response.headers, payload: response.data as CreditCardTransaction[] };
+    return { status: response.status, headers: response.headers, payload: response.data };
 };
 
 export const apiCreateCCApplication = async (
@@ -46,4 +46,18 @@ export const apiCreateCCApplication = async (
         }
     );
     return {status: response.status, headers: response.headers, payload: response.data as CreditCard}
+};
+
+export const apiGetCreditCardTransactions = async (
+    token: string,
+    cardId: number
+): Promise<bankingApiResponse> => {
+    const response = await bankingClient.get<CreditCardTransaction[]>(
+        `${baseURL}/${cardId}/transactions`,
+        {
+            headers: { 'authorization': token },
+            withCredentials: true
+        }
+    );
+    return {status: response.status, headers: response.headers, payload: response.data}
 };
