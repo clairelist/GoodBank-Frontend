@@ -33,7 +33,7 @@ export default function CreditCards() {
     }
   };
 
-  if (!creditCards) return <></>;
+  if (creditCards.length <= 0) return <></>;
   return (
     <>
       <Stack spacing={2} sx={{ alignItems: 'center' }}>
