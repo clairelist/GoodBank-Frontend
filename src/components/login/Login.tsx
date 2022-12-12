@@ -56,6 +56,7 @@ export default function Login() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
+  
   return (
     <>
     <Container maxWidth="xl">  
@@ -66,14 +67,14 @@ export default function Login() {
         <img className="hero" src={hero} alt="laughs" />
       
 <Card className='overlay' sx={{ maxWidth: 345 }}>
-      <CardContent>
-        {/* sx={{
-          marginTop: 8,
+      <CardContent
+        sx={{
+          marginTop: 3,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
         }}
-      > */}
+      >
         <Avatar sx={{ m: 1, bgcolor: 'primary.light' }}>
           <LockOutlinedIcon />
         </Avatar>

@@ -14,11 +14,18 @@ import {
 import pig from '../../images/svg/piggy.png';
 import home from '../../images/svg/house.png';
 import card from '../../images/svg/cards.png';
+import { useNavigate } from 'react-router-dom';
 
 
 
 
 export default function loginBody() {
+
+  const navigate = useNavigate();
+  function navigateRegister(){
+    navigate('/register');
+  }
+
 
     const cards = [
         {
@@ -64,7 +71,7 @@ export default function loginBody() {
                 </CardContent>
               </CardActionArea>
               <CardActions>
-                <Button size="small" color="primary">
+                <Button onClick={navigateRegister} size="small" color="primary">
                   Sign up today 
                 </Button>
               </CardActions>

@@ -4,29 +4,20 @@ import piggy from '../../images/piggy.jpg';
 
 export default function LoginAd() {
 
-    const Item = styled(Paper)(({ theme }) => ({
-        backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-        ...theme.typography.body2,
-        padding: theme.spacing(1),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-      }));
   return (
     <>
 
 
-<Box sx={{ flexGrow: 1 }}>
+<Box sx={{ flexGrow: 1,
+  border: 'none' }}>
       <Grid container spacing={2} columns={16}>
         <Grid item xs={8}>
-            <Item>
         <div className='finance'>
       <img className="piggy" src={piggy} alt="laughs" />
       </div>
-      </Item>
         </Grid>
        
         <Grid item xs={8}>
-        <Item>
         <div className="advertising">
         <div className="sentences">
           <div id="choose">&#160;Choose what is</div>
@@ -52,7 +43,6 @@ export default function LoginAd() {
       </div>
       </div>
       </div>
-      </Item>
         </Grid>
       </Grid>
     </Box>
