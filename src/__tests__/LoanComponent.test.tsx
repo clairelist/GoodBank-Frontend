@@ -1,9 +1,7 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
-import App from "../App";
 import { store } from "../app/store";
 import Loan from "../components/loans/loan";
-import Login from "../components/login/Login";
 jest.mock('../remote/banking-api/loan.api.ts');
 const mockedUsedNavigate = jest.fn();
 jest.mock('react-router-dom', () => ({
