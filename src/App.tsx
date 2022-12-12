@@ -6,6 +6,7 @@ import { AppRoutes } from './router/AppRoutes';
 
 const theme = createTheme({
   palette: {
+    mode: "light",
     primary: {
       main: '#9F86C0',
       light: '#BE95C4',
@@ -24,7 +25,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <Navbar />
-        <AppRoutes></AppRoutes>
+        <AppRoutes />
       </Router>
     </ThemeProvider>
   );

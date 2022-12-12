@@ -1,4 +1,5 @@
 import {
+  Alert,
   Box,
   Button,
   FormControl,
@@ -25,10 +26,22 @@ export default function CreatePaymentForm(props: any) {
   );
   const [, setCCTransactions] = useState([]);
   const [account, setAccount] = React.useState('Select an Account');
+  const [amount, setAmount] = useState('')
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleChangeAccount = (event: SelectChangeEvent) => {
     setAccount(event.target.value);
   };
+
+  const handleChangeAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (Number(event.target.value) <= 0) {
+      setErrorMessage('Amount must be greater than 0');
+      setAmount('');
+    } else {
+      setAmount(event.target.value);
+      setErrorMessage('');
+    }
+  }
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -57,6 +70,7 @@ export default function CreatePaymentForm(props: any) {
         totalLimit: currentCCAccount.totalLimit,
         availableBalance:
           currentCCAccount.availableBalance + Number(data.get('payment')),
+          status: currentCCAccount.status
       })
     );
     props.handleClose();
@@ -69,13 +83,21 @@ export default function CreatePaymentForm(props: any) {
           <Grid item>
             <TextField
               required
+              type="number"
               id="filled-multiline-static"
               name="payment"
               label="Amount to Pay"
               value=''
               fullWidth
               size="small"
+              value={amount}
+              onChange={handleChangeAmount}
             />
+            {errorMessage === '' ? (
+              ''
+            ) : (
+              <Alert severity="error">{errorMessage}</Alert>
+            )}
           </Grid>
           <Grid item>
             <FormControl variant="standard" sx={{ m: 1, minWidth: '100%' }}>

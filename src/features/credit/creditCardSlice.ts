@@ -14,7 +14,8 @@ const initialState: CreditState = {
         ccv: 0,
         expirationDate: "",
         totalLimit: 0,
-        availableBalance: 0
+        availableBalance: 0,
+        status: ""
     },
     creditCards: []
 };

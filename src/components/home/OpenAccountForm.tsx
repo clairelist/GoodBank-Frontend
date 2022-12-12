@@ -8,9 +8,9 @@ import Slide from '@mui/material/Slide';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { setCurrentAccount } from '../../features/account/accountSlice';
+import { setCurrentAccount, setUserAccounts } from '../../features/account/accountSlice';
 import { Account } from '../../models/Account';
-import { apiCreateAccount } from '../../remote/banking-api/account.api';
+import { apiCreateAccount, apiGetAccounts } from '../../remote/banking-api/account.api';
 
 export default function OpenAccount(prop: any) {
   const user = useAppSelector((state) => state.user.user);
@@ -43,6 +43,9 @@ export default function OpenAccount(prop: any) {
       if (response.status >= 200 && response.status < 300) {
         prop.setChecked(false);
         dispatch(setCurrentAccount(response.payload));
+        let token: string = sessionStorage.getItem('token') || '';
+        const result = await apiGetAccounts(user?.id, token);
+        dispatch(setUserAccounts(result.payload));
         navigate('/details');
       } else {
         setError('Please check the above information!');
@@ -76,7 +79,13 @@ export default function OpenAccount(prop: any) {
           </Select>
         </FormControl>
         <InputLabel htmlFor="name">Balance</InputLabel>
-        <Input id="balance" fullWidth required name="balance" type="text" />
+        <Input
+          id="balance"
+          fullWidth
+          required
+          name="balance"
+          type="text"
+          />
         <Button variant="contained" type="submit" style={{ marginTop: 5 }}>
           Submit
         </Button>
