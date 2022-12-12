@@ -29,9 +29,11 @@ const AdminLoan = () => {
         let token: string = sessionStorage.getItem('token') || '';
         const response = await apiGetPendingCreditCards(token);
         setCreditCards(response.payload);
+        console.log(response.payload)
       }
     };
     getLoans();
+    getCreditCards();
   }, [user]);
 
   const handleStatus = async (currentLoan: LoanDetails, status: string) => {
@@ -46,7 +48,7 @@ const AdminLoan = () => {
     const handleCardStatus = async (currentCard: CreditCard, status: string) => {
       let token: string = sessionStorage.getItem('token') || '';
       currentCard.status = status;
-      const response = await apiUpdateCreditCardStatus(currentCard, token);
+      const response = await apiUpdateCreditCardStatus(currentCard.status, currentCard.id, token);
       setCreditCards(
         creditCards.filter((x: CreditCard) => x.id !== response.payload.id)
       );

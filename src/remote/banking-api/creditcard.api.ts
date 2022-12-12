@@ -64,23 +64,24 @@ export const apiGetCreditCardTransactions = async (
 export const apiGetPendingCreditCards = async (
     token: string
 ): Promise<bankingApiResponse> => {
-    const response = await bankingClient.get<any>(`${baseURL}/get-pending`, {
+    const response = await bankingClient.get<CreditCard[]>(`${baseURL}/get-pending`, {
         headers: { 'authorization': token },
         withCredentials: true,
     });
-    return { status: response.status, headers: response.headers, payload: response.data };
+    return { status: response.status, headers: response.headers, payload: response.data as CreditCard[] };
 };
 
 export const apiUpdateCreditCardStatus = async (
-    currentCard: CreditCard,
+    status: string,
+    id: number,
     token: string
 ): Promise<bankingApiResponse> => {
-    const response = await bankingClient.put<CreditCard>(`${baseURL}/get-pending`, 
-    {...currentCard},
+    const response = await bankingClient.put<any>(`${baseURL}/update-status`, 
+    {id, status},
     {
         headers: { 'authorization': token },
         withCredentials: true,
     });
-    return { status: response.status, headers: response.headers, payload: response.data as CreditCard };
+    return { status: response.status, headers: response.headers, payload: response.data };
 };
 

@@ -1,7 +1,8 @@
 import { Box, Button, List, ListItemButton, ListItemText, Popover } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../app/hooks";
+import { useAppSelector, useAppDispatch } from "../../app/hooks";
+import { setUserCreditCardTransactions } from "../../features/credit/creditCardTransactionSlice";
 import { apiGetCreditCardTransactions } from "../../remote/banking-api/creditcard.api";
 import SideBar from "../account-details/SideBar";
 import StyledTable from "../account-details/StyledTable";
@@ -9,6 +10,7 @@ import StyledTable from "../account-details/StyledTable";
 
 export default function CreditCardDetails() {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user.user);
   const currentCreditCard = useAppSelector((state) => state.creditCard.currentCreditCard);
   const transactions = useAppSelector((state) => state.creditCardTransaction.creditCardTransactions)
@@ -21,11 +23,17 @@ export default function CreditCardDetails() {
     if (!user) {
       navigate('/');
     } else {
-      let token: string = sessionStorage.getItem('token') || '';
-      const result = await apiGetCreditCardTransactions(token, currentCreditCard.id);
-      
+      fetchTransactions();
     }
   }, [user, navigate]);
+
+  const fetchTransactions = async () => {
+    let token: string = sessionStorage.getItem('token') || '';
+    const result = await apiGetCreditCardTransactions(token, currentCreditCard.id);
+    if(result.status === 200) {
+      dispatch(setUserCreditCardTransactions(result.payload));
+    }
+  }
 
   const generatePageByMode = (currentMode: string) => {
     return transactions
