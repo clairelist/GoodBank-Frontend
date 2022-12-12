@@ -1,4 +1,4 @@
-import { Alert, Input, InputLabel } from '@mui/material';
+import { Alert, Card, Input, InputLabel } from '@mui/material';
 import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
@@ -59,7 +59,13 @@ export default function OpenAccount(prop: any) {
         component="form"
         onSubmit={handleSubmit}
         noValidate
-        sx={{ maxWidth: 1, p: 2, mt: 1 }}
+        sx={{ 
+          margin: '0 auto',
+          padding: '1em',
+          width: '24vw',
+          minWidth: '400px',
+          borderRadius: '16px'
+        }}
       >
         <InputLabel htmlFor="name">Name</InputLabel>
         <Input id="name" fullWidth required name="name" type="text" />
