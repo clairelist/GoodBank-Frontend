@@ -92,7 +92,7 @@ export default function NotificationToggle() {
         }}
         
       >
-        <NotificationList />
+        <NotificationList setOpen={setOpen}/>
       </Popover>
     </>
   );
