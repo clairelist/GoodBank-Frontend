@@ -4,7 +4,7 @@ export class LoanDetails {
   reason: string;
   initialAmount: number;
   balance: number;
-  creationDate: Date;
+  creationDate: any;
   status: string;
 
     constructor(
