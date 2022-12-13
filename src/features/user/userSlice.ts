@@ -24,7 +24,6 @@ export const userSlice = createSlice({
       state.user = action.payload;
     // Use the PayloadAction type to declare the contents of `action.payload`
     },
-
     logout: (state) => {
       state.user = undefined;
     }
