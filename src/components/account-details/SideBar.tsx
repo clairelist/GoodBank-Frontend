@@ -7,7 +7,6 @@ import CCPayment from './modals/CreateCreditCardPayment';
 import SendAndArchiveIcon from '@mui/icons-material/SendAndArchive';
 import MoveDownIcon from '@mui/icons-material/MoveDown';
 import LocalAtmIcon from '@mui/icons-material/LocalAtm';
-import CancelIcon from '@mui/icons-material/Cancel';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { setTransferType } from '../../features/account/accountSlice';
 

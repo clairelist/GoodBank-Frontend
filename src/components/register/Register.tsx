@@ -1,5 +1,5 @@
 import EnhancedEncryptionIcon from '@mui/icons-material/EnhancedEncryption';
-import { Card, CardContent } from '@mui/material';
+import { Alert, Card, CardContent } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -11,8 +11,8 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { apiRegister } from '../../remote/banking-api/auth.api';
 import vacation from '../../images/vacation-piggy.png';
+import { apiRegister } from '../../remote/banking-api/auth.api';
 import './Register.css';
 
 export default function Register() {
@@ -41,7 +41,7 @@ export default function Register() {
     } else if (passLength <= 3) {
       setError('Password must be greater than 3 characters');
     } else {
-      setError('Username already in use');
+      setError('Email already in use');
     }
   };
 
@@ -118,6 +118,7 @@ export default function Register() {
                   id="lastName"
                   autoComplete="last Name"
                 />
+                {error === '' ? '' : <Alert severity="error">{error}</Alert>}
                 <Button
                   type="submit"
                   color="secondary"
