@@ -48,7 +48,7 @@ const CreditCardApplication = () => {
     const handleSubmit = async () => {
         if(user) {
             let token: string = sessionStorage.getItem('token') || '';
-            apiCreateCCApplication(
+            await apiCreateCCApplication(
                 Number(values.amount),
                 token
             );

@@ -1,7 +1,7 @@
 import { Card, CardContent, Typography, Box, Button } from '@mui/material';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { setCurrentCreditCard } from '../../features/credit/creditCardSlice';
 import { priceFormatter } from '../../features/util/generalUtils';
 import { CreditCard } from '../../models/CreditCard';
@@ -18,6 +18,7 @@ export default function StyledCreditCard(props: IProps) {
   const { creditCard } = props;
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const user = useAppSelector((state) => state.user.user);
 
   const formatCardNumber = (cardNum: number) => {
@@ -53,7 +54,7 @@ export default function StyledCreditCard(props: IProps) {
                 fontSize: '1rem',
               }}
             >
-              BALANCE: {priceFormatter.format(creditCard.availableBalance)}{' '}
+              BALANCE: {priceFormatter.format((creditCard.totalLimit - creditCard.availableBalance))}{' '}
               <br />
               LIMIT: {priceFormatter.format(creditCard.totalLimit)}
             </Typography>
@@ -64,11 +65,11 @@ export default function StyledCreditCard(props: IProps) {
               <Button
                 onClick={() => {
                   dispatch(setCurrentCreditCard(creditCard));
-                  navigate('/credit-card-details');
+                  navigate(location.pathname === '/credit-card-details' ? '/' : '/credit-card-details');
                 }}
                 sx={cardButtonStyles}
               >
-                Details
+                {location.pathname === '/credit-card-details' ?  'Back to Accounts' : 'Details'}
               </Button>
             }
           </Box>

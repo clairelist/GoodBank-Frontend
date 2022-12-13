@@ -13,8 +13,16 @@ export const apiLogin = async (
   return { status: response.status, headers: response.headers, payload: response.data };
 };
 
+export const apiLoginToken = async (
+  token: string
+): Promise<bankingApiResponse> => {
+  const response = await bankingClient.post<any>(`${baseURL}/token-login`, { token });
+  return { status: response.status, headers: response.headers, payload: response.data };
+};
+
 export const apiLogout = async (): Promise<bankingApiResponse> => {
   const response = await bankingClient.post<any>(`${baseURL}/logout`);
+  sessionStorage.clear();
   return { status: response.status, headers: response.headers, payload: response.data };
 };
 
