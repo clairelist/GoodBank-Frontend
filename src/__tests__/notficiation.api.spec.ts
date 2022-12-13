@@ -14,7 +14,7 @@ describe('Notification test suite', () => {
         const result = await apiGetUserNotifications(3);
 
         expect(bankingClient.get).toHaveBeenCalledWith(`/notification/3`);
-
+        expect(result.status).toBe(200);
     });
-
+    
 })

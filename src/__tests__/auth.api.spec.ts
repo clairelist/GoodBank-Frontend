@@ -31,10 +31,12 @@ describe('Create CC Payment form test suite', () => {
         status: 200
         });
 
-        const result = apiRegister ('test@test.com', 'pass', 'ian', 'roberts');
+        const result = await apiRegister ('test@test.com', 'pass', 'ian', 'roberts');
 
         expect(bankingClient.post).toHaveBeenCalledWith(`/auth/register`,
         { email: 'test@test.com', password: 'pass', firstName: 'ian', lastName: 'roberts'});
+        expect(result.status).toBe(200)
+
     })
 
 

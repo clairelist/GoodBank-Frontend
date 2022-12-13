@@ -26,6 +26,7 @@ describe('Account test suite', () => {
             stubbedAccount, {
             headers: { 'authorization': '123' }
             });
+        expect(result.status).toBe(200);
 });
 
 })
