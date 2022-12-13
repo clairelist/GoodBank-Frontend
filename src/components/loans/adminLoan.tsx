@@ -5,7 +5,10 @@ import { useEffect, useState } from 'react';
 import { useAppSelector } from '../../app/hooks';
 import { CreditCard } from '../../models/CreditCard';
 import { LoanDetails } from '../../models/LoanDetails';
-import { apiGetPendingCreditCards, apiUpdateCreditCardStatus } from '../../remote/banking-api/creditcard.api';
+import {
+  apiGetPendingCreditCards,
+  apiUpdateCreditCardStatus,
+} from '../../remote/banking-api/creditcard.api';
 import {
   apiChangeStatus,
   apiGetPendingLoans,
@@ -29,7 +32,7 @@ const AdminLoan = () => {
         let token: string = sessionStorage.getItem('token') || '';
         const response = await apiGetPendingCreditCards(token);
         setCreditCards(response.payload);
-        console.log(response.payload)
+        console.log(response.payload);
       }
     };
     getLoans();
@@ -45,14 +48,14 @@ const AdminLoan = () => {
     );
   };
 
-    const handleCardStatus = async (currentCard: CreditCard, status: string) => {
-      let token: string = sessionStorage.getItem('token') || '';
-      currentCard.status = status;
-      const response = await apiUpdateCreditCardStatus(currentCard.status, currentCard.id, token);
-      setCreditCards(
-        creditCards.filter((x: CreditCard) => x.id !== response.payload.id)
-      );
-    };
+  const handleCardStatus = async (currentCard: CreditCard, status: string) => {
+    let token: string = sessionStorage.getItem('token') || '';
+    currentCard.status = status;
+    setCreditCards(
+      creditCards.filter((x: CreditCard) => x.id !== currentCard.id)
+    );
+    await apiUpdateCreditCardStatus(currentCard.status, currentCard.id, token);
+  };
 
   return (
     <div
