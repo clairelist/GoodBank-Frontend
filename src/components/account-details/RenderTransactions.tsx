@@ -1,5 +1,5 @@
 import { Box, Button, List, ListItemButton, ListItemText, Popover } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CreditCardTransaction } from "../../models/CreditCardTransaction";
 import { Transaction } from "../../models/Transaction";
 import StyledTable from "../account-details/StyledTable";
@@ -11,10 +11,19 @@ export default function RenderTransactions(props: CreditCardTransaction[] | Tran
     const [mode, setMode] = useState('RECENT');
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
+    const [size, setSize] = useState(0)
+
+    useEffect(() => {
+        if(mode != "RECENT") {
+            setSize(transactions.filter((x: any) => x.type === mode).length);
+        } else {
+            setSize(transactions.length);
+        }
+    }, [mode])
 
     const generatePageByMode = (currentMode: string) => {
         if(currentMode != "RECENT") {
-            return transactions
+            let t = transactions
             .filter((x: any) => x.type === currentMode)
             .slice(
                 (page - 1) * 5,
@@ -22,13 +31,15 @@ export default function RenderTransactions(props: CreditCardTransaction[] | Tran
                 ? undefined
                 : (page - 1) * 5 + 5
             );
+            return t;
         } else {
-            return transactions.slice(
+            let t = transactions.slice(
                 (page - 1) * 5,
                 transactions.length <- 5
                 ? undefined
                 : (page -1) * 5 + 5
             );
+            return t;
         }
     };
     
@@ -103,22 +114,10 @@ export default function RenderTransactions(props: CreditCardTransaction[] | Tran
                 </div>
 
                 <StyledTable
-                    transaction={
-                        mode === 'RECENT'
-                            ? generatePageByMode("RECENT")
-                            : mode === 'EXPENSE'
-                                ? generatePageByMode('EXPENSE')
-                                : generatePageByMode('INCOME')
-                    }
+                    transaction={generatePageByMode(mode)}
                     page={page}
                     setPage={setPage}
-                    transSize={
-                        mode === 'RECENT'
-                            ? transactions.length
-                            : mode === 'EXPENSE'
-                                ? transactions.filter((x: any) => x.type === 'EXPENSE').length
-                                : transactions.filter((x: any) => x.type === 'INCOME').length
-                    }
+                    transSize={size}
                     mode={mode}
                 />
             </div>
