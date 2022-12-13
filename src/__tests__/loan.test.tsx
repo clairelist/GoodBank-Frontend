@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { store } from '../app/store';
 import  Loan  from "../components/loans/loan";
@@ -9,16 +9,6 @@ import { apiCreateLoan } from '../remote/banking-api/loan.api';
 
 describe('LoanAPI test suite', () => {
     it('Shows a user all of their current loans', () => {
-        let stubbedLoan : LoanDetails = {
-            userId: 1,
-            loanID: 1,
-            reason: '',
-            initialAmount: 0,
-            balance: 0,
-            creationDate: undefined,
-            status: ''
-        };
-
         render(<Provider store={store}><Loans/></Provider>); 
         const textField = screen.getByText('Your Loans');
         expect(textField).toBeInTheDocument;
