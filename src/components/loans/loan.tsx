@@ -96,6 +96,8 @@ const Loan = () => {
   ) => {
     event.preventDefault();
   };
+
+  // const handlePasswordInput = (event:)
   return (
     <div style={{ width: '50%', margin: '12% auto' }}>
       {user?.type === 'CLIENT' ? (
