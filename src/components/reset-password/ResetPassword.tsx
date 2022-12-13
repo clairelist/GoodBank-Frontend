@@ -1,13 +1,16 @@
-import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
-import bankingClient from '../../remote/banking-api/bankingClient';
-import { SyntheticEvent, useState, } from 'react';
+import { SyntheticEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import bankingClient from '../../remote/banking-api/bankingClient';
 
 function ResetPassword() {
-  const [submission, setSubmission] = useState<any>({ email: '', password: '' });
+  const [submission, setSubmission] = useState<any>({
+    email: '',
+    password: '',
+  });
   const [newPassword, setNewPassword] = useState(''); //used for password CONFIRMATION
   const [error, setError] = useState(false);
   const [confirmation, setConfirmation] = useState(false);
@@ -16,7 +19,7 @@ function ResetPassword() {
   const navAfterTime = () => {
     //@DOCS: used for the timeout, below, so our confirm message is displayed.
     navigate('/login');
-  }
+  };
 
   const validate = (value: string, value2: string) => {
     // ADD MIN LENGTH REQS HERE AND IN REGISTRATION
@@ -29,7 +32,7 @@ function ResetPassword() {
       setError(false);
       return false;
     }
-  }
+  };
 
   const handleChange = (e: SyntheticEvent) => {
     setSubmission({
@@ -37,27 +40,32 @@ function ResetPassword() {
       [(e.target as HTMLInputElement).name]: (e.target as HTMLInputElement)
         .value,
     });
-  }
+  };
   const handleNewPassChange = (e: SyntheticEvent) => {
     //used for confirmation that passwords are the same!
     setNewPassword((e.target as HTMLInputElement).value);
-  }
+  };
   const handleSubmit = () => {
     console.log(submission);
     if (validate(submission.password, newPassword) === true) {
-      console.log("do they match?")
+      console.log('do they match?');
       return null;
     } else {
-      bankingClient.patch('/user/reset-password', {email: submission.email, password: submission.password, confirmPassword: newPassword})
-        .then(res => {
+      bankingClient
+        .patch('/user/reset-password', {
+          email: submission.email,
+          password: submission.password,
+          confirmPassword: newPassword,
+        })
+        .then((res) => {
           setConfirmation(true);
           setTimeout(navAfterTime, 1500);
         })
-        .catch(err => {
+        .catch((err) => {
           setError(true);
-        })
+        });
     }
-  }
+  };
   return (
     <div>
       <Box
@@ -107,19 +115,27 @@ function ResetPassword() {
             onChange={handleNewPassChange}
           />
         </Box>
-        {error ? <p>"Passwords MUST match, AND you must provide a valid EMAIL!"</p> : <></>}
-        {confirmation ? <p>Your password has been RESET.</p> :
+        {error ? (
+          <p>"Passwords MUST match, AND you must provide a valid EMAIL!"</p>
+        ) : (
+          <></>
+        )}
+        {confirmation ? (
+          <p>Your password has been RESET.</p>
+        ) : (
           <Button
             type="submit"
             color="secondary"
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
             onClick={handleSubmit}
-          >Submit</Button>
-        }
+          >
+            Submit
+          </Button>
+        )}
       </Box>
     </div>
-  )
+  );
 }
 
 export default ResetPassword;

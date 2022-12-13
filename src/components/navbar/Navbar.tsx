@@ -1,23 +1,23 @@
-import * as React from 'react';
+import LoginIcon from '@mui/icons-material/Login';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import LoginIcon from '@mui/icons-material/Login';
+import * as React from 'react';
 
-import { apiLoginToken, apiLogout } from '../../remote/banking-api/auth.api';
-import { useNavigate } from 'react-router-dom';
+import SavingsIcon from '@mui/icons-material/Savings';
 import Tooltip from '@mui/material/Tooltip';
-import NotificationToggle from './notifications/NotificationToggle';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { logout, signIn } from '../../features/user/userSlice';
-import SavingsIcon from '@mui/icons-material/Savings';
+import { apiLoginToken, apiLogout } from '../../remote/banking-api/auth.api';
+import NotificationToggle from './notifications/NotificationToggle';
 
-import { setNotificationTimer } from '../../features/notification/notificationSlice';
-import ProfileMenu from './ProfileMenu/ProfileMenu';
 import { useEffect } from 'react';
 import { User } from '../../context/user.context';
+import { setNotificationTimer } from '../../features/notification/notificationSlice';
+import ProfileMenu from './ProfileMenu/ProfileMenu';
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -28,14 +28,14 @@ export default function Navbar() {
     const result = await apiLoginToken(token);
     dispatch(signIn(result.payload));
     navigate('/');
-  }
-  
+  };
+
   useEffect(() => {
     const token = sessionStorage.getItem('token');
-    console.log(token);
     if (!user && token) {
       handleTokenLogin(token);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function handleAuth(user: User | undefined) {
