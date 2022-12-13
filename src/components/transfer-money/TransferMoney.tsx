@@ -175,16 +175,6 @@ export default function TransferMoney(props: any) {
           >
             Submit
           </Button>
-          <Button
-            autoFocus
-            type="button"
-            onClick={props.onClose}
-            variant="contained"
-            sx={{ mt: 1 }}
-            color="secondary"
-          >
-            Close
-          </Button>
         </div>
       </Box>
     </>

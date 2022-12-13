@@ -38,13 +38,14 @@ export default function TransferMoney(props: any) {
     <>
       <Modal
       open={props.open}
+      onClose={props.handleClose} 
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
           {getTransferType()}
           <Typography id="modal-modal-description" sx={{ mt: 8 }}>
-            <Transfer onClose={props.handleClose} />
+            <Transfer />
           </Typography>
         </Box>
       </Modal>
