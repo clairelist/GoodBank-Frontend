@@ -1,13 +1,13 @@
 import { CreditCard } from '../../models/CreditCard';
 import { CreditCardTransaction } from '../../models/CreditCardTransaction';
-import bankingClient, { bankingApiResponse } from './bankingClient';
+import bankingClient, { BankingApiResponse } from './bankingClient';
 
 const baseURL = '/credit-card';
 
 export const apiGetCreditCards = async (
     id: number,
     token: string
-): Promise<bankingApiResponse> => {
+): Promise<BankingApiResponse> => {
     const response = await bankingClient.get<any>(`${baseURL}/${id}`, {
         headers: { 'authorization': token },
         withCredentials: true,
@@ -20,7 +20,7 @@ export const apiMakeCreditCardPayment = async (
     creditCardTransaction: CreditCardTransaction,
     userId: number,
     token: string,
-): Promise<bankingApiResponse> => {
+): Promise<BankingApiResponse> => {
     const response = await bankingClient.post<number>(
         `${baseURL}/${userId}/payment`,
         creditCardTransaction, 
@@ -36,7 +36,7 @@ export const apiMakeCreditCardPayment = async (
 export const apiCreateCCApplication = async (
     initialAmount: number,
     token: string
-): Promise<bankingApiResponse> => {
+): Promise<BankingApiResponse> => {
     const response = await bankingClient.post<CreditCard>(
         `${baseURL}/credit-card-application`,
         { initialAmount },
@@ -51,7 +51,7 @@ export const apiCreateCCApplication = async (
 export const apiGetCreditCardTransactions = async (
     token: string,
     cardId: number
-): Promise<bankingApiResponse> => {
+): Promise<BankingApiResponse> => {
     const response = await bankingClient.get<CreditCardTransaction[]>(
         `${baseURL}/${cardId}/transactions`,
         {
@@ -63,7 +63,7 @@ export const apiGetCreditCardTransactions = async (
 };
 export const apiGetPendingCreditCards = async (
     token: string
-): Promise<bankingApiResponse> => {
+): Promise<BankingApiResponse> => {
     const response = await bankingClient.get<CreditCard[]>(`${baseURL}/get-pending`, {
         headers: { 'authorization': token },
         withCredentials: true,
@@ -75,7 +75,7 @@ export const apiUpdateCreditCardStatus = async (
     status: string,
     id: number,
     token: string
-): Promise<bankingApiResponse> => {
+): Promise<BankingApiResponse> => {
     const response = await bankingClient.put<any>(`${baseURL}/update-status`, 
     {id, status},
     {
