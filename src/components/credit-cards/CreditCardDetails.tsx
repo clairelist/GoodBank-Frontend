@@ -23,7 +23,7 @@ export default function CreditCardDetails() {
     } else {
       fetchTransactions();
     }
-  }, [user, navigate]);
+  }, [user, navigate, currentCreditCard]);
 
   const fetchTransactions = async () => {
     let token: string = sessionStorage.getItem('token') || '';
