@@ -1,4 +1,3 @@
-import { hasExpectedRequestMetadata } from "@reduxjs/toolkit/dist/matchers";
 import { Account } from "../models/Account";
 import { apiCreateAccount } from "../remote/banking-api/account.api";
 import bankingClient from "../remote/banking-api/bankingClient";
