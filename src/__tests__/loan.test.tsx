@@ -2,7 +2,6 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { store } from '../app/store';
 import  Loan  from "../components/loans/loan";
-import { LoanDetails } from '../models/LoanDetails';
 import Loans from '../components/account-details/Loans';
 import { apiCreateLoan } from '../remote/banking-api/loan.api';
 
