@@ -1,16 +1,17 @@
 import { LoanDetails } from '../../models/LoanDetails';
-import bankingClient, { bankingApiResponse } from './bankingClient';
+import bankingClient, { BankingApiResponse } from './bankingClient';
 
 const baseURL = '/loans';
 
 export const apiCreateLoan = async (
   userId: number,
   reason: string,
-  initialAmount: number
-): Promise<bankingApiResponse> => {
+  initialAmount: number,
+  password: string
+): Promise<BankingApiResponse> => {
   const response = await bankingClient.post<LoanDetails>(
     `${baseURL}/${userId}`,
-    { reason, initialAmount },
+    { reason, initialAmount, password },
     {
       headers: { 'Current-User': userId },
       withCredentials: true,
@@ -22,7 +23,7 @@ export const apiCreateLoan = async (
 export const apiGetLoans = async (
   userId: number,
   token: string
-): Promise<bankingApiResponse> => {
+): Promise<BankingApiResponse> => {
   const response = await bankingClient.get<LoanDetails[]>(
     `${baseURL}/${userId}`,
     {
@@ -36,7 +37,7 @@ export const apiGetLoans = async (
 export const apiGetPendingLoans = async (
   userType: string,
   token: string
-): Promise<bankingApiResponse> => {
+): Promise<BankingApiResponse> => {
   const response = await bankingClient.get<LoanDetails[]>(
     `${baseURL}/pending-loans`,
     {
@@ -50,7 +51,7 @@ export const apiGetPendingLoans = async (
 export const apiChangeStatus = async ( 
   currentLoan: LoanDetails,
   token: string
-): Promise<bankingApiResponse> => {
+): Promise<BankingApiResponse> => {
   const response = await bankingClient.put<LoanDetails>(
     `${baseURL}/pending-loans`,
     {...currentLoan},

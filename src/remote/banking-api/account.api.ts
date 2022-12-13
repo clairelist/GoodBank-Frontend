@@ -1,14 +1,14 @@
 import { Account } from '../../models/Account';
 import { Transaction } from '../../models/Transaction';
 import { Transfer } from '../../models/Transfer';
-import bankingClient, { bankingApiResponse } from './bankingClient';
+import bankingClient, { BankingApiResponse } from './bankingClient';
 
 const baseURL = '/account';
 
 export const apiGetAccounts = async (
   id: number,
   token: string
-): Promise<bankingApiResponse> => {
+): Promise<BankingApiResponse> => {
   const response = await bankingClient.get<Account[]>(`${baseURL}/${id}`, {
     headers: { 'authorization': token },
     withCredentials: true,
@@ -20,7 +20,7 @@ export const apiCreateAccount = async (
   account: Account,
   userId: string,
   token: string
-): Promise<bankingApiResponse> => {
+): Promise<BankingApiResponse> => {
   let num = account.balance;
   account.balance = Math.round((num + Number.EPSILON) * 100) / 100;
   const response = await bankingClient.post<Account>(`${baseURL}`, account, {
@@ -34,7 +34,7 @@ export const apiGetTransactions = async (
   id: number,
   token: string,
   page: number
-): Promise<bankingApiResponse> => {
+): Promise<BankingApiResponse> => {
   const response = await bankingClient.get<Transaction[]>(
     `${baseURL}/${id}/transaction/${page}`,
     { 
@@ -51,7 +51,7 @@ export const apiGetTransactions = async (
 export const apiGetAllTransactions = async (
   id: number,
   token: string,
-): Promise<bankingApiResponse> => {
+): Promise<BankingApiResponse> => {
   const response = await bankingClient.get<Transaction[]>(
     `${baseURL}/${id}/transaction`,
     { 
@@ -67,7 +67,7 @@ export const apiGetAllTransactions = async (
 
 
 
-export const apiGetTotalTransactionSize = async (id: number): Promise<bankingApiResponse> => {
+export const apiGetTotalTransactionSize = async (id: number): Promise<BankingApiResponse> => {
   const response = await bankingClient.get<Transaction[]>(
     `${baseURL}/${id}/transactions`,
     { withCredentials: true });
@@ -78,7 +78,7 @@ export const apiUpsertTransaction = async (
   id: number,
   transaction: Transaction,
   token: string
-): Promise<bankingApiResponse> => {
+): Promise<BankingApiResponse> => {
   let num = transaction.amount;
   transaction.amount = Math.round((num + Number.EPSILON) * 100) / 100;
   const response = await bankingClient.post<any>(
@@ -94,7 +94,7 @@ export const apiUpsertTransaction = async (
 export const apiTransferTransaction = async (
 id: number,
 transfer: Transfer
-): Promise<bankingApiResponse> => {
+): Promise<BankingApiResponse> => {
   const response = await bankingClient.post<Transaction[]>(
   `${baseURL}/${id}/transfer`,
   transfer,
@@ -103,6 +103,8 @@ transfer: Transfer
     response.data.forEach((transaction) => {
       let num = transaction.amount;
     transaction.amount = Math.round((num + Number.EPSILON) * 100) / 100;
+    
     });
+  
     return { status: response.status, headers: response.headers, payload: response.data };
 };

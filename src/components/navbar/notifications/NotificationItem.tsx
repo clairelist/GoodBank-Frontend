@@ -12,10 +12,11 @@ import { setUserNotifications } from '../../../features/notification/notificatio
 
 interface INotificationItemProps {
   notification: Notification;
+  setOpen: (nextOpen: boolean) => void;
 }
 
 export default function NotificationItem(props: INotificationItemProps) {
-  const { notification } = props;
+  const { notification, setOpen } = props;
   const user = useAppSelector(state => state.user.user);
   const dispatch = useAppDispatch();
 
@@ -23,6 +24,7 @@ export default function NotificationItem(props: INotificationItemProps) {
     if (user) {
       const result = await apiDismissUserNotification(user.id, notification.id);
       dispatch(setUserNotifications(result.payload));
+      if (result.payload.length <= 0) setOpen(false);
     }
   }
 
