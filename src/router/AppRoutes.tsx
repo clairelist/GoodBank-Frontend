@@ -9,6 +9,7 @@ import Loan from '../components/loans/loan';
 import CreditCardDetails from '../components/credit-cards/CreditCardDetails';
 import ResetPassword from '../components/reset-password/ResetPassword';
 import Profile from '../components/profile/Profile';
+import CreditCardApplication from '../components/credit-cards/CreditCardApplication';
 
 
 
@@ -30,6 +31,7 @@ export const AppRoutes: React.FC<unknown> = () => (
         <CreditCardDetails />
       </ProSidebarProvider>
     } />
+    <Route path="/credit-card-application" element={<CreditCardApplication />} />
     <Route path="/profile" element={<Profile/>} />
   </Routes>
 );
