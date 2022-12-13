@@ -100,7 +100,7 @@ export default function CreateTransactionForm(props: any) {
           fullWidth
           size="small"
         ></TextField>
-        <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+        <FormControl variant="standard" sx={{ m: 1, minWidth: 120, mt: 4 }} style={{ display: 'flex' }}>
           <InputLabel id="type">Type of Transaction</InputLabel>
           <Select
             labelId="type"
@@ -123,7 +123,7 @@ export default function CreateTransactionForm(props: any) {
         ) : (
           <Alert severity="error">{errorMessage}</Alert>
         )}
-        <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+        <FormControl sx={{ m: 1, minWidth: 120, mt: 4 }} variant="outlined">
           <Input
             required
             id="amount"
@@ -136,12 +136,15 @@ export default function CreateTransactionForm(props: any) {
           />
           <InputLabel htmlFor="amount">Amount</InputLabel>
         </FormControl>
-        <Button variant="contained" type="submit">
+        <div style={{ display: 'flex' }}>
+        <Button variant="contained" 
+        type="submit"
+        sx={{ mt: 1 }}
+        color="secondary"
+        style={{ marginRight: 'auto' }}>
           Add Transaction
         </Button>
-        <Button variant="contained" type="button" onClick={props.onClose}>
-          Close
-        </Button>
+        </div>
       </Box>
     </>
   );
