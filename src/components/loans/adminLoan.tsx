@@ -32,7 +32,6 @@ const AdminLoan = () => {
         let token: string = sessionStorage.getItem('token') || '';
         const response = await apiGetPendingCreditCards(token);
         setCreditCards(response.payload);
-        console.log(response.payload);
       }
     };
     getLoans();

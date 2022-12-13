@@ -23,7 +23,7 @@ bankingClient.interceptors.request.use(
   }
 );
 
-export interface bankingApiResponse {
+export interface BankingApiResponse {
   status: number;
   headers: any;
   payload: any;

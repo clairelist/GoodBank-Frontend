@@ -1,11 +1,11 @@
-import bankingClient, { bankingApiResponse } from './bankingClient';
 import { Notification, NotificationCreationRequest } from '../../models/Notification';
+import bankingClient, { BankingApiResponse } from './bankingClient';
 
 const baseURL = '/notification';
 
 export const apiSaveNotification = async (
   notification: NotificationCreationRequest
-): Promise<bankingApiResponse> => {
+): Promise<BankingApiResponse> => {
   const response = await bankingClient.post<Notification>(baseURL, notification);
 
   return {
@@ -17,7 +17,7 @@ export const apiSaveNotification = async (
 
 export const apiGetUserNotifications = async (
   userId: number
-): Promise<bankingApiResponse> => {
+): Promise<BankingApiResponse> => {
   const response = await bankingClient.get<Notification[]>(
     `${baseURL}/${userId}`
   );
@@ -31,7 +31,7 @@ export const apiGetUserNotifications = async (
 export const apiDismissUserNotification = async (
   userId: number,
   notificationId: string
-): Promise<bankingApiResponse> => {
+): Promise<BankingApiResponse> => {
   const response = await bankingClient.patch<Notification[]>(
     `${baseURL}/dismiss/${userId}/${notificationId}`
   );
@@ -44,7 +44,7 @@ export const apiDismissUserNotification = async (
 
 export const apiSetNotificationsAsSeen = async (
   ids: string[]
-): Promise<bankingApiResponse> => {
+): Promise<BankingApiResponse> => {
   const response = await bankingClient.patch<Notification[]>(
     `${baseURL}/seen`,
     ids

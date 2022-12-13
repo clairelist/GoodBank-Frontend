@@ -1,12 +1,12 @@
 import { UserUpdateRequest } from '../../models/user';
-import bankingClient, { bankingApiResponse } from './bankingClient';
+import bankingClient, { BankingApiResponse } from './bankingClient';
 
 const baseURL = '/user'
 
 export const apiUpdate = async (
     user: UserUpdateRequest,
     token: string
-): Promise<bankingApiResponse> => {
+): Promise<BankingApiResponse> => {
     const response = await bankingClient.patch<any>(
     `${baseURL}/profile`,
     user,
