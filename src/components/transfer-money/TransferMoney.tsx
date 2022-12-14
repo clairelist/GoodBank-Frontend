@@ -64,7 +64,7 @@ export default function TransferMoney(props: any) {
           creationDate: currentAccount.creationDate,
         })
       );
-      props.onClose();
+      props.handleClose();
     }
   };
 
