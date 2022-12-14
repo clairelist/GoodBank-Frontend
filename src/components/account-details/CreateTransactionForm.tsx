@@ -55,8 +55,6 @@ export default function CreateTransactionForm(props: any) {
       transaction,
       token
     );
-    console.log('response', response);
-    console.log('transaction', transaction);
 
     if (response.status >= 200 && response.status < 300) {
       dispatch(setAccountTransactions(response.payload));

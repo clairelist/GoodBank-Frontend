@@ -47,13 +47,13 @@ const CreditCardApplication = () => {
   });
 
   const handleSubmit = async () => {
-    if((!values.amount || !values.password)){
+    if(!values.amount || !values.password){
       setError('Fields cannot be empty!')
-    }else if(Number(values.amount) <= 0){
+    } else if( Number(values.amount) <= 0){
       setError('Amount must be greater than 0!')
-    }else if(values.amount.search(/\D/) !== -1){
+    } else if( values.amount.search(/\D/) !== -1 ){
       setError('Amount must be a number!')
-    }else{
+    } else{
       if (user) {
         let token: string = sessionStorage.getItem('token') || '';
         const response = await apiCreateCCApplication(Number(values.amount), token);
@@ -105,7 +105,7 @@ const CreditCardApplication = () => {
                 <Item style={{ boxShadow: 'none' }}>
                 <Typography style={{ fontWeight: 'bold' }} color="primary">
                     {error}
-                  </Typography>
+                </Typography>
                   <div>
                     <TextField
                       label="Current Date"
