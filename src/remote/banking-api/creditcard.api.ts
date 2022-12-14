@@ -26,7 +26,7 @@ export const apiMakeCreditCardPayment = async (
         creditCardTransaction, 
         {
             //fix token
-        headers: { 'authorization': 'token'},
+        headers: { 'authorization': token},
         withCredentials: true,
         }
     );

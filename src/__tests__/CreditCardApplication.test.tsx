@@ -3,7 +3,6 @@ import { Provider } from 'react-redux';
 import { store } from '../app/store';
 import CreditCardApplication from '../components/credit-cards/CreditCardApplication';
 
-
 const mockedUsedNavigate = jest.fn();
     jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),

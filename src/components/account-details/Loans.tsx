@@ -1,12 +1,12 @@
+import { Box, Card, CardContent, Stack } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import React, { useEffect, useState } from 'react';
 import { useAppSelector } from '../../app/hooks';
 import { LoanDetails } from '../../models/LoanDetails';
 import { apiGetLoans } from '../../remote/banking-api/loan.api';
-import { CardContent, Stack, Card, Box } from '@mui/material';
 
-import { cardStyles } from '../home/Home';
 import { priceFormatter } from '../../features/util/generalUtils';
+import { cardStyles } from '../home/Home';
 
 const Loans = () => {
   const user = useAppSelector((state) => state.user.user);
@@ -44,7 +44,14 @@ const Loans = () => {
               <CardContent sx={{ width: '100%' }}>
                 <div style={{ display: 'flex' }}>
                   <Typography variant="h4">{loan.reason}</Typography>
-                  <img style={{marginLeft: 'auto', width: '40px', height: '40px'}} src="loan.png" />
+                  <img
+                    style={{
+                      marginLeft: 'auto',
+                      width: '40px',
+                      height: '40px',
+                    }}
+                    src="loan.png"
+                  />
                 </div>
                 <Typography sx={{ mb: 1.5, borderBottom: '1px solid white' }}>
                   Loan Date: {convertedTime}
@@ -77,7 +84,7 @@ const Loans = () => {
                     <span>
                       {loan.status === 'PENDING'
                         ? 'AWAITING FOR APPROVAL'
-                        : 'DENIED'}
+                        : 'APPROVED'}
                     </span>
                   </Box>
                 </Typography>

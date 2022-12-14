@@ -29,7 +29,7 @@ export default function TransferMoney(props: any) {
   const transferType = useAppSelector((state) => state.account.transferType);
   const [amount, setAmount] = React.useState('');
   const [account, setAccount] = React.useState('');
-  const [errorMessage, setErrorMessage] = React.useState(''); 
+  const [errorMessage, setErrorMessage] = React.useState('');
   const [otherAccount, setOtherAccount] = React.useState('');
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -55,7 +55,6 @@ export default function TransferMoney(props: any) {
     const response = await apiTransferTransaction(currentAccount.id, transfer);
     if (response.status >= 200 && response.status < 300) {
       dispatch(setAccountTransactions(response.payload));
-      props.onClose();
       dispatch(
         setCurrentAccount({
           id: currentAccount.id,
@@ -65,6 +64,7 @@ export default function TransferMoney(props: any) {
           creationDate: currentAccount.creationDate,
         })
       );
+      props.handleClose();
     }
   };
 
@@ -77,7 +77,7 @@ export default function TransferMoney(props: any) {
   };
 
   const handleChangeAmount = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (Number(event.target.value) <= 0){
+    if (Number(event.target.value) <= 0) {
       setErrorMessage('Amount must be greater than 0');
       setAmount('');
     } else {
@@ -105,7 +105,7 @@ export default function TransferMoney(props: any) {
             onChange={handleChangeAccount}
           >
             {accounts.map(({ id, name }) => {
-              if(id != currentAccount.id){
+              if (id != currentAccount.id) {
                 return (
                   <MenuItem key={id} value={id}>
                     {name}
@@ -164,7 +164,11 @@ export default function TransferMoney(props: any) {
           />
           <InputLabel htmlFor="amount">Amount</InputLabel>
         </FormControl>
-        {errorMessage === '' ? '' : <Alert severity="error">{errorMessage}</Alert>}
+        {errorMessage === '' ? (
+          ''
+        ) : (
+          <Alert severity="error">{errorMessage}</Alert>
+        )}
         <div style={{ display: 'flex' }}>
           <Button
             type="submit"
