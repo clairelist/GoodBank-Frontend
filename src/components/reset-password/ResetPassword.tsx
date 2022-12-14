@@ -28,6 +28,9 @@ function ResetPassword() {
       return true;
       //NOTE: must both set the error, and return a boolean
       //so that our check in submit handler works, below.
+    } else if (value.length <= 3) {
+      setError(true);
+      return true
     } else {
       setError(false);
       return false;
