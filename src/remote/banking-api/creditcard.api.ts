@@ -41,7 +41,7 @@ export const apiCreateCCApplication = async (
         `${baseURL}/credit-card-application`,
         { initialAmount },
         {
-            headers: { 'authorization': returntoken },
+            headers: { 'authorization': token },
             withCredentials: true
         }
     );
