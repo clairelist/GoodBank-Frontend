@@ -14,7 +14,7 @@ export default function RenderTransactions(props: CreditCardTransaction[] | Tran
     const [size, setSize] = useState(0)
 
     useEffect(() => {
-        if(mode != "RECENT") {
+        if(mode !== "RECENT") {
             setSize(transactions.filter((x: any) => x.type === mode).length);
         } else {
             setSize(transactions.length);
@@ -22,7 +22,7 @@ export default function RenderTransactions(props: CreditCardTransaction[] | Tran
     }, [mode])
 
     const generatePageByMode = (currentMode: string) => {
-        if(currentMode != "RECENT") {
+        if(currentMode !== "RECENT") {
             let t = transactions
             .filter((x: any) => x.type === currentMode)
             .slice(

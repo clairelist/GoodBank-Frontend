@@ -1,4 +1,4 @@
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import { Alert, Card, CardContent } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -72,7 +72,7 @@ export default function Login() {
               }}
             >
               <Avatar sx={{ m: 1, bgcolor: 'primary.light' }}>
-                <LockOutlinedIcon />
+                <MonetizationOnIcon />
               </Avatar>
               <Typography component="h1" variant="h5">
                 Sign in
