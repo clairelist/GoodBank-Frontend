@@ -1,8 +1,8 @@
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import Transfer from '../../transfer-money/TransferMoney';
+import Typography from '@mui/material/Typography';
 import { useAppSelector } from '../../../app/hooks';
+import Transfer from '../../transfer-money/TransferMoney';
 
 const style = {
   position: 'absolute',
@@ -20,35 +20,35 @@ export default function TransferMoney(props: any) {
   const transferType = useAppSelector((state) => state.account.transferType);
 
   function getTransferType() {
-    if(transferType === "betweenAccounts") {
+    if (transferType === 'betweenAccounts') {
       return (
         <Typography id="modal-modal-title" variant="h6" component="h2">
-            Transfer Money
-          </Typography>
-      )
+          Transfer Money
+        </Typography>
+      );
     }
     return (
       <Typography id="modal-modal-title" variant="h6" component="h2">
-          Send Money
-        </Typography>
-    )
+        Send Money
+      </Typography>
+    );
   }
 
   return (
     <>
       <Modal
-      open={props.open}
-      onClose={props.handleClose} 
+        open={props.open}
+        onClose={props.handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
           {getTransferType()}
           <Typography id="modal-modal-description" sx={{ mt: 8 }}>
-            <Transfer />
+            <Transfer handleClose={props.handleClose} />
           </Typography>
         </Box>
       </Modal>
     </>
-  )
+  );
 }

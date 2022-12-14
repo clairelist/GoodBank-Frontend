@@ -58,7 +58,6 @@ export default function CreateTransactionForm(props: any) {
 
     if (response.status >= 200 && response.status < 300) {
       dispatch(setAccountTransactions(response.payload));
-      //create getAccount api call
       dispatch(
         setCurrentAccount({
           id: currentAccount.id,
@@ -71,8 +70,8 @@ export default function CreateTransactionForm(props: any) {
           creationDate: currentAccount.creationDate,
         })
       );
-      props.onClose();
     }
+    props.handleClose();
   };
   const handleType = (event: SelectChangeEvent): void => {
     setType(event.target.value);
