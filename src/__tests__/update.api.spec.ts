@@ -1,6 +1,6 @@
 import bankingClient from "../remote/banking-api/bankingClient";
 import { apiUpdate } from '../remote/banking-api/update.api';
-import { User, UserUpdateRequest } from '../models/user';
+import { UserUpdateRequest } from '../models/user';
 
 jest.mock('../remote/banking-api/bankingClient');
 const bankingClientMock = bankingClient as jest.Mocked<typeof bankingClient>;
