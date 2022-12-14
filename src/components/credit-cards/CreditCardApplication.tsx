@@ -1,4 +1,5 @@
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import FilledInput from '@mui/material/FilledInput';
 import FormControl from '@mui/material/FormControl';
@@ -15,7 +16,6 @@ import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../app/hooks';
 import { apiCreateCCApplication } from '../../remote/banking-api/creditcard.api';
 import AdminLoan from '../loans/adminLoan';
-import { Typography } from '@mui/material';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -37,8 +37,8 @@ const CreditCardApplication = () => {
   const date = new Date();
   const user = useAppSelector((state) => state.user.user);
   const navigate = useNavigate();
-  const [error, setError] = useState('');
-  const [values, setValues] = React.useState<State>({
+  const [message, changeMessage] = useState('');
+  const [fields, setFields] = React.useState<State>({
     amount: '',
     password: '',
     weight: '',
@@ -47,20 +47,23 @@ const CreditCardApplication = () => {
   });
 
   const handleSubmit = async () => {
-    if(!values.amount || !values.password){
-      setError('Fields cannot be empty!')
-    } else if( Number(values.amount) <= 0){
-      setError('Amount must be greater than 0!')
-    } else if( values.amount.search(/\D/) !== -1 ){
-      setError('Amount must be a number!')
-    } else{
+    if (!fields.amount || !fields.password) {
+      changeMessage('Fields cannnot be empty');
+    } else if (Number(fields.amount) <= 0) {
+      changeMessage('Amount must be greater than 0');
+    } else if (fields.amount.search(/\D/) !== -1) {
+      changeMessage('Amount must be a number');
+    } else {
       if (user) {
         let token: string = sessionStorage.getItem('token') || '';
-        const response = await apiCreateCCApplication(Number(values.amount), token);
-        if(response.status >= 200 && response.status < 300) {
-        navigate('/');
+        const resp = await apiCreateCCApplication(
+          Number(fields.amount),
+          token
+        );
+        if (resp.status === 201) {
+          navigate('/');
         } else {
-          setError('Invalid entry!')
+          changeMessage('Invalid entry!');
         }
       }
     }
@@ -68,11 +71,11 @@ const CreditCardApplication = () => {
 
   const handleChange =
     (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
-      setValues({ ...values, [prop]: event.target.value });
+      setFields({ ...fields, [prop]: event.target.value });
     };
 
   const handleShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
+    setFields({ ...fields, showPassword: !fields.showPassword });
   };
 
   const handleMouseDownPassword = (
@@ -90,7 +93,7 @@ const CreditCardApplication = () => {
               container
               rowSpacing={3}
               columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-              style={{
+              sx={{
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -103,9 +106,9 @@ const CreditCardApplication = () => {
               </Grid>
               <Grid item xs={12}>
                 <Item style={{ boxShadow: 'none' }}>
-                <Typography style={{ fontWeight: 'bold' }} color="primary">
-                    {error}
-                </Typography>
+                  <Typography style={{ fontWeight: 'bold' }} color="primary">
+                    {message}
+                  </Typography>
                   <div>
                     <TextField
                       label="Current Date"
@@ -127,7 +130,7 @@ const CreditCardApplication = () => {
                       </InputLabel>
                       <FilledInput
                         id="filled-adornment-amount"
-                        value={values.amount}
+                        value={fields.amount}
                         onChange={handleChange('amount')}
                         startAdornment={
                           <InputAdornment position="start">$</InputAdornment>
@@ -145,8 +148,8 @@ const CreditCardApplication = () => {
                       </InputLabel>
                       <FilledInput
                         id="filled-adornment-password"
-                        type={values.showPassword ? 'text' : 'password'}
-                        value={values.password}
+                        type={fields.showPassword ? 'text' : 'password'}
+                        value={fields.password}
                         onChange={handleChange('password')}
                         endAdornment={
                           <InputAdornment position="end">
@@ -156,7 +159,7 @@ const CreditCardApplication = () => {
                               onMouseDown={handleMouseDownPassword}
                               edge="end"
                             >
-                              {values.showPassword ? (
+                              {fields.showPassword ? (
                                 <VisibilityOff />
                               ) : (
                                 <Visibility />
