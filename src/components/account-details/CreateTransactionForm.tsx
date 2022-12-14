@@ -55,13 +55,10 @@ export default function CreateTransactionForm(props: any) {
       transaction,
       token
     );
-    console.log('response', response);
-    console.log('transaction', transaction);
 
     if (response.status >= 200 && response.status < 300) {
       dispatch(setAccountTransactions(response.payload));
       //create getAccount api call
-      props.onClose();
       dispatch(
         setCurrentAccount({
           id: currentAccount.id,
@@ -74,6 +71,7 @@ export default function CreateTransactionForm(props: any) {
           creationDate: currentAccount.creationDate,
         })
       );
+      props.onClose();
     }
   };
   const handleType = (event: SelectChangeEvent): void => {
@@ -100,7 +98,11 @@ export default function CreateTransactionForm(props: any) {
           fullWidth
           size="small"
         ></TextField>
-        <FormControl variant="standard" sx={{ m: 1, minWidth: 120, mt: 4 }} style={{ display: 'flex' }}>
+        <FormControl
+          variant="standard"
+          sx={{ m: 1, minWidth: 120, mt: 4 }}
+          style={{ display: 'flex' }}
+        >
           <InputLabel id="type">Type of Transaction</InputLabel>
           <Select
             labelId="type"
@@ -137,13 +139,15 @@ export default function CreateTransactionForm(props: any) {
           <InputLabel htmlFor="amount">Amount</InputLabel>
         </FormControl>
         <div style={{ display: 'flex' }}>
-        <Button variant="contained" 
-        type="submit"
-        sx={{ mt: 1 }}
-        color="secondary"
-        style={{ marginRight: 'auto' }}>
-          Add Transaction
-        </Button>
+          <Button
+            variant="contained"
+            type="submit"
+            sx={{ mt: 1 }}
+            color="secondary"
+            style={{ marginRight: 'auto' }}
+          >
+            Add Transaction
+          </Button>
         </div>
       </Box>
     </>

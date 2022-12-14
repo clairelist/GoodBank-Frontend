@@ -26,7 +26,7 @@ export const apiMakeCreditCardPayment = async (
         creditCardTransaction, 
         {
             //fix token
-        headers: { 'authorization': 'token'},
+        headers: { 'authorization': token},
         withCredentials: true,
         }
     );
@@ -41,7 +41,7 @@ export const apiCreateCCApplication = async (
         `${baseURL}/credit-card-application`,
         { initialAmount },
         {
-            headers: { 'authorization': returntoken },
+            headers: { 'authorization': token },
             withCredentials: true
         }
     );
