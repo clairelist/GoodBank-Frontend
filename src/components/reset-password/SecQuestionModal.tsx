@@ -2,6 +2,7 @@ import bankingClient from '../../remote/banking-api/bankingClient';
 import { SyntheticEvent, useState, useRef, useEffect, } from 'react';
 import {useNavigate} from 'react-router-dom';
 import { TextField, Button } from '@mui/material';
+import { setDefaultResultOrder } from 'dns/promises';
 
 interface IResetProps {
     email: string,
@@ -18,6 +19,8 @@ function SecurityQuestion(props: any){
     // })
     const [secQuestion, setSecQuestion] = useState<any>('');
     const [confirm, setConfirm] = useState(false);
+    const [secAnswer, setSecAnswer] = useState<any>('');
+    const [error, setError] = useState('');
     const handleSecurityGet = useRef(()=>{});
     const navigate = useNavigate();
 
@@ -31,11 +34,9 @@ function SecurityQuestion(props: any){
         //security question from the server ie.
         bankingClient.post('user/reset-password', props)
           .then(res=>{
-            console.log(res);
-            //if res.status === 400, setError('No account with that email address exists, please try again.') else, setSecQuestion
-            setSecQuestion(res.data.secQuestion);
+            setSecQuestion(res.data);
           }).catch(err=>{
-            console.log(err + '___->handle this error somehow!')
+            //console.log(err + '___->handle this error somehow!')
           })
       }
   
@@ -43,18 +44,28 @@ function SecurityQuestion(props: any){
       //pass user info (email, new password) BE SURE TO GET PROPS IN HERE!
       useEffect(()=>{
         handleSecurityGet.current();
-        console.log(props[0]);
+        //console.log(props.email);
       }, [])
 
       const handleChange = (e: SyntheticEvent) => {
-        setSecQuestion((e.target as HTMLInputElement).value);
+        setSecAnswer((e.target as HTMLInputElement).value);
       }
 
+      const patchObject = {
+        email: props.email,
+        password: props.password,
+        confirmPassword: props.password,
+        securityAnswer: secAnswer
+      }
       const handleSubmit=()=>{
-        bankingClient.patch('/user/reset-password', props)
+        bankingClient.patch('/user/reset-password', patchObject)
           .then(res=>{
-              setConfirm(true);
-              setTimeout(navAfterTime, 750);
+            if (res.status === 400){
+                setError('Oops, that was not the correct security answer. Please try again.')
+            } else {
+                setConfirm(true);
+                setTimeout(navAfterTime, 1000);
+            }
           })
           .catch(err=>{
               // setError(true);
@@ -68,16 +79,15 @@ function SecurityQuestion(props: any){
         <div>
         <h2>Please enter your Good security answer.</h2>
         <p>{secQuestion}</p>
-        <p>{emailString}</p>
+        <p style={{color:'red'}}>{error}</p>
         <TextField
             margin="normal"
             required
             fullWidth
             name="securityAnswer"
             label="Type answer here."
-            type="password"
             id="securityPassword"
-            value={props.securityAnswer}
+            value={secAnswer}
             onChange={handleChange}
           />
           {confirm ? 

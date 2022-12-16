@@ -82,7 +82,7 @@ function ResetPassword() {
    };
   return (
     <div>
-      {modal ? <SecurityQuestion props={[submission.email, submission.password, submission.securityAnswer]} /> :
+      {modal ? <SecurityQuestion email={submission.email} password={submission.password} securityAnswer={submission.securityAnswer} /> :
             <Box
             sx={{
               marginTop: 8,
